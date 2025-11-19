@@ -14,7 +14,7 @@ export default function Home() {
             <img src={APP_LOGO} alt="RE/MAX" className="h-12 w-auto" />
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold text-foreground">{APP_TITLE}</h1>
-              <p className="text-xs text-muted-foreground">Powered by RE/MAX</p>
+              <p className="text-xs text-muted-foreground">Valutazione Professionale</p>
             </div>
           </div>
           <Link href="/valuta">
@@ -279,6 +279,7 @@ export default function Home() {
               <h5 className="font-semibold mb-4">Link Utili</h5>
               <ul className="space-y-2 text-sm text-white/70">
                 <li><a href="#come-funziona" className="hover:text-white transition">Come Funziona</a></li>
+                <li><a href="/faq" className="hover:text-white transition">Domande Frequenti (FAQ)</a></li>
                 <li><a href="/privacy" className="hover:text-white transition">Privacy Policy</a></li>
               </ul>
             </div>
@@ -301,14 +302,20 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-white/20 mt-8 pt-8">
-            <p className="text-center text-sm text-white/60 mb-2">
+            <p className="text-center text-sm text-white/70 mb-4 font-semibold">
               © 2025 Francesco Principe - Agente Immobiliare RE/MAX. Tutti i diritti riservati.
             </p>
-            <p className="text-center text-xs text-white/40">
-              Questo sito web, inclusi tutti i contenuti, il design, il codice sorgente e gli algoritmi di valutazione, è di esclusiva proprietà di <strong>Francesco Principe</strong>. 
-              È severamente vietata la riproduzione, distribuzione o condivisione non autorizzata. 
-              Ogni utilizzo non autorizzato costituisce violazione delle leggi sul diritto d'autore.
-            </p>
+            <div className="max-w-4xl mx-auto">
+              <p className="text-center text-xs text-white/50 leading-relaxed">
+                Il presente strumento di valutazione immobiliare, comprensivo di tutti i contenuti, algoritmi, metodologie di calcolo, 
+                interfaccia grafica, codice sorgente e database, costituisce opera dell'ingegno di esclusiva proprietà di <strong className="text-white/70">Francesco Principe</strong>.
+              </p>
+              <p className="text-center text-xs text-white/50 leading-relaxed mt-2">
+                È fatto espresso divieto di riproduzione, anche parziale, distribuzione, condivisione, reverse engineering, 
+                o qualsivoglia forma di utilizzo non autorizzato del presente strumento, senza previo consenso scritto del proprietario. 
+                Ogni violazione sarà perseguita nelle competenti sedi civili e penali ai sensi della normativa vigente in materia di tutela del diritto d'autore e della proprietà intellettuale.
+              </p>
+            </div>
           </div>
         </div>
       </footer>

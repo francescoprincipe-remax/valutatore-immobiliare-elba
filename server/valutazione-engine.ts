@@ -117,8 +117,25 @@ export function calcolaValutazione(dati: DatiImmobile): RisultatoValutazione {
   // 1. Determina il prezzo al mq della zona
   let prezzoMqZona = getPrezzoMqZona(dati.comune, dati.localita);
 
-  // 2. NO premium per piccole metrature - causa sovrastime
-  // Il mercato Elba non premia significativamente i piccoli tagli
+  // 2. Applica sconto progressivo per superfici grandi
+  // Più mq = prezzo/mq più basso (economia di scala)
+  const superficie = dati.superficieAbitabile;
+  let scontoSuperficie = 0;
+  
+  if (superficie > 150) {
+    scontoSuperficie = 0.15; // -15% per immobili > 150mq
+  } else if (superficie > 120) {
+    scontoSuperficie = 0.12; // -12% per immobili 121-150mq
+  } else if (superficie > 100) {
+    scontoSuperficie = 0.10; // -10% per immobili 101-120mq
+  } else if (superficie > 80) {
+    scontoSuperficie = 0.07; // -7% per immobili 81-100mq
+  } else if (superficie > 60) {
+    scontoSuperficie = 0.05; // -5% per immobili 61-80mq
+  }
+  // Immobili <= 60mq: nessuno sconto (prezzo pieno)
+  
+  prezzoMqZona = Math.round(prezzoMqZona * (1 - scontoSuperficie));
 
   // 3. Calcola valore base
   const valoreBase = dati.superficieAbitabile * prezzoMqZona;
@@ -528,8 +545,8 @@ function generaConsigli(
     miglioramenti.push('Migliorare classe energetica (+€10.000)');
   }
 
-  // Strategia vendita
-  strategiaVendita.push('Periodo migliore per vendere: Marzo-Giugno');
+  // Strategia vendita - personalizzata e con CTA
+  strategiaVendita.push('Contattaci per ricevere la strategia di vendita personalizzata per il tuo immobile');
   if (puntiForza.length > 0) {
     strategiaVendita.push('Enfatizzare: ' + puntiForza.slice(0, 2).join(' e '));
   }

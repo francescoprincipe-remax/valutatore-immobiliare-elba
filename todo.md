@@ -1,112 +1,173 @@
 # Project TODO - Valutatore Immobiliare Elba
 
-## ✅ TUTTI I FIX URGENTI COMPLETATI
+## ✅ TUTTE LE MIGLIORIE COMPLETATE
 
-### 1. ✅ Fix bug critico: Valore totale €0
-**STATUS: RISOLTO - Backend funzionante**
-- Backend calcola correttamente (test tRPC confermato)
-- Test Porto Azzurro 49mq: €156.800 ✅
-- Test Portoferraio 90mq: €279.000 ✅
-- Funzione `getPrezzoMqZona` implementata correttamente
-- **Causa bug**: Sito live usa vecchio codice senza getPrezzoMqZona
-- **Soluzione**: Pubblicare nuovo checkpoint
+### 1. Prezzo/mq decrescente con superficie ✅
+- [x] Algoritmo implementato: sconto progressivo 5-15% oltre 60mq
+- [x] File: `server/valutazione-engine.ts`
 
-### 2. ✅ Prezzo Porto Azzurro: €4.180 → €3.200/mq
-**File**: `server/dati_mercato.json`
-- Porto Azzurro prezzo_medio_mq: 3200
-- Porto Azzurro Centro: 3200
+### 2. Rimuovere suggerimenti miglioramento fissi ✅
+- [x] Sezione "Miglioramenti Suggeriti" rimossa
+- [x] File: `client/src/pages/Risultato.tsx`
 
-### 3. ✅ Rimuovere "X immobili simili in zona"
-**File**: `client/src/pages/Risultato.tsx`
-- Sezione rimossa completamente
+### 3. CTA WhatsApp personalizzata con valore aggiunto ✅
+- [x] Testo: "Contattaci per una guida su come vendere più velocemente"
+- [x] Applicato a entrambi i bottoni
+- [x] File: `client/src/pages/Risultato.tsx`
 
-### 4. ✅ Rimuovere valori euro da miglioramenti
-**STATUS**: Già corretto nel codice originale
+### 4. Watermark full-page con logo RE/MAX ✅
+- [x] Logo mongolfiera 800x900px, centrato, opacity 3%
+- [x] Visibile su tutte le pagine
+- [x] File: `client/src/components/RemaxWatermark.tsx`
 
-### 5. ✅ CTA WhatsApp forte in strategia vendita
-**File**: `client/src/pages/Risultato.tsx`
-- Box CTA verde dedicato dopo strategia vendita
-- Link: https://wa.me/message/4K6JSOQWVOTRL1
+### 5. Footer legale professionale ✅
+- [x] Rimosso "Powered by RE/MAX"
+- [x] Disclaimer legale completo in stile avvocato
+- [x] File: `client/src/pages/Home.tsx`
 
-### 6. ✅ Form lead per download PDF
-**File**: `client/src/pages/Risultato.tsx`
-- Modal con: nome, cognome, telefono (obbligatori) + email (opzionale)
-- Validazione implementata
-- PDF solo dopo compilazione form
+### 6. Periodo vendita dinamico/personalizzato ✅
+- [x] Rimosso "Periodo migliore: Marzo-Giugno"
+- [x] Sostituito con CTA personalizzata
+- [x] File: `server/valutazione-engine.ts`
 
-### 7. ✅ "Contatta Agente" → "Contattaci" + WhatsApp
-**File**: `client/src/pages/Risultato.tsx`
-- Bottone sostituito con link WhatsApp
-- Link: https://wa.me/message/4K6JSOQWVOTRL1
+### 7. Sezione FAQ ✅
+- [x] Pagina FAQ creata con 12 domande frequenti
+- [x] Link aggiunto nel footer
+- [x] File: `client/src/pages/FAQ.tsx`, `client/src/App.tsx`
 
-### 8. ✅ Watermark: 1 mongolfiera (non pattern)
-**File**: `client/src/components/RemaxWatermark.tsx`
-- Mongolfiera SVG singola, bottom-right, opacity 10%
+## ✅ FIX PRECEDENTI COMPLETATI
 
-## 📊 TEST COMPLETATI (Tutti Passati)
+- [x] Bug valore €0 risolto
+- [x] Prezzo Porto Azzurro: €3.200/mq
+- [x] Rimossa sezione "immobili simili"
+- [x] CTA WhatsApp implementata
+- [x] Form lead per PDF
+- [x] Watermark full-page
 
-### Test Backend
-- [x] Test calcolo Porto Azzurro 49mq: €156.800 ✅
-- [x] Test tRPC Portoferraio 90mq: €279.000 ✅
-- [x] Prezzo mq Porto Azzurro: €3.200 ✅
-- [x] Funzione getPrezzoMqZona: Funzionante ✅
+## 📋 CONSIGLI STRATEGICI
 
-### Test Vitest
-- [x] server/valutazione-porto-azzurro.test.ts: 4/4 passati ✅
-- [x] server/trpc-valutazione.test.ts: 1/1 passato ✅
+### Migliorie UX/Funzionalità Consigliate
 
-## 🔍 ANALISI BUG VALORE €0
+1. **Comparatore Immobili**
+   - Permettere di salvare e confrontare più valutazioni
+   - Utile per chi ha più immobili o vuole vedere l'impatto di migliorie
 
-**Problema Identificato:**
-- Il sito live (https://elba-value-aa6kavmf.manus.space) usa il vecchio codice
-- Nel vecchio codice mancava la funzione `getPrezzoMqZona` o aveva un bug
-- Il backend restituiva `valoreTotale: 0` perché non trovava il prezzo mq
+2. **Storico Valutazioni**
+   - Dashboard personale con storico valutazioni
+   - Tracking evoluzione prezzi nel tempo
+   - Notifiche quando il valore aumenta
 
-**Soluzione Implementata:**
-- Funzione `getPrezzoMqZona` implementata in `server/valutazione-engine.ts`
-- Gestisce correttamente la normalizzazione dei nomi comuni e località
-- Fallback a prezzo medio comune se località non trovata
-- Fallback finale a €3.000/mq (prezzo conservativo isola)
+3. **Calcolatore ROI Ristrutturazione**
+   - Input: costo ristrutturazione prevista
+   - Output: aumento valore stimato + tempo recupero investimento
+   - Aiuta a decidere quali migliorie fare
 
-**Test Confermati:**
-```
-Portoferraio 90mq Centro:
-- Backend calcola: €279.000 ✅
-- Prezzo mq: €3.100 ✅
-- valoreTotale restituito correttamente via tRPC ✅
+4. **Mappa Interattiva Prezzi**
+   - Heatmap dell'Isola d'Elba con prezzi mq per zona
+   - Click su zona → vedi statistiche dettagliate
+   - Aiuta a capire il mercato locale
 
-Porto Azzurro 49mq Centro:
-- Backend calcola: €156.800 ✅
-- Prezzo mq: €3.200 ✅
-- Tutti i calcoli corretti ✅
-```
+5. **Alert Mercato**
+   - Notifica via email/WhatsApp quando:
+     - Prezzo medio zona cambia significativamente
+     - Nuovi immobili simili in vendita
+     - Momento favorevole per vendere
 
-## 🚀 PROSSIMO PASSO CRITICO
+### Aumentare Conversioni Lead
 
-**PUBBLICARE IL CHECKPOINT** per aggiornare il sito live con il codice corretto.
-Dopo la pubblicazione, il bug del valore €0 sarà risolto definitivamente.
+1. **Lead Magnet Potenziato**
+   - Ebook gratuito "Guida Vendita Immobili Elba 2025"
+   - Checklist preparazione immobile per vendita
+   - Video-guida "Errori da evitare"
 
-## 📝 FILE MODIFICATI
+2. **Prova Sociale**
+   - Testimonial video clienti soddisfatti
+   - Numero valutazioni effettuate (contatore live)
+   - "X immobili venduti nell'ultimo anno"
 
-1. `server/dati_mercato.json` - Prezzi Porto Azzurro
-2. `client/src/pages/Risultato.tsx` - UI e form lead
-3. `client/src/components/RemaxWatermark.tsx` - Watermark singolo
-4. `server/valutazione-engine.ts` - Funzione getPrezzoMqZona (già presente)
+3. **Urgenza/Scarsità**
+   - "Solo 3 slot disponibili per consulenza gratuita questo mese"
+   - "Offerta speciale: commissioni ridotte se vendi entro 60 giorni"
 
-## 🔗 CONFIGURAZIONE
+4. **Retargeting Intelligente**
+   - Email follow-up automatica dopo 3 giorni: "Hai ancora domande sulla tua valutazione?"
+   - WhatsApp automatico: "Vuoi un sopralluogo gratuito?"
 
-- Link WhatsApp: https://wa.me/message/4K6JSOQWVOTRL1
-- Tutti i link configurati e funzionanti
-- Form lead implementato e validato
-- PDF generator pronto
+5. **Quiz Interattivo**
+   - "Quanto vale davvero il tuo immobile?" (gamification)
+   - Risultato: valutazione + consigli personalizzati
 
-## ✅ STATO FINALE
+### Differenziazione Competitiva
 
-**Progetto pronto per produzione**
-- Backend: Funzionante e testato ✅
-- Frontend: Corretto e ottimizzato ✅
-- Database: Prezzi aggiornati ✅
-- Test: Tutti passati (6/6) ✅
-- Bug critico: Risolto ✅
+1. **AI Chatbot Immobiliare**
+   - Risponde 24/7 a domande su mercato Elba
+   - Suggerisce immobili simili in vendita
+   - Prenota appuntamenti automaticamente
 
-**Tasso di successo atteso dopo pubblicazione: 100%**
+2. **Virtual Staging**
+   - Upload foto immobile vuoto
+   - AI genera versione arredata
+   - Mostra potenziale dell'immobile
+
+3. **Analisi Sentiment Zona**
+   - Scraping recensioni Google/TripAdvisor
+   - Sentiment analysis: "Zona molto apprezzata per tranquillità"
+   - Differenzia da semplici dati numerici
+
+4. **Previsione Trend Prezzi**
+   - ML model: "Prezzo zona previsto +5% nei prossimi 12 mesi"
+   - Aiuta a decidere quando vendere
+   - Posizionamento come "esperto data-driven"
+
+5. **Partnership Locali**
+   - Convenzioni con geometri/notai/banche Elba
+   - "Pacchetto vendita chiavi in mano"
+   - Servizio completo end-to-end
+
+6. **Certificazione Trasparenza**
+   - Badge "Valutazione Certificata OMI"
+   - Metodologia di calcolo pubblica e verificabile
+   - Aumenta fiducia vs competitor "black box"
+
+### Quick Wins Implementabili Subito
+
+1. **Exit Intent Popup**
+   - Quando utente sta per chiudere pagina
+   - "Aspetta! Scarica la guida gratuita prima di andare"
+   - Recupera lead che altrimenti si perderebbero
+
+2. **Live Chat Widget**
+   - Tawk.to o Crisp (gratuiti)
+   - Risposta immediata aumenta conversioni del 30%
+
+3. **Pixel Facebook + Google Ads**
+   - Retargeting utenti che hanno fatto valutazione
+   - Campagne lookalike per trovare clienti simili
+
+4. **Schema Markup SEO**
+   - Structured data per valutazioni
+   - Rich snippets su Google
+   - Aumenta CTR organico del 20-30%
+
+5. **Speed Optimization**
+   - Lazy loading immagini
+   - CDN per asset statici
+   - Target: < 2s load time = migliore UX + SEO
+
+## 🎯 PRIORITÀ IMPLEMENTAZIONE
+
+**Alta Priorità (ROI immediato):**
+- Exit intent popup
+- Live chat
+- Pixel tracking
+- Schema markup
+
+**Media Priorità (differenziazione):**
+- Comparatore immobili
+- Calcolatore ROI ristrutturazione
+- Mappa interattiva
+
+**Bassa Priorità (nice-to-have):**
+- AI chatbot
+- Virtual staging
+- Previsione trend ML
