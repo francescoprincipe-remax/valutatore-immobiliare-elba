@@ -1,0 +1,161 @@
+{
+  "metadata": {
+    "ultimo_aggiornamento": "Gennaio 2026",
+    "fonti": [
+      "Analisi mercato bilocali Elba 2025",
+      "Immobiliare.it",
+      "Casa.it",
+      "Idealista.it",
+      "Wikicasa.it"
+    ],
+    "note": "Prezzi segmentati per 79 località basati su analisi annunci reali"
+  },
+  "comuni": {
+    "portoferraio": {
+      "nome": "Portoferraio",
+      "prezzo_medio_mq": 3100,
+      "trend_annuale": "+5.45%",
+      "localita": {
+        "acquabona": { "nome": "Acquabona", "prezzo_mq": 3000 },
+        "acquaviva": { "nome": "Acquaviva", "prezzo_mq": 4400 },
+        "bagnaia": { "nome": "Bagnaia", "prezzo_mq": 3800 },
+        "biodola": { "nome": "Biodola", "prezzo_mq": 5000 },
+        "campo_ai_peri": { "nome": "Campo ai Peri", "prezzo_mq": 2700 },
+        "capobianco": { "nome": "Capobianco", "prezzo_mq": 4500 },
+        "carpani": { "nome": "Carpani", "prezzo_mq": 3100 },
+        "centro": { "nome": "Centro", "prezzo_mq": 3100 },
+        "ghiaie": { "nome": "Ghiaie", "prezzo_mq": 4500 },
+        "magazzini": { "nome": "Magazzini", "prezzo_mq": 3800 },
+        "ottone": { "nome": "Ottone", "prezzo_mq": 3800 },
+        "s_giovanni": { "nome": "S. Giovanni", "prezzo_mq": 3800 },
+        "s_martino": { "nome": "S. Martino", "prezzo_mq": 3000 },
+        "schiopparello": { "nome": "Schiopparello", "prezzo_mq": 3800 },
+        "valdana": { "nome": "Valdana", "prezzo_mq": 3000 },
+        "valle_di_lazzaro": { "nome": "Valle di Lazzaro", "prezzo_mq": 2700 },
+        "viticcio": { "nome": "Viticcio", "prezzo_mq": 4400 }
+      }
+    },
+    "marciana": {
+      "nome": "Marciana",
+      "prezzo_medio_mq": 3400,
+      "trend_annuale": "+4.0%",
+      "localita": {
+        "campo_all_aia": { "nome": "Campo all'Aia", "prezzo_mq": 4470 },
+        "chiessi": { "nome": "Chiessi", "prezzo_mq": 3500 },
+        "colle_d_orano": { "nome": "Colle d'Orano", "prezzo_mq": 4700 },
+        "marciana_alta": { "nome": "Marciana Alta", "prezzo_mq": 2500 },
+        "patresi": { "nome": "Patresi", "prezzo_mq": 3350 },
+        "poggio": { "nome": "Poggio", "prezzo_mq": 2500 },
+        "pomonte": { "nome": "Pomonte", "prezzo_mq": 3350 },
+        "procchio": { "nome": "Procchio", "prezzo_mq": 4470 },
+        "redinoce": { "nome": "Redinoce", "prezzo_mq": 3400 },
+        "s_andrea": { "nome": "S. Andrea", "prezzo_mq": 3820 },
+        "seccheto": { "nome": "Seccheto", "prezzo_mq": 3900 },
+        "zanca": { "nome": "Zanca", "prezzo_mq": 3820 }
+      }
+    },
+    "campo_nell_elba": {
+      "nome": "Campo nell'Elba",
+      "prezzo_medio_mq": 3200,
+      "trend_annuale": "+3.83%",
+      "localita": {
+        "cavoli": { "nome": "Cavoli", "prezzo_mq": 5290 },
+        "fetovaia": { "nome": "Fetovaia", "prezzo_mq": 3200 },
+        "fonza": { "nome": "Fonza", "prezzo_mq": 3640 },
+        "la_pila": { "nome": "La Pila", "prezzo_mq": 3280 },
+        "marina_di_campo": { "nome": "Marina di Campo", "prezzo_mq": 3800 },
+        "s_piero": { "nome": "S. Piero", "prezzo_mq": 3120 },
+        "sant_ilario": { "nome": "Sant'Ilario", "prezzo_mq": 2388 },
+        "seccheto": { "nome": "Seccheto", "prezzo_mq": 3900 },
+        "vallebuia": { "nome": "Vallebuia", "prezzo_mq": 3640 }
+      }
+    },
+    "marciana_marina": {
+      "nome": "Marciana Marina",
+      "prezzo_medio_mq": 4450,
+      "trend_annuale": "+4.5%",
+      "localita": {
+        "centro": { "nome": "Centro", "prezzo_mq": 4450 }
+      }
+    },
+    "capoliveri": {
+      "nome": "Capoliveri",
+      "prezzo_medio_mq": 4020,
+      "trend_annuale": "+4.32%",
+      "localita": {
+        "barabarca": { "nome": "Barabarca", "prezzo_mq": 4000 },
+        "capo_perla": { "nome": "Capo Perla", "prezzo_mq": 4000 },
+        "centro": { "nome": "Centro", "prezzo_mq": 4020 },
+        "gli_stecchi": { "nome": "Gli Stecchi", "prezzo_mq": 4000 },
+        "innamorata": { "nome": "Innamorata", "prezzo_mq": 4300 },
+        "lacona": { "nome": "Lacona", "prezzo_mq": 4120 },
+        "lido_di_capoliveri": { "nome": "Lido di Capoliveri", "prezzo_mq": 3800 },
+        "madonna_delle_grazie": { "nome": "Madonna delle Grazie", "prezzo_mq": 4000 },
+        "morcone": { "nome": "Morcone", "prezzo_mq": 5000 },
+        "naregno": { "nome": "Naregno", "prezzo_mq": 4000 },
+        "norsi": { "nome": "Norsi", "prezzo_mq": 3800 },
+        "pareti": { "nome": "Pareti", "prezzo_mq": 5000 },
+        "peducelli": { "nome": "Peducelli", "prezzo_mq": 4000 },
+        "straccoligno": { "nome": "Straccoligno", "prezzo_mq": 4300 }
+      }
+    },
+    "porto_azzurro": {
+      "nome": "Porto Azzurro",
+      "prezzo_medio_mq": 3200,
+      "trend_annuale": "+4.0%",
+      "localita": {
+        "barbarossa": { "nome": "Barbarossa", "prezzo_mq": 4000 },
+        "centro": { "nome": "Centro", "prezzo_mq": 3200 },
+        "mola": { "nome": "Mola", "prezzo_mq": 3900 },
+        "monserrato": { "nome": "Monserrato", "prezzo_mq": 3800 },
+        "reale": { "nome": "Reale", "prezzo_mq": 4000 },
+        "terranera": { "nome": "Terranera", "prezzo_mq": 3900 }
+      }
+    },
+    "rio": {
+      "nome": "Rio",
+      "prezzo_medio_mq": 3000,
+      "trend_annuale": "+3.5%",
+      "localita": {
+        "bagnaia": { "nome": "Bagnaia", "prezzo_mq": 3600 },
+        "capo_d_arco": { "nome": "Capo d'Arco", "prezzo_mq": 4000 },
+        "cavo": { "nome": "Cavo", "prezzo_mq": 4000 },
+        "la_chiusa": { "nome": "La Chiusa", "prezzo_mq": 2800 },
+        "nisporto": { "nome": "Nisporto", "prezzo_mq": 3000 },
+        "nisportino": { "nome": "Nisportino", "prezzo_mq": 3000 },
+        "ortano": { "nome": "Ortano", "prezzo_mq": 3100 },
+        "padre_eterno": { "nome": "Padre Eterno", "prezzo_mq": 2800 },
+        "porticciolo": { "nome": "Porticciolo", "prezzo_mq": 3500 },
+        "rio_elba_centro": { "nome": "Rio Elba Centro", "prezzo_mq": 2600 },
+        "rio_marina_centro": { "nome": "Rio Marina Centro", "prezzo_mq": 3000 },
+        "topinetti": { "nome": "Topinetti", "prezzo_mq": 2900 },
+        "villaggio_togliatti": { "nome": "Villaggio Togliatti", "prezzo_mq": 2800 }
+      }
+    }
+  },
+  "coefficienti_pertinenze": {
+    "giardino": 0.10,
+    "terrazzo": 0.08,
+    "balcone": 0.04,
+    "cantina": 0.03,
+    "soffitta": 0.03,
+    "posto_auto": 0.04,
+    "box_auto": 0.06,
+    "piscina": 0.15,
+    "cortile": 0.05
+  },
+  "moltiplicatori_stato": {
+    "da_ristrutturare": -0.20,
+    "abitabile": 0.00,
+    "buono": 0.00,
+    "ottimo_ristrutturato": 0.08,
+    "nuovo_lusso": 0.12
+  },
+  "moltiplicatori_vista": {
+    "vista_mare_panoramica_180": 0.10,
+    "vista_mare_frontale": 0.06,
+    "vista_mare_parziale": 0.04,
+    "vista_mare_da_alcune_stanze": 0.02,
+    "nessuna_vista_mare": 0.00
+  }
+}

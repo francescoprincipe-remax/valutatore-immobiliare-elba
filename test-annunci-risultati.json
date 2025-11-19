@@ -1,0 +1,101 @@
+[
+  {
+    "id": "5153",
+    "superficie": 65,
+    "prezzo_pubblicato": 270000,
+    "stima_algoritmo": 172835,
+    "differenza": -97165,
+    "percentuale": -35.98703703703704,
+    "esito": "❌ TROPPO BASSA (oltre -20%)"
+  },
+  {
+    "id": "5143",
+    "superficie": 130,
+    "prezzo_pubblicato": 350000,
+    "stima_algoritmo": 345670,
+    "differenza": -4330,
+    "percentuale": -1.237142857142857,
+    "esito": "⚠️  ACCETTABILE (±5%)"
+  },
+  {
+    "id": "5118",
+    "superficie": 160,
+    "prezzo_pubblicato": 470000,
+    "stima_algoritmo": 425440,
+    "differenza": -44560,
+    "percentuale": -9.480851063829787,
+    "esito": "✅ OTTIMA (tra -5% e -20%)"
+  },
+  {
+    "id": "5100",
+    "superficie": 100,
+    "prezzo_pubblicato": 245000,
+    "stima_algoritmo": 265900,
+    "differenza": 20900,
+    "percentuale": 8.53061224489796,
+    "esito": "⚠️  ALTA (tra +5% e +15%)"
+  },
+  {
+    "id": "5059",
+    "superficie": 54,
+    "prezzo_pubblicato": 230000,
+    "stima_algoritmo": 143586,
+    "differenza": -86414,
+    "percentuale": -37.571304347826086,
+    "esito": "❌ TROPPO BASSA (oltre -20%)"
+  },
+  {
+    "id": "4957",
+    "superficie": 66,
+    "prezzo_pubblicato": 170000,
+    "stima_algoritmo": 175494,
+    "differenza": 5494,
+    "percentuale": 3.2317647058823527,
+    "esito": "⚠️  ACCETTABILE (±5%)"
+  },
+  {
+    "id": "5066",
+    "superficie": 80,
+    "prezzo_pubblicato": 230000,
+    "stima_algoritmo": 212720,
+    "differenza": -17280,
+    "percentuale": -7.51304347826087,
+    "esito": "✅ OTTIMA (tra -5% e -20%)"
+  },
+  {
+    "id": "4965",
+    "superficie": 50,
+    "prezzo_pubblicato": 185000,
+    "stima_algoritmo": 132950,
+    "differenza": -52050,
+    "percentuale": -28.135135135135137,
+    "esito": "❌ TROPPO BASSA (oltre -20%)"
+  },
+  {
+    "id": "subito_1",
+    "superficie": 73,
+    "prezzo_pubblicato": 325000,
+    "stima_algoritmo": 401500,
+    "differenza": 76500,
+    "percentuale": 23.53846153846154,
+    "esito": "❌ TROPPO ALTA (oltre +15%)"
+  },
+  {
+    "id": "subito_2",
+    "superficie": 45,
+    "prezzo_pubblicato": 215000,
+    "stima_algoritmo": 173250,
+    "differenza": -41750,
+    "percentuale": -19.41860465116279,
+    "esito": "✅ OTTIMA (tra -5% e -20%)"
+  },
+  {
+    "id": "subito_3",
+    "superficie": 50,
+    "prezzo_pubblicato": 235000,
+    "stima_algoritmo": 189000,
+    "differenza": -46000,
+    "percentuale": -19.574468085106382,
+    "esito": "✅ OTTIMA (tra -5% e -20%)"
+  }
+]

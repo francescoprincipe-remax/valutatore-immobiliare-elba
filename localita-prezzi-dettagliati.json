@@ -1,0 +1,489 @@
+{
+  "metadata": {
+    "fonte": "Analisi mercato bilocali Elba 2025",
+    "note": "Prezzi basati su analisi annunci reali per bilocali",
+    "legenda_fasce": {
+      "F1": "Oltre 5.000 €/mq - Premium mare",
+      "F2": "4.000-5.000 €/mq - Alta",
+      "F3": "3.300-4.000 €/mq - Media",
+      "F4": "2.800-3.300 €/mq - Medio-bassa",
+      "F5": "Sotto 2.800 €/mq - Economica"
+    }
+  },
+  "comuni": {
+    "portoferraio": {
+      "nome": "Portoferraio",
+      "prezzo_medio_base": 3100,
+      "localita": [
+        {
+          "nome": "Acquabona",
+          "prezzo_mq": 3000,
+          "fascia": "F4",
+          "note": "Zona residenziale, pochi dati"
+        },
+        {
+          "nome": "Acquaviva",
+          "prezzo_mq": 4400,
+          "fascia": "F2",
+          "note": "Vicino Viticcio, vista mare"
+        },
+        {
+          "nome": "Bagnaia",
+          "prezzo_mq": 3800,
+          "fascia": "F3",
+          "note": "Sul mare, zona residenziale"
+        },
+        {
+          "nome": "Biodola",
+          "prezzo_mq": 5000,
+          "fascia": "F2",
+          "note": "Spiaggia premium, alta domanda"
+        },
+        {
+          "nome": "Campo ai Peri",
+          "prezzo_mq": 2700,
+          "fascia": "F5",
+          "note": "Entroterra, pochi servizi"
+        },
+        {
+          "nome": "Capobianco",
+          "prezzo_mq": 4500,
+          "fascia": "F2",
+          "note": "Spiagge bianche, esclusivo"
+        },
+        {
+          "nome": "Carpani",
+          "prezzo_mq": 3100,
+          "fascia": "F4",
+          "note": "Periferia urbana, residenziale"
+        },
+        {
+          "nome": "Centro",
+          "prezzo_mq": 3100,
+          "fascia": "F4",
+          "note": "Centro storico capoluogo"
+        },
+        {
+          "nome": "Ghiaie",
+          "prezzo_mq": 4500,
+          "fascia": "F2",
+          "note": "Spiagge cittadine, premium"
+        },
+        {
+          "nome": "Magazzini",
+          "prezzo_mq": 3800,
+          "fascia": "F3",
+          "note": "Zona mare, buona richiesta"
+        },
+        {
+          "nome": "Ottone",
+          "prezzo_mq": 3800,
+          "fascia": "F3",
+          "note": "Zona residenziale mare"
+        },
+        {
+          "nome": "S. Giovanni",
+          "prezzo_mq": 3800,
+          "fascia": "F3",
+          "note": "Zona residenziale"
+        },
+        {
+          "nome": "S. Martino",
+          "prezzo_mq": 3000,
+          "fascia": "F4",
+          "note": "Collina, pochi dati"
+        },
+        {
+          "nome": "Schiopparello",
+          "prezzo_mq": 3800,
+          "fascia": "F3",
+          "note": "Zona residenziale"
+        },
+        {
+          "nome": "Valdana",
+          "prezzo_mq": 3000,
+          "fascia": "F4",
+          "note": "Entroterra, residenziale"
+        },
+        {
+          "nome": "Valle di Lazzaro",
+          "prezzo_mq": 2700,
+          "fascia": "F5",
+          "note": "Entroterra, pochi servizi"
+        },
+        {
+          "nome": "Viticcio",
+          "prezzo_mq": 4400,
+          "fascia": "F2",
+          "note": "Spiaggia esclusiva, ville"
+        }
+      ]
+    },
+    "marciana": {
+      "nome": "Marciana",
+      "prezzo_medio_base": 3400,
+      "localita": [
+        {
+          "nome": "Campo all'Aia",
+          "prezzo_mq": 4470,
+          "fascia": "F2",
+          "note": "Vicino Procchio, mare"
+        },
+        {
+          "nome": "Chiessi",
+          "prezzo_mq": 3500,
+          "fascia": "F3",
+          "note": "Pochi dati, ville"
+        },
+        {
+          "nome": "Colle d'Orano",
+          "prezzo_mq": 4700,
+          "fascia": "F2",
+          "note": "Panoramico, pochi dati"
+        },
+        {
+          "nome": "Marciana Alta",
+          "prezzo_mq": 2500,
+          "fascia": "F5",
+          "note": "Borgo collinare, economico"
+        },
+        {
+          "nome": "Patresi",
+          "prezzo_mq": 3350,
+          "fascia": "F3",
+          "note": "Mare, tranquillo"
+        },
+        {
+          "nome": "Poggio",
+          "prezzo_mq": 2500,
+          "fascia": "F5",
+          "note": "Borgo collinare, pochi servizi"
+        },
+        {
+          "nome": "Pomonte",
+          "prezzo_mq": 3350,
+          "fascia": "F3",
+          "note": "Mare, tranquillo"
+        },
+        {
+          "nome": "Procchio",
+          "prezzo_mq": 4470,
+          "fascia": "F2",
+          "note": "Spiaggia ampia, alta domanda"
+        },
+        {
+          "nome": "Redinoce",
+          "prezzo_mq": 3400,
+          "fascia": "F3",
+          "note": "Residenziale, pochi dati"
+        },
+        {
+          "nome": "S. Andrea",
+          "prezzo_mq": 3820,
+          "fascia": "F3",
+          "note": "Spiaggia, buona richiesta"
+        },
+        {
+          "nome": "Seccheto",
+          "prezzo_mq": 3900,
+          "fascia": "F2",
+          "note": "Mare, zona tranquilla"
+        },
+        {
+          "nome": "Zanca",
+          "prezzo_mq": 3820,
+          "fascia": "F3",
+          "note": "Vicino S. Andrea"
+        }
+      ]
+    },
+    "campo_nell_elba": {
+      "nome": "Campo nell'Elba",
+      "prezzo_medio_base": 3200,
+      "localita": [
+        {
+          "nome": "Cavoli",
+          "prezzo_mq": 5290,
+          "fascia": "F1",
+          "note": "Spiaggia premium, alta domanda"
+        },
+        {
+          "nome": "Fetovaia",
+          "prezzo_mq": 3200,
+          "fascia": "F3",
+          "note": "Spiaggia bella, pochi bilocali"
+        },
+        {
+          "nome": "Fonza",
+          "prezzo_mq": 3640,
+          "fascia": "F3",
+          "note": "Entroterra, pochi dati"
+        },
+        {
+          "nome": "La Pila",
+          "prezzo_mq": 3280,
+          "fascia": "F3",
+          "note": "Vicino Marina di Campo"
+        },
+        {
+          "nome": "Marina di Campo",
+          "prezzo_mq": 3800,
+          "fascia": "F3",
+          "note": "Centro, spiaggia grande"
+        },
+        {
+          "nome": "S. Piero",
+          "prezzo_mq": 3120,
+          "fascia": "F3",
+          "note": "Borgo collinare, economico"
+        },
+        {
+          "nome": "Sant'Ilario",
+          "prezzo_mq": 2388,
+          "fascia": "F5",
+          "note": "Collina, distante mare"
+        },
+        {
+          "nome": "Seccheto",
+          "prezzo_mq": 3900,
+          "fascia": "F2",
+          "note": "Mare, tranquillo"
+        },
+        {
+          "nome": "Vallebuia",
+          "prezzo_mq": 3640,
+          "fascia": "F3",
+          "note": "Entroterra, pochi dati"
+        }
+      ]
+    },
+    "marciana_marina": {
+      "nome": "Marciana Marina",
+      "prezzo_medio_base": 4450,
+      "localita": [
+        {
+          "nome": "Centro",
+          "prezzo_mq": 4450,
+          "fascia": "F2",
+          "note": "Borgo mare, turistico"
+        }
+      ]
+    },
+    "capoliveri": {
+      "nome": "Capoliveri",
+      "prezzo_medio_base": 4020,
+      "localita": [
+        {
+          "nome": "Barabarca",
+          "prezzo_mq": 4000,
+          "fascia": "F2",
+          "note": "Ville, pochi bilocali"
+        },
+        {
+          "nome": "Capo Perla",
+          "prezzo_mq": 4000,
+          "fascia": "F3",
+          "note": "Vicino Naregno, mare"
+        },
+        {
+          "nome": "Centro",
+          "prezzo_mq": 4020,
+          "fascia": "F2",
+          "note": "Borgo storico, panoramico"
+        },
+        {
+          "nome": "Gli Stecchi",
+          "prezzo_mq": 4000,
+          "fascia": "F2",
+          "note": "Ville, pochi dati"
+        },
+        {
+          "nome": "Innamorata",
+          "prezzo_mq": 4300,
+          "fascia": "F2",
+          "note": "Spiaggia romantica, premium"
+        },
+        {
+          "nome": "Lacona",
+          "prezzo_mq": 4120,
+          "fascia": "F2",
+          "note": "Spiaggia grande, alta domanda"
+        },
+        {
+          "nome": "Lido di Capoliveri",
+          "prezzo_mq": 3800,
+          "fascia": "F3",
+          "note": "Zona mare, residenziale"
+        },
+        {
+          "nome": "Madonna delle Grazie",
+          "prezzo_mq": 4000,
+          "fascia": "F2",
+          "note": "Panoramico, pochi dati"
+        },
+        {
+          "nome": "Morcone",
+          "prezzo_mq": 5000,
+          "fascia": "F1",
+          "note": "Esclusivo, ville mare"
+        },
+        {
+          "nome": "Naregno",
+          "prezzo_mq": 4000,
+          "fascia": "F3",
+          "note": "Spiaggia, buona richiesta"
+        },
+        {
+          "nome": "Norsi",
+          "prezzo_mq": 3800,
+          "fascia": "F3",
+          "note": "Entroterra, pochi dati"
+        },
+        {
+          "nome": "Pareti",
+          "prezzo_mq": 5000,
+          "fascia": "F1",
+          "note": "Esclusivo, ville mare"
+        },
+        {
+          "nome": "Peducelli",
+          "prezzo_mq": 4000,
+          "fascia": "F2",
+          "note": "Panoramico, pochi dati"
+        },
+        {
+          "nome": "Straccoligno",
+          "prezzo_mq": 4300,
+          "fascia": "F2",
+          "note": "Vicino Innamorata"
+        }
+      ]
+    },
+    "porto_azzurro": {
+      "nome": "Porto Azzurro",
+      "prezzo_medio_base": 4180,
+      "localita": [
+        {
+          "nome": "Barbarossa",
+          "prezzo_mq": 4000,
+          "fascia": "F2",
+          "note": "Zona residenziale mare"
+        },
+        {
+          "nome": "Centro",
+          "prezzo_mq": 4180,
+          "fascia": "F2",
+          "note": "Borgo mare, turistico"
+        },
+        {
+          "nome": "Mola",
+          "prezzo_mq": 3900,
+          "fascia": "F2",
+          "note": "Vicino centro"
+        },
+        {
+          "nome": "Monserrato",
+          "prezzo_mq": 3800,
+          "fascia": "F3",
+          "note": "Collina, panoramico"
+        },
+        {
+          "nome": "Reale",
+          "prezzo_mq": 4000,
+          "fascia": "F2",
+          "note": "Zona residenziale"
+        },
+        {
+          "nome": "Terranera",
+          "prezzo_mq": 3900,
+          "fascia": "F2",
+          "note": "Mare, spiaggia mineraria"
+        }
+      ]
+    },
+    "rio": {
+      "nome": "Rio",
+      "prezzo_medio_base": 3000,
+      "localita": [
+        {
+          "nome": "Bagnaia",
+          "prezzo_mq": 3600,
+          "fascia": "F3",
+          "note": "Mare, zona tranquilla"
+        },
+        {
+          "nome": "Capo d'Arco",
+          "prezzo_mq": 4000,
+          "fascia": "F2",
+          "note": "Panoramico, esclusivo"
+        },
+        {
+          "nome": "Cavo",
+          "prezzo_mq": 4000,
+          "fascia": "F2",
+          "note": "Spiaggia, buona richiesta"
+        },
+        {
+          "nome": "La Chiusa",
+          "prezzo_mq": 2800,
+          "fascia": "F4",
+          "note": "Entroterra, pochi dati"
+        },
+        {
+          "nome": "Nisporto",
+          "prezzo_mq": 3000,
+          "fascia": "F4",
+          "note": "Spiaggia piccola, tranquilla"
+        },
+        {
+          "nome": "Nisportino",
+          "prezzo_mq": 3000,
+          "fascia": "F4",
+          "note": "Vicino Nisporto"
+        },
+        {
+          "nome": "Ortano",
+          "prezzo_mq": 3100,
+          "fascia": "F3",
+          "note": "Entroterra, residenziale"
+        },
+        {
+          "nome": "Padre Eterno",
+          "prezzo_mq": 2800,
+          "fascia": "F4",
+          "note": "Entroterra, pochi dati"
+        },
+        {
+          "nome": "Porticciolo",
+          "prezzo_mq": 3500,
+          "fascia": "F3",
+          "note": "Mare, zona tranquilla"
+        },
+        {
+          "nome": "Rio Elba Centro",
+          "prezzo_mq": 2600,
+          "fascia": "F5",
+          "note": "Borgo collinare, economico"
+        },
+        {
+          "nome": "Rio Marina Centro",
+          "prezzo_mq": 3000,
+          "fascia": "F4",
+          "note": "Borgo mare ex-minerario"
+        },
+        {
+          "nome": "Topinetti",
+          "prezzo_mq": 2900,
+          "fascia": "F4",
+          "note": "Entroterra, pochi dati"
+        },
+        {
+          "nome": "Villaggio Togliatti",
+          "prezzo_mq": 2800,
+          "fascia": "F4",
+          "note": "Residenziale, economico"
+        }
+      ]
+    }
+  }
+}

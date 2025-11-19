@@ -1,0 +1,252 @@
+{
+  "metadata": {
+    "ultimo_aggiornamento": "Ottobre 2025",
+    "fonti": [
+      "Immobiliare.it",
+      "Wikicasa.it",
+      "Requot.com",
+      "Immobiliagest.it",
+      "Mercato-immobiliare.info"
+    ],
+    "note": "Dati raccolti da snippet di ricerca e fonti pubbliche"
+  },
+  "comuni": {
+    "portoferraio": {
+      "nome": "Portoferraio",
+      "prezzo_medio_mq": 3621,
+      "prezzo_medio_mq_wikicasa": 3367,
+      "prezzo_medio_mq_immobiliagest": 3399,
+      "trend_annuale": "+5.45%",
+      "range_omi": {
+        "min": 1450,
+        "max": 3465,
+        "note": "9 zone OMI"
+      },
+      "range_requot": {
+        "min": 1750,
+        "max": 2267,
+        "tipo": "Abitazioni economiche"
+      },
+      "zone": [
+        {
+          "nome": "Centro storico",
+          "prezzo_stimato_min": 2800,
+          "prezzo_stimato_max": 3465
+        },
+        {
+          "nome": "Serrone - San Leonardo - Acqua Cavalla - Santa Lucia - Valdana",
+          "codice_zona": "D4",
+          "prezzo_min": 1450,
+          "prezzo_max": 2000
+        }
+      ]
+    },
+    "campo_nell_elba": {
+      "nome": "Campo nell'Elba",
+      "prezzo_medio_mq": 3878,
+      "prezzo_medio_mq_wikicasa": 3739,
+      "trend_annuale": "+3.83%",
+      "range_omi": {
+        "min": 2100,
+        "max": 4900
+      },
+      "localita": {
+        "marina_di_campo": {
+          "nome": "Marina di Campo",
+          "prezzo_stimato_min": 3500,
+          "prezzo_stimato_max": 4200,
+          "caratteristiche": "Spiaggia sabbiosa più grande dell'Elba, centro turistico, aeroporto a 2km"
+        },
+        "cavoli_seccheto": {
+          "nome": "Cavoli - Seccheto",
+          "codice_zona": "D1",
+          "prezzo_min": 4900,
+          "prezzo_max": 6500,
+          "prezzo_affitto_mq": 15.24,
+          "caratteristiche": "Zona premium, spiagge rinomate"
+        },
+        "fetovaia": {
+          "nome": "Fetovaia",
+          "prezzo_stimato_min": 4800,
+          "prezzo_stimato_max": 6200,
+          "caratteristiche": "Zona premium, spiaggia famosa"
+        },
+        "pianosa_isola": {
+          "nome": "Pianosa Isola",
+          "codice_zona": "E4",
+          "prezzo_min": 2100,
+          "prezzo_max": 2800
+        },
+        "gualdo": {
+          "nome": "Località Gualdo",
+          "prezzo_stimato_min": 2500,
+          "prezzo_stimato_max": 3200,
+          "caratteristiche": "Zona periferica"
+        }
+      }
+    },
+    "capoliveri": {
+      "nome": "Capoliveri",
+      "prezzo_medio_mq": 3200,
+      "prezzo_medio_mq_wikicasa": 3828,
+      "trend_annuale": "+4.32%",
+      "trend_annuale_wikicasa": "+1%",
+      "annunci_attivi": 137,
+      "prezzo_minimo_annunci": 65000,
+      "localita": {
+        "lacona": {
+          "nome": "Lacona",
+          "prezzo_stimato_min": 4200,
+          "prezzo_stimato_max": 5500,
+          "caratteristiche": "Zona premium, spiaggia ampia"
+        },
+        "naregno": {
+          "nome": "Naregno",
+          "esempio_prezzo": {
+            "mq": 45,
+            "camere": 1,
+            "bagni": 1,
+            "prezzo": 295000,
+            "prezzo_mq": 6556,
+            "note": "Zona pedonale, pochi passi dal mare"
+          }
+        }
+      }
+    },
+    "marciana_marina": {
+      "nome": "Marciana Marina",
+      "prezzo_medio_mq": 4079,
+      "trend_annuale": "N/D",
+      "prezzo_affitto_mq": 13.04,
+      "prezzo_stimato_min": 4000,
+      "prezzo_stimato_max": 5500,
+      "caratteristiche": "Porto turistico, zona premium"
+    },
+    "porto_azzurro": {
+      "nome": "Porto Azzurro",
+      "prezzo_medio_mq": 3703,
+      "prezzo_affitto_mq": 12.86,
+      "prezzo_stimato_min": 3500,
+      "prezzo_stimato_max": 4800,
+      "caratteristiche": "Porto turistico, centro storico"
+    },
+    "marciana": {
+      "nome": "Marciana",
+      "prezzo_medio_mq": 3280,
+      "prezzo_affitto_mq": 12.97,
+      "prezzo_stimato_min": 3000,
+      "prezzo_stimato_max": 4000,
+      "caratteristiche": "Zona montana, panoramica"
+    },
+    "rio": {
+      "nome": "Rio",
+      "prezzo_medio_mq": 2800,
+      "prezzo_stimato_min": 2800,
+      "prezzo_stimato_max": 3800,
+      "caratteristiche": "Zona interna"
+    }
+  },
+  "zone_premium": {
+    "biodola": {
+      "nome": "Biodola",
+      "prezzo_stimato_min": 5500,
+      "prezzo_stimato_max": 7000,
+      "caratteristiche": "Spiaggia esclusiva, resort di lusso",
+      "comune": "Portoferraio"
+    },
+    "cavoli": {
+      "nome": "Cavoli",
+      "prezzo_min": 4900,
+      "prezzo_max": 6500,
+      "caratteristiche": "Spiaggia rinomata",
+      "comune": "Campo nell'Elba"
+    },
+    "fetovaia": {
+      "nome": "Fetovaia",
+      "prezzo_min": 4800,
+      "prezzo_max": 6200,
+      "caratteristiche": "Spiaggia famosa",
+      "comune": "Campo nell'Elba"
+    },
+    "lacona": {
+      "nome": "Lacona",
+      "prezzo_min": 4200,
+      "prezzo_max": 5500,
+      "caratteristiche": "Spiaggia ampia",
+      "comune": "Capoliveri"
+    }
+  },
+  "statistiche_generali": {
+    "prezzo_medio_isola": 2358,
+    "trend_medio_annuale": "+4%",
+    "annunci_totali_attivi": 1586,
+    "prezzo_minimo_mercato": 43000,
+    "tempo_medio_vendita_mesi": "6-12",
+    "sconto_medio_trattativa_percentuale": "5-10"
+  },
+  "fasce_distanza_mare": {
+    "fronte_mare": {
+      "descrizione": "Fronte mare / Piedi in acqua",
+      "incremento_min": 40,
+      "incremento_max": 50
+    },
+    "0_100m": {
+      "descrizione": "0-100 metri dal mare",
+      "incremento_min": 30,
+      "incremento_max": 40
+    },
+    "100_300m": {
+      "descrizione": "100-300 metri dal mare",
+      "incremento_min": 20,
+      "incremento_max": 30
+    },
+    "300_500m": {
+      "descrizione": "300-500 metri dal mare",
+      "incremento_min": 10,
+      "incremento_max": 20
+    },
+    "500_1000m": {
+      "descrizione": "500-1000 metri dal mare",
+      "incremento_min": 5,
+      "incremento_max": 10
+    },
+    "1_2km": {
+      "descrizione": "1-2 km dal mare",
+      "incremento_min": 0,
+      "incremento_max": 0
+    },
+    "oltre_2km": {
+      "descrizione": "Oltre 2 km dal mare",
+      "incremento_min": -20,
+      "incremento_max": -10
+    }
+  },
+  "coefficienti_pertinenze": {
+    "giardino_villa_primi_25mq": 0.08,
+    "giardino_villa_oltre_25mq": 0.05,
+    "giardino_appartamento_primi_25mq": 0.08,
+    "giardino_appartamento_oltre_25mq": 0.03,
+    "terrazzo_scoperto": 0.08,
+    "terrazzo_coperto": 0.12,
+    "veranda_chiusa": 0.25,
+    "cortile_fino_25mq": 0.05,
+    "cortile_oltre_25mq": 0.03,
+    "cantina_magazzino": 0.15,
+    "box_coperto": 0.30,
+    "posto_auto_scoperto": 0.10
+  },
+  "moltiplicatori_stato": {
+    "da_ristrutturare": -0.25,
+    "abitabile": -0.08,
+    "buono": 0.00,
+    "ottimo_ristrutturato": 0.08,
+    "nuovo_lusso": 0.12
+  },
+  "moltiplicatori_vista": {
+    "vista_mare_panoramica_180": 0.10,
+    "vista_mare_frontale": 0.06,
+    "vista_mare_parziale": 0.04,
+    "vista_mare_da_alcune_stanze": 0.02,
+    "nessuna_vista_mare": 0.00
+  }
+}

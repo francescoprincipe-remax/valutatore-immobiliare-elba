@@ -1,0 +1,129 @@
+[
+  {
+    "id": "5153",
+    "fonte": "Gabetti Elba",
+    "comune": "Portoferraio",
+    "prezzo": 270000,
+    "superficie": 65,
+    "locali": 3,
+    "camere": 2,
+    "bagni": 1
+  },
+  {
+    "id": "5143",
+    "fonte": "Gabetti Elba",
+    "comune": "Portoferraio",
+    "prezzo": 350000,
+    "prezzo_originale": 370000,
+    "sconto": "-5.4%",
+    "superficie": 130,
+    "locali": 5,
+    "camere": 3,
+    "bagni": 1
+  },
+  {
+    "id": "5118",
+    "fonte": "Gabetti Elba",
+    "comune": "Portoferraio",
+    "prezzo": 470000,
+    "prezzo_originale": 500000,
+    "sconto": "-6%",
+    "superficie": 160,
+    "locali": 5,
+    "camere": 1,
+    "bagni": 2
+  },
+  {
+    "id": "5100",
+    "fonte": "Gabetti Elba",
+    "comune": "Portoferraio",
+    "prezzo": 245000,
+    "prezzo_originale": 260000,
+    "sconto": "-5.8%",
+    "superficie": 100,
+    "locali": 5,
+    "camere": 2,
+    "bagni": 1
+  },
+  {
+    "id": "5059",
+    "fonte": "Gabetti Elba",
+    "comune": "Portoferraio",
+    "prezzo": 230000,
+    "superficie": 54,
+    "locali": 2,
+    "camere": 1,
+    "bagni": 1
+  },
+  {
+    "id": "4957",
+    "fonte": "Gabetti Elba",
+    "comune": "Portoferraio",
+    "localita": "Portoferraio città",
+    "prezzo": 170000,
+    "superficie": 66,
+    "locali": 4,
+    "camere": 2,
+    "bagni": 1
+  },
+  {
+    "id": "5066",
+    "fonte": "Gabetti Elba",
+    "comune": "Portoferraio",
+    "localita": "Portoferraio città",
+    "prezzo": 230000,
+    "superficie": 80,
+    "locali": 3,
+    "camere": 2,
+    "bagni": 1
+  },
+  {
+    "id": "4965",
+    "fonte": "Gabetti Elba",
+    "comune": "Portoferraio",
+    "localita": "Portoferraio città",
+    "indirizzo": "Via CALATA ITALIA",
+    "prezzo": 185000,
+    "superficie": 50,
+    "locali": 2,
+    "camere": 1,
+    "bagni": 1
+  },
+  {
+    "id": "subito_1",
+    "fonte": "Subito.it",
+    "comune": "Campo nell'Elba",
+    "localita": "Fetovaia",
+    "prezzo": 325000,
+    "superficie": 73,
+    "locali": 3,
+    "camere": 2,
+    "bagni": 1,
+    "piano": "1"
+  },
+  {
+    "id": "subito_2",
+    "fonte": "Subito.it",
+    "comune": "Campo nell'Elba",
+    "localita": "Marina di Campo",
+    "prezzo": 215000,
+    "superficie": 45,
+    "locali": 2,
+    "camere": 1,
+    "bagni": 1,
+    "piano": "1",
+    "note": "zona mare con terrazza"
+  },
+  {
+    "id": "subito_3",
+    "fonte": "Subito.it",
+    "comune": "Campo nell'Elba",
+    "localita": "La Pila",
+    "prezzo": 235000,
+    "superficie": 50,
+    "locali": 3,
+    "camere": 2,
+    "bagni": 1,
+    "piano": "1"
+  }
+]

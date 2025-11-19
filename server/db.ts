@@ -90,3 +90,60 @@ export async function getUserByOpenId(openId: string) {
 }
 
 // TODO: add feature queries here as your schema grows.
+
+// ========== Valutazioni Immobiliari ==========
+
+import { valutazioni, datiMercato, InsertValutazione } from "../drizzle/schema";
+import { desc, and } from "drizzle-orm";
+
+export async function saveValutazione(data: InsertValutazione) {
+  const db = await getDb();
+  if (!db) throw new Error("Database non disponibile");
+
+  const result = await db.insert(valutazioni).values(data);
+  return result;
+}
+
+export async function getValutazioneById(id: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db.select().from(valutazioni).where(eq(valutazioni.id, id)).limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getUserValutazioni(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db
+    .select()
+    .from(valutazioni)
+    .where(eq(valutazioni.userId, userId))
+    .orderBy(desc(valutazioni.createdAt));
+}
+
+export async function getDatiMercatoByLocation(comune: string, localita?: string | null) {
+  const db = await getDb();
+  if (!db) return null;
+
+  // Cerca prima la località specifica se fornita
+  if (localita) {
+    const result = await db
+      .select()
+      .from(datiMercato)
+      .where(and(eq(datiMercato.comune, comune), eq(datiMercato.localita, localita)))
+      .limit(1);
+    
+    if (result.length > 0) return result[0];
+  }
+
+  // Altrimenti cerca il comune
+  const result = await db
+    .select()
+    .from(datiMercato)
+    .where(eq(datiMercato.comune, comune))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}

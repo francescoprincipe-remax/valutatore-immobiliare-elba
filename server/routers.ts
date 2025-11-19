@@ -1,11 +1,14 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, router } from "./_core/trpc";
+import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
+import { z } from "zod";
+import { calcolaValutazione, type DatiImmobile } from "./valutazione-engine";
+import { saveValutazione, getValutazioneById, getUserValutazioni, getDatiMercatoByLocation } from "./db";
 
 export const appRouter = router({
-    // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
+  
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
@@ -17,12 +20,163 @@ export const appRouter = router({
     }),
   }),
 
-  // TODO: add feature routers here, e.g.
-  // todo: router({
-  //   list: protectedProcedure.query(({ ctx }) =>
-  //     db.getUserTodos(ctx.user.id)
-  //   ),
-  // }),
+  valutazione: router({
+    /**
+     * Calcola la valutazione di un immobile
+     */
+    calcola: publicProcedure
+      .input(
+        z.object({
+          // Localizzazione
+          comune: z.string(),
+          localita: z.string().optional(),
+          indirizzo: z.string().optional(),
+          distanzaMare: z.number().optional(),
+
+          // Tipologia e caratteristiche
+          tipologia: z.string(),
+          categoriaCatastale: z.string().optional(),
+          superficieAbitabile: z.number(),
+          numeroCamere: z.number().optional(),
+          numeroBagni: z.number().optional(),
+          piano: z.string().optional(),
+          statoManutenzione: z.string(),
+          annoCostruzione: z.number().optional(),
+          classeEnergetica: z.string().optional(),
+
+          // Pertinenze
+          hasGiardino: z.boolean().optional(),
+          superficieGiardino: z.number().optional(),
+          tipoGiardino: z.string().optional(),
+          statoGiardino: z.string().optional(),
+          hasPiscina: z.boolean().optional(),
+
+          hasTerrazzo: z.boolean().optional(),
+          superficieTerrazzo: z.number().optional(),
+          tipoTerrazzo: z.string().optional(),
+
+          hasCortile: z.boolean().optional(),
+          superficieCortile: z.number().optional(),
+
+          hasCantina: z.boolean().optional(),
+          superficieCantina: z.number().optional(),
+
+          hasPostoAuto: z.boolean().optional(),
+          tipoPostoAuto: z.string().optional(),
+          numeroPostiAuto: z.number().optional(),
+
+          // Vista e posizione
+          vistaMare: z.string().optional(),
+          esposizione: z.array(z.string()).optional(),
+          tipoPosizione: z.string().optional(),
+          accessoMare: z.string().optional(),
+
+          // Servizi e comfort
+          servizi: z.array(z.string()).optional(),
+          finiture: z.array(z.string()).optional(),
+
+          // Opzionale: salva valutazione se utente autenticato
+          salva: z.boolean().optional(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        // Calcola la valutazione
+        const risultato = calcolaValutazione(input as DatiImmobile);
+
+        // Se richiesto e utente autenticato, salva nel database
+        if (input.salva && ctx.user) {
+          await saveValutazione({
+            userId: ctx.user.id,
+            comune: input.comune,
+            localita: input.localita || null,
+            indirizzo: input.indirizzo || null,
+            distanzaMare: input.distanzaMare || null,
+            tipologia: input.tipologia,
+            categoriaCatastale: input.categoriaCatastale || null,
+            superficieAbitabile: input.superficieAbitabile,
+            numeroCamere: input.numeroCamere || null,
+            numeroBagni: input.numeroBagni || null,
+            piano: input.piano || null,
+            statoManutenzione: input.statoManutenzione,
+            annoCostruzione: input.annoCostruzione || null,
+            classeEnergetica: input.classeEnergetica || null,
+            hasGiardino: input.hasGiardino || false,
+            superficieGiardino: input.superficieGiardino || null,
+            tipoGiardino: input.tipoGiardino || null,
+            hasTerrazzo: input.hasTerrazzo || false,
+            superficieTerrazzo: input.superficieTerrazzo || null,
+            tipoTerrazzo: input.tipoTerrazzo || null,
+            hasCortile: input.hasCortile || false,
+            superficieCortile: input.superficieCortile || null,
+            hasCantina: input.hasCantina || false,
+            superficieCantina: input.superficieCantina || null,
+            hasPostoAuto: input.hasPostoAuto || false,
+            tipoPostoAuto: input.tipoPostoAuto || null,
+            numeroPostiAuto: input.numeroPostiAuto || null,
+            vistaMare: input.vistaMare || null,
+            esposizione: input.esposizione?.join(',') || null,
+            tipoPosizione: input.tipoPosizione || null,
+            accessoMare: input.accessoMare || null,
+            servizi: input.servizi || null,
+            finiture: input.finiture || null,
+            valoreBase: risultato.valoreBase,
+            valorePertinenze: risultato.valorePertinenze,
+            valoreValorizzazioni: risultato.valoreValorizzazioni,
+            valoreSvalutazioni: risultato.valoreSvalutazioni,
+            valoreTotale: risultato.valoreTotale,
+            valoreMin: risultato.valoreMin,
+            valoreMax: risultato.valoreMax,
+            prezzoMqZona: risultato.prezzoMqZona,
+            immobiliSimiliZona: risultato.immobiliSimiliZona,
+            livelloCompetitivita: risultato.livelloCompetitivita,
+            breakdownCalcolo: {
+              pertinenze: risultato.dettaglioPertinenze,
+              valorizzazioni: risultato.dettaglioValorizzazioni,
+              svalutazioni: risultato.dettaglioSvalutazioni,
+            },
+            consigli: [
+              ...risultato.consigli.puntiForza,
+              ...risultato.consigli.miglioramenti,
+              ...risultato.consigli.strategiaVendita,
+            ],
+          });
+        }
+
+        return risultato;
+      }),
+
+    /**
+     * Ottiene una valutazione salvata per ID
+     */
+    getById: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input }) => {
+        return await getValutazioneById(input.id);
+      }),
+
+    /**
+     * Ottiene tutte le valutazioni dell'utente
+     */
+    getMie: protectedProcedure.query(async ({ ctx }) => {
+      return await getUserValutazioni(ctx.user.id);
+    }),
+  }),
+
+  mercato: router({
+    /**
+     * Ottiene i dati di mercato per una località
+     */
+    getDatiZona: publicProcedure
+      .input(
+        z.object({
+          comune: z.string(),
+          localita: z.string().optional(),
+        })
+      )
+      .query(async ({ input }) => {
+        return await getDatiMercatoByLocation(input.comune, input.localita);
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

@@ -5,12 +5,21 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Valuta from "./pages/Valuta";
+import Risultato from "./pages/Risultato";
+import Privacy from "./pages/Privacy";
+import RemaxWatermark from "./components/RemaxWatermark";
+import WhatsAppCTA from "./components/WhatsAppCTA";
+import GDPRBanner from "./components/GDPRBanner";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/valuta"} component={Valuta} />
+      <Route path={"/risultato"} component={Risultato} />
+      <Route path={"/privacy"} component={Privacy} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -33,6 +42,9 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <RemaxWatermark />
+          <WhatsAppCTA />
+          <GDPRBanner />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
