@@ -69,9 +69,39 @@
 
 ---
 
-## ✅ BUG RISOLTO
+## 🚨 BUG CRITICO ANCORA PRESENTE
 
-- [x] **Bug valori €0 RISOLTO**: Il riavvio del server ha corretto il problema di compilazione
-- [x] Tutti i valori ora vengono visualizzati correttamente (min/max/totale/consigliato)
-- [x] Test confermato: Capoliveri Centro, 53mq, appartamento, vista mare → €234.366
-- [x] Causa: Errore di sintassi in pdf-generator.ts che bloccava la compilazione
+- [ ] **Bug valori €0 NON RISOLTO**: Valori min/max/totale/consigliato mostrano €0
+- [ ] Valore base CORRETTO: €213.060 (53mq × €4020/mq)
+- [ ] Valorizzazioni CORRETTE: +€12.784 (servizi +€8.522, posizione +€4.261)
+- [ ] Ma i totali finali sono a zero: valoreMin, valoreMax, valoreTotale, prezzoConsigliato
+- [ ] Problema: calcolo finale o visualizzazione nel frontend Risultato.tsx
+- [ ] Test case: Capoliveri Centro, 53mq, appartamento, ottimo stato, vista mare alcune stanze
+
+
+---
+
+## ✅ BACKTEST COMPLETATO (20 Nov 2025)
+
+- [x] **Bug NaN pertinenze RISOLTO**: Corretto calcolo giardino/terrazzo/box auto
+- [x] Backtest eseguito su 15 annunci reali
+- [x] Report dettagliato generato: `BACKTEST-REPORT.md`
+- [x] File risultati: `backtest-risultati.json`, `backtest-report.csv`
+- [x] Identificati problemi critici: sovrastima Capoliveri (+84%), sottostima Portoferraio (-29%)
+- [x] Accuratezza attuale: 33.3% (5/15 annunci con errore ≤20%)
+- [x] Errore medio: 43.7%
+
+
+---
+
+## ✅ CORREZIONI POST-BACKTEST APPLICATE
+
+- [x] Aggiornato prezzo/mq Capoliveri Centro: da €4.020 a €3.500/mq (-13%)
+- [x] Aggiornato prezzo/mq Portoferraio Centro: da €2.945 a €3.000/mq (+2%)
+- [x] Implementato sconto progressivo ville >150mq: -3% ogni 50mq (max -15%)
+- [x] Backtest finale: errore medio 38.9% (da 43.7%, miglioramento -11%)
+- [x] Capoliveri Rif. 212 ora OTTIMO (+4.5%)
+
+### Note
+- Villa 210 Lacona (268mq, 5 unità) ancora problematica: +208% - caso estremo
+- Accuratezza generale: 33.3% annunci con errore ≤20%

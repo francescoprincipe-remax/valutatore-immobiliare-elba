@@ -1,0 +1,475 @@
+================================================================================
+BACKTEST VALUTATORE IMMOBILIARE - CONFRONTO CON ANNUNCI REALI
+================================================================================
+
+
+================================================================================
+ANNUNCIO 1/15 - Rif. 410
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Portoferraio - Ghiaie
+   Tipologia: Appartamento
+   Superficie: 38 mq
+   Stato: Buono
+   Distanza mare: 100m
+   Vista mare: Vista aperta
+   Terrazzo: Sì
+   💰 PREZZO REALE: €139,000
+   💶 Prezzo/mq reale: €3,658/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €4,500
+   Valore base: €171,000
+   Pertinenze: +€NaN
+   Valorizzazioni: +€8,550
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €NaN
+   Range: €NaN - €NaN
+   Prezzo consigliato: €NaN
+
+📊 CONFRONTO:
+   Differenza: €NaN (NaN%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>NaN%)
+
+================================================================================
+ANNUNCIO 2/15 - Rif. 153
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Porto Azzurro - Centro
+   Tipologia: Appartamento
+   Superficie: 59 mq
+   Stato: Buono
+   Distanza mare: 500m
+   💰 PREZZO REALE: €195,000
+   💶 Prezzo/mq reale: €3,305/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €3,200
+   Valore base: €188,800
+   Pertinenze: +€0
+   Valorizzazioni: +€5,664
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €194,464
+   Range: €175,018 - €213,910
+   Prezzo consigliato: €194,464
+
+📊 CONFRONTO:
+   Differenza: €-536 (-0.3%)
+   Prezzo reale nel range: ✅ SÌ
+   Accuratezza: ✅ OTTIMA (±10%)
+
+================================================================================
+ANNUNCIO 3/15 - 390
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Rio - Cavo
+   Tipologia: Porzione Casa
+   Superficie: 45 mq
+   Stato: Medio
+   Distanza mare: 600m
+   Giardino: 200 mq
+   💰 PREZZO REALE: €150,000
+   💶 Prezzo/mq reale: €3,333/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €4,000
+   Valore base: €180,000
+   Pertinenze: +€NaN
+   Valorizzazioni: +€0
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €NaN
+   Range: €NaN - €NaN
+   Prezzo consigliato: €NaN
+
+📊 CONFRONTO:
+   Differenza: €NaN (NaN%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>NaN%)
+
+================================================================================
+ANNUNCIO 4/15 - Rif. 216
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Capoliveri - Madonna Grazie
+   Tipologia: Attico
+   Superficie: 110 mq
+   Stato: Buono
+   Distanza mare: 300m
+   Vista mare: Si panoramica
+   Terrazzo: Sì
+   Giardino: 600 mq
+   Box auto: Sì
+   💰 PREZZO REALE: €475,000
+   💶 Prezzo/mq reale: €4,318/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €3,618
+   Valore base: €397,980
+   Pertinenze: +€NaN
+   Valorizzazioni: +€51,737
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €NaN
+   Range: €NaN - €NaN
+   Prezzo consigliato: €NaN
+
+📊 CONFRONTO:
+   Differenza: €NaN (NaN%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>NaN%)
+
+================================================================================
+ANNUNCIO 5/15 - Rif. 212
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Capoliveri - Centro Storico
+   Tipologia: Loft
+   Superficie: 62 mq
+   Stato: Ristrutturato
+   Distanza mare: 1000m
+   💰 PREZZO REALE: €200,000
+   💶 Prezzo/mq reale: €3,226/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €3,819
+   Valore base: €236,778
+   Pertinenze: +€0
+   Valorizzazioni: +€18,942
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €255,720
+   Range: €230,148 - €281,292
+   Prezzo consigliato: €242,934
+
+📊 CONFRONTO:
+   Differenza: €55,720 (+27.9%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>28%)
+
+================================================================================
+ANNUNCIO 6/15 - Rif. 421
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Portoferraio - Centro
+   Tipologia: Appartamento
+   Superficie: 100 mq
+   Stato: Buono
+   Distanza mare: 250m
+   💰 PREZZO REALE: €275,000
+   💶 Prezzo/mq reale: €2,750/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €2,883
+   Valore base: €288,300
+   Pertinenze: +€0
+   Valorizzazioni: +€8,649
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €296,949
+   Range: €267,254 - €326,644
+   Prezzo consigliato: €296,949
+
+📊 CONFRONTO:
+   Differenza: €21,949 (+8.0%)
+   Prezzo reale nel range: ✅ SÌ
+   Accuratezza: ✅ OTTIMA (±10%)
+
+================================================================================
+ANNUNCIO 7/15 - 210
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Capoliveri - Lacona
+   Tipologia: Casa singola
+   Superficie: 268 mq
+   Stato: Buono
+   Distanza mare: 150m
+   Vista mare: Si
+   Terrazzo: Sì
+   Giardino: 5000 mq
+   Box auto: Sì
+   💰 PREZZO REALE: €810,000
+   💶 Prezzo/mq reale: €3,022/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €3,502
+   Valore base: €938,536
+   Pertinenze: +€NaN
+   Valorizzazioni: +€46,927
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €NaN
+   Range: €NaN - €NaN
+   Prezzo consigliato: €NaN
+
+📊 CONFRONTO:
+   Differenza: €NaN (NaN%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>NaN%)
+
+================================================================================
+ANNUNCIO 8/15 - Rif. 303
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Rio - Bagnaia
+   Tipologia: Porzione Casa
+   Superficie: 49 mq
+   Stato: Ristrutturato
+   Distanza mare: 75m
+   Giardino: 20 mq
+   💰 PREZZO REALE: €189,000
+   💶 Prezzo/mq reale: €3,857/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €3,600
+   Valore base: €176,400
+   Pertinenze: +€NaN
+   Valorizzazioni: +€19,404
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €NaN
+   Range: €NaN - €NaN
+   Prezzo consigliato: €NaN
+
+📊 CONFRONTO:
+   Differenza: €NaN (NaN%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>NaN%)
+
+================================================================================
+ANNUNCIO 9/15 - 3183311
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Portoferraio - Residenziale
+   Tipologia: Appartamento
+   Superficie: 70 mq
+   Stato: Buono
+   Distanza mare: 800m
+   Terrazzo: Sì
+   Box auto: Sì
+   💰 PREZZO REALE: €270,000
+   💶 Prezzo/mq reale: €3,857/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €2,945
+   Valore base: €206,150
+   Pertinenze: +€NaN
+   Valorizzazioni: +€0
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €NaN
+   Range: €NaN - €NaN
+   Prezzo consigliato: €NaN
+
+📊 CONFRONTO:
+   Differenza: €NaN (NaN%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>NaN%)
+
+================================================================================
+ANNUNCIO 10/15 - TC69312034
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Capoliveri - Via Morcone
+   Tipologia: Villa
+   Superficie: 163 mq
+   Stato: Buono
+   Distanza mare: 400m
+   Terrazzo: Sì
+   Box auto: Sì
+   💰 PREZZO REALE: €650,000
+   💶 Prezzo/mq reale: €3,988/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €3,417
+   Valore base: €556,971
+   Pertinenze: +€NaN
+   Valorizzazioni: +€16,709
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €NaN
+   Range: €NaN - €NaN
+   Prezzo consigliato: €NaN
+
+📊 CONFRONTO:
+   Differenza: €NaN (NaN%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>NaN%)
+
+================================================================================
+ANNUNCIO 11/15 - 624901985
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Marciana Marina - Centro
+   Tipologia: Appartamento
+   Superficie: 65 mq
+   Stato: Da ristrutturare
+   Distanza mare: 200m
+   💰 PREZZO REALE: €150,000
+   💶 Prezzo/mq reale: €2,308/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €4,228
+   Valore base: €274,820
+   Pertinenze: +€0
+   Valorizzazioni: +€8,245
+   Svalutazioni: -€54,964
+   💰 VALORE STIMATO: €228,101
+   Range: €205,291 - €250,911
+   Prezzo consigliato: €228,101
+
+📊 CONFRONTO:
+   Differenza: €78,101 (+52.1%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>52%)
+
+================================================================================
+ANNUNCIO 12/15 - D1077
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Porto Azzurro - Periferia
+   Tipologia: Appartamento
+   Superficie: 55 mq
+   Stato: Ottimo
+   Distanza mare: 800m
+   Terrazzo: Sì
+   Giardino: 250 mq
+   Box auto: Sì
+   💰 PREZZO REALE: €250,000
+   💶 Prezzo/mq reale: €4,545/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €3,200
+   Valore base: €176,000
+   Pertinenze: +€NaN
+   Valorizzazioni: +€14,080
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €NaN
+   Range: €NaN - €NaN
+   Prezzo consigliato: €NaN
+
+📊 CONFRONTO:
+   Differenza: €NaN (NaN%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>NaN%)
+
+================================================================================
+ANNUNCIO 13/15 - rs-8489
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Campo nell'Elba - State
+   Tipologia: Appartamento
+   Superficie: 65 mq
+   Stato: Buono
+   Distanza mare: 700m
+   Box auto: Sì
+   💰 PREZZO REALE: €300,000
+   💶 Prezzo/mq reale: €4,615/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €3,040
+   Valore base: €197,600
+   Pertinenze: +€NaN
+   Valorizzazioni: +€0
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €NaN
+   Range: €NaN - €NaN
+   Prezzo consigliato: €NaN
+
+📊 CONFRONTO:
+   Differenza: €NaN (NaN%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>NaN%)
+
+================================================================================
+ANNUNCIO 14/15 - 5153
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Portoferraio - Centro città
+   Tipologia: Appartamento
+   Superficie: 65 mq
+   Stato: Buono
+   Distanza mare: 800m
+   💰 PREZZO REALE: €270,000
+   💶 Prezzo/mq reale: €4,154/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €2,945
+   Valore base: €191,425
+   Pertinenze: +€0
+   Valorizzazioni: +€0
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €191,425
+   Range: €172,283 - €210,568
+   Prezzo consigliato: €191,425
+
+📊 CONFRONTO:
+   Differenza: €-78,575 (-29.1%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>29%)
+
+================================================================================
+ANNUNCIO 15/15 - 624773118
+================================================================================
+
+📍 DATI ANNUNCIO REALE:
+   Comune: Capoliveri - Centro Storico
+   Tipologia: Appartamento
+   Superficie: 55 mq
+   Stato: Buono
+   Distanza mare: 300m
+   Vista mare: Si (mansarda)
+   💰 PREZZO REALE: €139,000
+   💶 Prezzo/mq reale: €2,527/mq
+
+🔍 VALUTAZIONE ALGORITMO:
+   Prezzo/mq zona: €4,020
+   Valore base: €221,100
+   Pertinenze: +€0
+   Valorizzazioni: +€11,055
+   Svalutazioni: -€0
+   💰 VALORE STIMATO: €232,155
+   Range: €208,940 - €255,371
+   Prezzo consigliato: €232,155
+
+📊 CONFRONTO:
+   Differenza: €93,155 (+67.0%)
+   Prezzo reale nel range: ❌ NO
+   Accuratezza: ❌ DA MIGLIORARE (>67%)
+
+
+================================================================================
+STATISTICHE BACKTEST
+================================================================================
+
+📈 ACCURATEZZA GENERALE:
+   Annunci testati: 15
+   Prezzo reale nel range (±10%): 2/15 (13.3%)
+   Accuratezza OTTIMA (±10%): 2/15 (13.3%)
+   Accuratezza BUONA (±20%): 0/15 (0.0%)
+   Da migliorare (>20%): 13/15 (86.7%)
+
+📊 ERRORE MEDIO:
+   Differenza assoluta media: €NaN
+   Errore percentuale medio: NaN%
+
+🏆 MIGLIORE STIMA:
+   Rif. 410 - Portoferraio
+   Errore: NaN%
+
+⚠️  PEGGIORE STIMA:
+   Rif. 410 - Portoferraio
+   Errore: NaN%
+
+✅ Risultati salvati in: backtest-risultati.json
+✅ Report CSV salvato in: backtest-report.csv
+
+================================================================================
+

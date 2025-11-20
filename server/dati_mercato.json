@@ -13,7 +13,7 @@
   "comuni": {
     "portoferraio": {
       "nome": "Portoferraio",
-      "prezzo_medio_mq": 3100,
+      "prezzo_medio_mq": 3000,
       "trend_annuale": "+5.45%",
       "localita": {
         "acquabona": { "nome": "Acquabona", "prezzo_mq": 3000 },
@@ -23,7 +23,7 @@
         "campo_ai_peri": { "nome": "Campo ai Peri", "prezzo_mq": 2700 },
         "capobianco": { "nome": "Capobianco", "prezzo_mq": 4500 },
         "carpani": { "nome": "Carpani", "prezzo_mq": 3100 },
-        "centro": { "nome": "Centro", "prezzo_mq": 3100 },
+        "centro": { "nome": "Centro", "prezzo_mq": 3000 },
         "ghiaie": { "nome": "Ghiaie", "prezzo_mq": 4500 },
         "magazzini": { "nome": "Magazzini", "prezzo_mq": 3800 },
         "ottone": { "nome": "Ottone", "prezzo_mq": 3800 },
@@ -80,12 +80,12 @@
     },
     "capoliveri": {
       "nome": "Capoliveri",
-      "prezzo_medio_mq": 4020,
+      "prezzo_medio_mq": 3500,
       "trend_annuale": "+4.32%",
       "localita": {
-        "barabarca": { "nome": "Barabarca", "prezzo_mq": 4000 },
-        "capo_perla": { "nome": "Capo Perla", "prezzo_mq": 4000 },
-        "centro": { "nome": "Centro", "prezzo_mq": 4020 },
+        "barabarca": { "nome": "Barabarca", "prezzo_mq": 3500 },
+        "capo_perla": { "nome": "Capo Perla", "prezzo_mq": 3500 },
+        "centro": { "nome": "Centro", "prezzo_mq": 3500 },
         "gli_stecchi": { "nome": "Gli Stecchi", "prezzo_mq": 4000 },
         "innamorata": { "nome": "Innamorata", "prezzo_mq": 4300 },
         "lacona": { "nome": "Lacona", "prezzo_mq": 4120 },

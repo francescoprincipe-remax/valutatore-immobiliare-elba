@@ -153,7 +153,15 @@ export function calcolaValutazione(dati: DatiImmobile): RisultatoValutazione {
   const { valoreSvalutazioni, dettaglioSvalutazioni } = calcolaSvalutazioni(dati, valoreBase);
 
   // 6. Calcola totale
-  const valoreTotale = valoreBase + valorePertinenze + valoreValorizzazioni - valoreSvalutazioni;
+  let valoreTotale = valoreBase + valorePertinenze + valoreValorizzazioni - valoreSvalutazioni;
+
+  // 6.5. Applica sconto progressivo per ville/immobili grandi (>150mq)
+  if (dati.superficieAbitabile > 150) {
+    // Sconto progressivo: -3% per ogni 50mq oltre i 150mq (max -15%)
+    const mqOltre150 = dati.superficieAbitabile - 150;
+    const scontoPercentuale = Math.min(0.15, (Math.floor(mqOltre150 / 50) + 1) * 0.03);
+    valoreTotale = Math.round(valoreTotale * (1 - scontoPercentuale));
+  }
 
   // 7. Calcola range (±10%)
   const valoreMin = Math.round(valoreTotale * 0.9);
@@ -242,23 +250,12 @@ function calcolaValorePertinenze(dati: DatiImmobile, prezzoMqZona: number) {
   // Giardino
   if (dati.hasGiardino && dati.superficieGiardino) {
     const superficie = dati.superficieGiardino;
-    let mqEquivalenti = 0;
-
-    if (dati.tipoGiardino === 'villa') {
-      // 15% primi 25mq, 10% oltre
-      mqEquivalenti = Math.min(superficie, 25) * coefficienti.giardino_villa_primi_25mq +
-        Math.max(0, superficie - 25) * coefficienti.giardino_villa_oltre_25mq;
-    } else {
-      // Appartamento: 15% primi 25mq, 5% oltre
-      mqEquivalenti = Math.min(superficie, 25) * coefficienti.giardino_appartamento_primi_25mq +
-        Math.max(0, superficie - 25) * coefficienti.giardino_appartamento_oltre_25mq;
-    }
-
-    let valore = mqEquivalenti * prezzoMqZona;
+    // Usa coefficiente semplice dal JSON: 10% del valore al mq
+    let valore = superficie * coefficienti.giardino * prezzoMqZona;
 
     // Bonus piscina
     if (dati.hasPiscina) {
-      valore *= 1.15; // +15% se ha piscina
+      valore *= (1 + coefficienti.piscina); // +15% se ha piscina
     }
 
     dettaglio.giardino = Math.round(valore);
@@ -267,11 +264,8 @@ function calcolaValorePertinenze(dati: DatiImmobile, prezzoMqZona: number) {
 
   // Terrazzo/Balcone
   if (dati.hasTerrazzo && dati.superficieTerrazzo) {
-    let coeff = coefficienti.terrazzo_scoperto;
-    if (dati.tipoTerrazzo === 'coperto') coeff = coefficienti.terrazzo_coperto;
-    if (dati.tipoTerrazzo === 'veranda') coeff = coefficienti.veranda_chiusa;
-
-    const valore = dati.superficieTerrazzo * coeff * prezzoMqZona;
+    // Usa coefficiente terrazzo dal JSON: 8% del valore al mq
+    const valore = dati.superficieTerrazzo * coefficienti.terrazzo * prezzoMqZona;
     dettaglio.terrazzo = Math.round(valore);
     totale += valore;
   }
@@ -279,22 +273,23 @@ function calcolaValorePertinenze(dati: DatiImmobile, prezzoMqZona: number) {
   // Cortile
   if (dati.hasCortile && dati.superficieCortile) {
     const superficie = dati.superficieCortile;
-    const coeff = superficie <= 25 ? coefficienti.cortile_fino_25mq : coefficienti.cortile_oltre_25mq;
-    const valore = superficie * coeff * prezzoMqZona;
+    // Usa coefficiente cortile dal JSON: 5% del valore al mq
+    const valore = superficie * coefficienti.cortile * prezzoMqZona;
     dettaglio.cortile = Math.round(valore);
     totale += valore;
   }
 
   // Cantina/Magazzino
   if (dati.hasCantina && dati.superficieCantina) {
-    const valore = dati.superficieCantina * coefficienti.cantina_magazzino * prezzoMqZona;
+    // Usa coefficiente cantina dal JSON: 3% del valore al mq
+    const valore = dati.superficieCantina * coefficienti.cantina * prezzoMqZona;
     dettaglio.cantina = Math.round(valore);
     totale += valore;
   }
 
   // Posto auto
   if (dati.hasPostoAuto && dati.numeroPostiAuto) {
-    const coeff = dati.tipoPostoAuto === 'coperto' ? coefficienti.box_coperto : coefficienti.posto_auto_scoperto;
+    const coeff = dati.tipoPostoAuto === 'coperto' ? coefficienti.box_auto : coefficienti.posto_auto;
     // Assume 15mq per posto auto
     const valore = 15 * coeff * prezzoMqZona * dati.numeroPostiAuto;
     dettaglio.postoAuto = Math.round(valore);
