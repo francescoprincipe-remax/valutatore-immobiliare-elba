@@ -65,3 +65,13 @@
 
 **Test:** 6/6 passano ✅  
 **Sync GitHub:** Automatico ✅
+
+
+---
+
+## ✅ BUG RISOLTO
+
+- [x] **Bug valori €0 RISOLTO**: Il riavvio del server ha corretto il problema di compilazione
+- [x] Tutti i valori ora vengono visualizzati correttamente (min/max/totale/consigliato)
+- [x] Test confermato: Capoliveri Centro, 53mq, appartamento, vista mare → €234.366
+- [x] Causa: Errore di sintassi in pdf-generator.ts che bloccava la compilazione
