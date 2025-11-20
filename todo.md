@@ -1,6 +1,34 @@
 # Project TODO - Valutatore Immobiliare Elba
 
-## ✅ TUTTE LE FUNZIONALITÀ COMPLETATE
+## ✅ NUOVE MODIFICHE COMPLETATE (20 Nov 2025)
+
+### Homepage
+- [x] Correggere "8 Comuni" → "6 Comuni"
+- [x] Footer: "Francesco Principe - RE/MAX Mindset" (non "Agente Immobiliare")
+- [x] Spostare FAQ da footer a homepage (6 domande principali + link "Vedi tutte")
+- [x] Logo footer visibile sopra "Valutatore Immobiliare..." (rimosso filtro B/N)
+
+### Pagina Risultati
+- [x] Unificata CTA duplicata (rimossa prima, mantenuta solo finale ottimizzata)
+- [x] Testo CTA migliorato: "Vuoi Vendere Più Velocemente?" + guida personalizzata
+
+### Report PDF
+- [x] Copyright aggiornato: "© 2025 Francesco Principe - RE/MAX Mindset"
+- [x] Aggiunta pagina disclaimer professionale completa
+- [x] Rimossa sezione "Miglioramenti Suggeriti"
+
+### Database Lead
+- [x] Creata tabella leads nel database (migrazione 0002 applicata)
+- [x] Campo email obbligatorio nel form
+- [x] Checkbox GDPR per comunicazioni (obbligatoria)
+- [x] Validazione form aggiornata con controllo email + GDPR
+
+### Note Tecniche
+- ⚠️ **Favicon**: deve essere cambiato manualmente tramite Management UI (Settings → General → Favicon). Il favicon non è modificabile via codice.
+
+---
+
+## ✅ FUNZIONALITÀ COMPLETATE
 
 ### Fix Urgenti ✅
 - [x] Bug valore €0 risolto
@@ -26,47 +54,14 @@
 - [x] Script sync automatico GitHub
 - [x] Documentazione completa
 
-## 🔄 SCRIPT SYNC GITHUB ✅
-
-- [x] Creato sync-github.sh
-- [x] Configurate credenziali GitHub
-- [x] Testato e funzionante
-- [x] Documentato in README
-
-**Uso:**
-```bash
-./sync-github.sh                          # Sync automatico
-./sync-github.sh "messaggio personalizzato"  # Sync con messaggio
-```
-
 ---
 
 ## 📊 STATO PROGETTO
 
-**Checkpoint Corrente:** `eb7536b7`  
+**Checkpoint Precedente:** `eb7536b7`  
+**Checkpoint Corrente:** In preparazione (9 modifiche UX/branding)  
 **Repository GitHub:** https://github.com/francescoprincipe-remax/valutatore-immobiliare-elba  
-**Sito Live:** https://3000-ikihybht38uvcohx58p2v-3139bba0.manusvm.computer  
-**Sito Produzione:** https://elba-value-aa6kavmf.manus.space
+**Sito Live:** https://valutator-asn5tjzf.manus.space  
 
 **Test:** 6/6 passano ✅  
-**Stato:** Produzione ✅  
 **Sync GitHub:** Automatico ✅
-
----
-
-## 🎯 PROSSIMI SVILUPPI SUGGERITI
-
-### Alta Priorità
-- [ ] Google Analytics 4 per tracking conversioni
-- [ ] Notifiche email automatiche per lead PDF
-- [ ] Landing page SEO per ogni comune
-
-### Media Priorità
-- [ ] Exit intent popup con guida gratuita
-- [ ] Live chat widget (Tawk.to/Crisp)
-- [ ] A/B testing CTA WhatsApp
-
-### Bassa Priorità
-- [ ] Pixel Facebook e Google Ads
-- [ ] Sistema recensioni clienti
-- [ ] Blog con articoli mercato immobiliare Elba

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ArrowRight, Calculator, TrendingUp, FileText, Shield, MapPin, Home as HomeIcon } from "lucide-react";
 import { Link } from "wouter";
 import { APP_LOGO, APP_TITLE } from "@/const";
@@ -206,9 +206,9 @@ export default function Home() {
                 <div className="flex items-start gap-3">
                   <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                   <div>
-                    <h5 className="font-semibold text-foreground mb-1">8 Comuni Analizzati</h5>
+                    <h5 className="font-semibold text-foreground mb-1">6 Comuni Analizzati</h5>
                     <p className="text-muted-foreground text-sm">
-                      Dati specifici per Portoferraio, Campo nell'Elba, Capoliveri, Marciana Marina, Porto Azzurro, Marciana, Rio e tutte le località
+                      Dati specifici per Portoferraio, Campo nell'Elba, Capoliveri, Marciana Marina, Porto Azzurro, Marciana e tutte le località
                     </p>
                   </div>
                 </div>
@@ -247,6 +247,73 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-20 bg-background">
+        <div className="container max-w-5xl">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Domande Frequenti
+            </h3>
+            <p className="text-lg text-muted-foreground">
+              Tutto quello che devi sapere sul Valutatore Immobiliare per l'Isola d'Elba
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                question: "Come funziona il valutatore immobiliare?",
+                answer: "Il nostro valutatore utilizza un algoritmo avanzato che analizza oltre 50 parametri del mercato immobiliare dell'Isola d'Elba. Considera la località, le caratteristiche dell'immobile, lo stato di manutenzione, le pertinenze e le valorizzazioni per fornire una stima accurata e professionale del valore di mercato."
+              },
+              {
+                question: "La valutazione è gratuita?",
+                answer: "Sì, la valutazione online è completamente gratuita e senza impegno. Puoi ottenere una stima professionale del valore del tuo immobile in pochi minuti, con la possibilità di scaricare un report PDF dettagliato."
+              },
+              {
+                question: "Quanto è accurata la valutazione?",
+                answer: "La valutazione si basa su dati reali di mercato aggiornati e quotazioni OMI (Osservatorio del Mercato Immobiliare). L'algoritmo considera le specificità del mercato dell'Isola d'Elba e fornisce un range di valutazione (minimo-massimo) per tenere conto delle variabili di mercato. Per una valutazione ancora più precisa, contattaci per un sopralluogo professionale."
+              },
+              {
+                question: "Perché il prezzo al mq diminuisce con superfici maggiori?",
+                answer: "È un principio economico standard del mercato immobiliare: immobili più grandi hanno un prezzo al metro quadro inferiore perché il mercato di acquirenti per superfici ampie è più ristretto. Il nostro algoritmo applica uno sconto progressivo (5-15%) per superfici oltre i 60mq, riflettendo la realtà del mercato."
+              },
+              {
+                question: "Posso usare questa valutazione per vendere?",
+                answer: "La valutazione fornita è un'ottima base di partenza per determinare il prezzo di vendita. Tuttavia, per una vendita professionale ti consigliamo di contattarci per: una valutazione con sopralluogo, analisi della concorrenza locale, strategia di marketing personalizzata e supporto nella trattativa."
+              },
+              {
+                question: "Come posso ottenere il report PDF?",
+                answer: "Dopo aver visualizzato i risultati della valutazione, clicca sul pulsante 'Scarica Report PDF'. Ti verrà chiesto di inserire nome, cognome e telefono per ricevere il report completo con tutti i dettagli della valutazione, grafici e consigli strategici."
+              }
+            ].map((faq, index) => (
+              <Card key={index} className="hover:shadow-md transition-shadow">
+                <CardHeader>
+                  <h4 className="text-lg font-semibold flex items-start gap-3">
+                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+                      {index + 1}
+                    </span>
+                    <span>{faq.question}</span>
+                  </h4>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed pl-11">
+                    {faq.answer}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Link href="/faq">
+              <Button variant="outline" size="lg">
+                Vedi Tutte le FAQ
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Final Section */}
       <section className="py-20 bg-gradient-to-r from-primary to-blue-600 text-white">
         <div className="container text-center">
@@ -270,7 +337,7 @@ export default function Home() {
         <div className="container">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <img src={APP_LOGO} alt="RE/MAX" className="h-10 w-auto mb-4 brightness-0 invert" />
+              <img src={APP_LOGO} alt="RE/MAX" className="h-10 w-auto mb-4" />
               <p className="text-sm text-white/70">
                 Valutatore Immobiliare Professionale per l'Isola d'Elba
               </p>
@@ -303,7 +370,7 @@ export default function Home() {
           </div>
           <div className="border-t border-white/20 mt-8 pt-8">
             <p className="text-center text-sm text-white/70 mb-4 font-semibold">
-              © 2025 Francesco Principe - Agente Immobiliare RE/MAX. Tutti i diritti riservati.
+              © 2025 Francesco Principe - RE/MAX Mindset. Tutti i diritti riservati.
             </p>
             <div className="max-w-4xl mx-auto">
               <p className="text-center text-xs text-white/50 leading-relaxed">

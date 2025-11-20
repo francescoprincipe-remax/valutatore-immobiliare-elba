@@ -114,3 +114,37 @@ export const datiMercato = mysqlTable("datiMercato", {
 
 export type DatoMercato = typeof datiMercato.$inferSelect;
 export type InsertDatoMercato = typeof datiMercato.$inferInsert;
+
+/**
+ * Tabella per i lead generati dal form PDF
+ */
+export const leads = mysqlTable("leads", {
+  id: int("id").autoincrement().primaryKey(),
+  valutazioneId: int("valutazioneId").references(() => valutazioni.id),
+  
+  // Dati contatto (obbligatori)
+  nome: varchar("nome", { length: 100 }).notNull(),
+  cognome: varchar("cognome", { length: 100 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  telefono: varchar("telefono", { length: 50 }).notNull(),
+  
+  // GDPR
+  gdprConsent: boolean("gdprConsent").notNull().default(false),
+  gdprConsentDate: timestamp("gdprConsentDate").defaultNow(),
+  
+  // Dati immobile (per riferimento)
+  comune: varchar("comune", { length: 100 }),
+  tipologia: varchar("tipologia", { length: 50 }),
+  superficie: int("superficie"),
+  valoreTotale: int("valoreTotale"),
+  
+  // Metadata
+  ipAddress: varchar("ipAddress", { length: 50 }),
+  userAgent: text("userAgent"),
+  source: varchar("source", { length: 100 }).default("valutatore_web"),
+  
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Lead = typeof leads.$inferSelect;
+export type InsertLead = typeof leads.$inferInsert;

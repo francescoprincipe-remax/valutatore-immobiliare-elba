@@ -176,34 +176,6 @@ export function generatePDFReport(
     yPos += 5;
   }
 
-  // Miglioramenti Suggeriti
-  if (risultato.consigli.miglioramenti.length > 0) {
-    if (yPos > 250) {
-      doc.addPage();
-      yPos = 20;
-    }
-
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'bold');
-    doc.text('MIGLIORAMENTI SUGGERITI', 15, yPos);
-    yPos += 7;
-
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'normal');
-    risultato.consigli.miglioramenti.forEach((miglioramento) => {
-      const lines = doc.splitTextToSize(`• ${miglioramento}`, pageWidth - 30);
-      lines.forEach((line: string) => {
-        if (yPos > 280) {
-          doc.addPage();
-          yPos = 20;
-        }
-        doc.text(line, 15, yPos);
-        yPos += 5;
-      });
-    });
-    yPos += 5;
-  }
-
   // Strategia di Vendita
   if (risultato.consigli.strategiaVendita.length > 0) {
     if (yPos > 230) {
@@ -244,12 +216,61 @@ export function generatePDFReport(
       { align: 'center' }
     );
     doc.text(
-      '© 2025 RE/MAX - Valutatore Immobiliare Isola d\'Elba',
+      '© 2025 Francesco Principe - RE/MAX Mindset',
       pageWidth / 2,
       doc.internal.pageSize.height - 5,
       { align: 'center' }
     );
   }
+
+  // Disclaimer professionale (ultima pagina)
+  doc.addPage();
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(...darkGray);
+  doc.text('DISCLAIMER PROFESSIONALE', pageWidth / 2, 20, { align: 'center' });
+  
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(80, 80, 80);
+  const disclaimerText = [
+    'La presente valutazione immobiliare è stata generata automaticamente mediante algoritmo proprietario basato su dati di mercato, quotazioni OMI e parametri tecnici dell\'immobile. Tale stima ha carattere puramente indicativo e orientativo.',
+    '',
+    'La valutazione automatica NON sostituisce una perizia tecnica professionale effettuata da un esperto abilitato mediante sopralluogo fisico dell\'immobile. Per una valutazione definitiva e vincolante ai fini di compravendita, è necessario richiedere una consulenza personalizzata con sopralluogo.',
+    '',
+    'I valori indicati nel presente report possono variare in funzione di: condizioni specifiche dell\'immobile non rilevabili da valutazione automatica, dinamiche di mercato locale, stagionalità, presenza di vincoli urbanistici o ambientali, stato documentale della proprietà.',
+    '',
+    'Francesco Principe e RE/MAX Mindset declinano ogni responsabilità per decisioni commerciali o finanziarie assunte sulla base della presente valutazione automatica senza preventiva consulenza professionale diretta.',
+  ];
+  
+  let disclaimerY = 35;
+  disclaimerText.forEach(line => {
+    if (line === '') {
+      disclaimerY += 5;
+    } else {
+      const splitLines = doc.splitTextToSize(line, pageWidth - 30);
+      splitLines.forEach((splitLine: string) => {
+        doc.text(splitLine, 15, disclaimerY);
+        disclaimerY += 5;
+      });
+    }
+  });
+
+  // Footer anche per pagina disclaimer
+  doc.setFontSize(8);
+  doc.setTextColor(150, 150, 150);
+  doc.text(
+    `Report generato il ${new Date().toLocaleDateString('it-IT')} - Pagina ${pageCount + 1} di ${pageCount + 1}`,
+    pageWidth / 2,
+    doc.internal.pageSize.height - 10,
+    { align: 'center' }
+  );
+  doc.text(
+    '© 2025 Francesco Principe - RE/MAX Mindset',
+    pageWidth / 2,
+    doc.internal.pageSize.height - 5,
+    { align: 'center' }
+  );
 
   // Salva il PDF
   const filename = `Valutazione_${datiImmobile.comune}_${Date.now()}.pdf`;
