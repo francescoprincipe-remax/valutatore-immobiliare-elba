@@ -57,3 +57,15 @@ Garantire continuità lavoro tra chat diverse senza perdita contesto
 - [ ] Creare script setup rapido
 - [ ] Documentare comandi comuni
 - [ ] Push finale su GitHub
+
+
+## 🔄 SCRIPT SYNC GITHUB AUTOMATICO
+
+### Obiettivo
+Push automatico su GitHub dopo ogni checkpoint Manus
+
+### Task
+- [ ] Creare script sync-github.sh
+- [ ] Configurare credenziali GitHub sicure
+- [ ] Testare script
+- [ ] Documentare uso in README

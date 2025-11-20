@@ -62,6 +62,26 @@ Il progetto è pronto! Puoi:
 
 ---
 
+## 🔄 Sync Automatico GitHub
+
+**Dopo ogni checkpoint Manus, esegui:**
+
+```bash
+# Sync automatico con messaggio generato
+./sync-github.sh
+
+# Sync con messaggio personalizzato
+./sync-github.sh "feat: nuova funzionalità XYZ"
+```
+
+Lo script:
+- ✅ Rileva modifiche automaticamente
+- ✅ Fa commit con timestamp
+- ✅ Push su GitHub
+- ✅ Mostra link repository
+
+---
+
 ## 🛠 Comandi Utili
 
 ```bash
