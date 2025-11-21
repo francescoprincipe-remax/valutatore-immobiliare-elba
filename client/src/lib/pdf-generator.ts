@@ -195,7 +195,7 @@ export function generatePDFReport(
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     risultato.consigli.puntiForza.slice(0, 4).forEach((punto: string) => {
-      doc.text(`✓ ${punto}`, 20, yPos);
+      doc.text(`* ${punto}`, 20, yPos);
       yPos += 5;
     });
   }
@@ -231,7 +231,7 @@ export function generatePDFReport(
   doc.setTextColor(...remaxRed);
   doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
-  doc.text('🧮 CALCOLA TASSE E ONERI', pageWidth / 2, yPos + 12, { align: 'center' });
+  doc.text('CALCOLA TASSE E ONERI', pageWidth / 2, yPos + 12, { align: 'center' });
 
   doc.setTextColor(...darkGray);
   doc.setFontSize(10);
@@ -244,7 +244,7 @@ export function generatePDFReport(
   doc.setTextColor(...remaxBlue);
   doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
-  const linkText = '👉 CLICCA QUI PER CALCOLARE';
+  const linkText = '>> CLICCA QUI PER CALCOLARE';
   const linkWidth = doc.getTextWidth(linkText);
   const linkX = (pageWidth - linkWidth) / 2;
   doc.textWithLink(linkText, linkX, yPos + 38, {
@@ -272,12 +272,12 @@ export function generatePDFReport(
   doc.setFont('helvetica', 'normal');
 
   const vantaggi = [
-    '🏆 Leader mondiale nel settore immobiliare',
-    '🌍 Network internazionale per massima visibilità',
-    '📸 Marketing professionale (foto, video, virtual tour)',
-    '💰 Strategie di pricing basate su dati reali',
-    '⚡ Vendita più veloce grazie a tecnologia avanzata',
-    '🤝 Assistenza completa dalla stima alla firma',
+    '* Leader mondiale nel settore immobiliare',
+    '* Network internazionale per massima visibilita',
+    '* Marketing professionale (foto, video, virtual tour)',
+    '* Strategie di pricing basate su dati reali',
+    '* Vendita piu veloce grazie a tecnologia avanzata',
+    '* Assistenza completa dalla stima alla firma',
   ];
 
   let vantY = yPos + 20;
@@ -297,7 +297,7 @@ export function generatePDFReport(
   doc.setTextColor(...remaxRed);
   doc.setFontSize(12);
   doc.setFont('helvetica', 'bold');
-  doc.text('⚡ MERCATO COMPETITIVO - AGISCI ORA', pageWidth / 2, yPos + 10, { align: 'center' });
+  doc.text('MERCATO COMPETITIVO - AGISCI ORA', pageWidth / 2, yPos + 10, { align: 'center' });
 
   doc.setTextColor(...darkGray);
   doc.setFontSize(9);
@@ -439,7 +439,7 @@ export function generatePDFReport(
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.text('Francesco Principe - RE/MAX Mindset', pageWidth / 2, yPos + 14, { align: 'center' });
-  doc.text('📧 francesco.principe@remax.it', pageWidth / 2, yPos + 19, { align: 'center' });
+  doc.text('Email: francesco.principe@remax.it', pageWidth / 2, yPos + 19, { align: 'center' });
 
   // Footer Pagina 3
   doc.setFontSize(7);

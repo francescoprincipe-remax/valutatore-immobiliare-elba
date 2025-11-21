@@ -268,3 +268,15 @@
 - [x] **Pagina 1 ora completa**: Dati immobile, valori stimati, composizione valore, competitività, punti di forza
 - [x] **Pagina 2 funzionante**: Funnel CTA, link calcolatore tasse, "Perché RE/MAX", urgenza mercato, CTA WhatsApp
 - [x] **Pagina 3 funzionante**: Disclaimer professionale completo
+
+
+---
+
+## ✅ PROBLEMI LEGGIBILITÀ PDF RISOLTI
+
+- [x] **Pagina 1 illeggibile RISOLTO**: Corretto campo `superficie` → `superficieAbitabile` (problema precedente)
+- [x] **Pagina 2 caratteri strani RISOLTO**: Rimosse tutte le emoji (`🧮`, `👉`, `🏆`, `🌍`, `📸`, `💰`, `⚡`, `🤝`, `📧`)
+- [x] **Checkmark Unicode rimosso**: Sostituito `✓` con `*` (asterisco ASCII)
+- [x] **Causa identificata**: jsPDF non supporta emoji e caratteri Unicode speciali
+- [x] **Soluzione applicata**: Usati solo caratteri ASCII/UTF-8 standard (*, >>, -, Email:)
+- [x] **Test confermato**: PDF generato con successo, nessun errore nella console
