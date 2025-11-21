@@ -14,7 +14,7 @@ export default function Home() {
             <img src={APP_LOGO} alt="RE/MAX" className="h-12 w-auto" />
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold text-foreground">{APP_TITLE}</h1>
-              <p className="text-xs text-muted-foreground">Valutazione Professionale</p>
+              <p className="text-xs text-muted-foreground">Stima Automatica di Mercato</p>
             </div>
           </div>
           <Link href="/valuta">
@@ -43,7 +43,7 @@ export default function Home() {
               Scopri il Valore del Tuo Immobile all'Isola d'Elba
             </h2>
             <p className="text-xl md:text-2xl text-white/95 mb-8 leading-relaxed">
-              Valutazione professionale basata su dati di mercato reali. 
+              Stima automatica basata su dati di mercato reali. 
               Algoritmo avanzato con oltre 50 parametri analizzati.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -119,9 +119,9 @@ export default function Home() {
                 <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
                   <FileText className="h-8 w-8 text-primary" />
                 </div>
-                <h4 className="text-xl font-bold mb-3 text-foreground">Report Professionale</h4>
+                <h4 className="text-xl font-bold mb-3 text-foreground">Report Dettagliato</h4>
                 <p className="text-muted-foreground">
-                  Report PDF scaricabile con breakdown completo del calcolo, analisi competitività e consigli personalizzati
+                  Report PDF scaricabile con breakdown completo del calcolo, analisi competitività e suggerimenti di mercato
                 </p>
               </CardContent>
             </Card>
@@ -150,7 +150,7 @@ export default function Home() {
               Come Funziona
             </h3>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Processo semplice in 3 passaggi per ottenere la tua valutazione professionale
+              Processo semplice in 3 passaggi per ottenere la tua stima di mercato
             </p>
           </div>
 

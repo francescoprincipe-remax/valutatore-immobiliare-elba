@@ -13,7 +13,8 @@ import {
   Lightbulb,
   ChevronDown,
   ChevronUp,
-  FileText
+  FileText,
+  AlertCircle
 } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { APP_LOGO } from "@/const";
@@ -154,6 +155,21 @@ export default function Risultato() {
       </header>
 
       <div className="container py-8 max-w-6xl">
+        {/* Disclaimer */}
+        <div className="mb-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <h3 className="font-semibold text-amber-900 mb-1">Stima Automatica Indicativa</h3>
+              <p className="text-sm text-amber-800">
+                Questa è una <strong>stima automatica di mercato</strong> generata da un algoritmo basato su dati pubblici e statistiche. 
+                <strong className="block mt-1">Non sostituisce una valutazione professionale</strong> effettuata da un agente immobiliare abilitato. 
+                I valori indicati sono puramente orientativi e non vincolanti.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Hero Result Card */}
         <Card className="mb-8 border-2 border-primary/20 shadow-lg">
           <CardContent className="pt-8">
@@ -212,7 +228,7 @@ export default function Risultato() {
               Composizione del Valore
             </CardTitle>
             <CardDescription>
-              Analisi dettagliata dei fattori che determinano la valutazione
+              Analisi dettagliata dei fattori che determinano la stima
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">

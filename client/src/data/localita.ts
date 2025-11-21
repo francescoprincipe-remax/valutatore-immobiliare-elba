@@ -9,7 +9,8 @@ export const COMUNI_ELBA = [
   "Capoliveri",
   "Marciana",
   "Marciana Marina",
-  "Porto Azzurro"
+  "Porto Azzurro",
+  "Rio"
 ];
 
 export const LOCALITA_PER_COMUNE: Record<string, string[]> = {

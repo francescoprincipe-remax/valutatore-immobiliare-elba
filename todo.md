@@ -144,3 +144,25 @@
 ### Note
 - Villa 210 Lacona (268mq, 5 unità): +214% - caso estremo da gestire con alert
 - Mansarda 624773118: sconto non applicato (campo "piano" non popolato dal form)
+
+
+---
+
+## ✅ BUG RISOLTO
+
+- [x] **Rio aggiunto al form**: Il comune Rio ora compare nel dropdown localizzazione
+- [x] File corretto: `client/src/data/localita.ts` - aggiunto Rio a COMUNI_ELBA
+- [x] Test confermato: Rio visibile con 13 località disponibili
+
+
+---
+
+## ✅ DISCLAIMER E TERMINOLOGIA COMPLETATI
+
+- [x] Rimosso "valutazione professionale" da tutte le sezioni
+- [x] Sostituito con "Stima Automatica di Mercato" e "Stima Indicativa"
+- [x] Aggiunto disclaimer prominente nella pagina risultati (box giallo con AlertCircle)
+- [x] Chiarito che è una stima non vincolante basata su algoritmo
+- [x] Homepage: "Stima automatica basata su dati di mercato reali"
+- [x] Form: "Calcola Stima" invece di "Calcola Valutazione"
+- [x] Risultati: "Analisi dettagliata dei fattori che determinano la stima"

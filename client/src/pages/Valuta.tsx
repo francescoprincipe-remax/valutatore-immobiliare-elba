@@ -94,7 +94,7 @@ export default function Valuta() {
       setLocation('/risultato');
     },
     onError: (error) => {
-      toast.error("Errore nel calcolo della valutazione: " + error.message);
+      toast.error("Errore nel calcolo della stima: " + error.message);
     }
   });
 
@@ -742,7 +742,7 @@ export default function Valuta() {
 
                 <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
                   <p className="text-sm text-blue-900">
-                    ℹ️ Verifica che tutti i dati siano corretti. La valutazione sarà calcolata in base alle informazioni fornite.
+                    ℹ️ Verifica che tutti i dati siano corretti. La stima sarà calcolata in base alle informazioni fornite.
                   </p>
                 </div>
               </div>
@@ -774,7 +774,7 @@ export default function Valuta() {
               disabled={calcolaMutation.isPending}
               className="bg-primary hover:bg-primary/90"
             >
-              {calcolaMutation.isPending ? "Calcolo in corso..." : "Calcola Valutazione"}
+              {calcolaMutation.isPending ? "Calcolo in corso..." : "Calcola Stima"}
               <Check className="ml-2 h-4 w-4" />
             </Button>
           )}
