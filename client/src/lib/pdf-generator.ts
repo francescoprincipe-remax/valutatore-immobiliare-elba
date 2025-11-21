@@ -56,10 +56,10 @@ export function generatePDFReport(
   let yPos = 50;
 
   // Box dati immobile compatti (2 colonne)
-  doc.setFillColor(...lightGray);
+  doc.setFillColor(245, 245, 245); // lightGray
   doc.roundedRect(15, yPos, pageWidth - 30, 28, 2, 2, 'F');
   
-  doc.setTextColor(...darkGray);
+  doc.setTextColor(51, 51, 51); // darkGray
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
   
@@ -91,7 +91,7 @@ export function generatePDFReport(
   yPos += 38;
 
   // Box valori stimati - GRANDE E CENTRALE
-  doc.setFillColor(...remaxBlue);
+  doc.setFillColor(0, 102, 179); // remaxBlue
   doc.roundedRect(15, yPos, pageWidth - 30, 45, 3, 3, 'F');
   
   doc.setTextColor(255, 255, 255);
@@ -126,7 +126,7 @@ export function generatePDFReport(
   doc.setLineWidth(0.5);
   doc.roundedRect(15, yPos, pageWidth - 30, 18, 2, 2, 'FD');
   
-  doc.setTextColor(...darkGray);
+  doc.setTextColor(51, 51, 51); // darkGray
   doc.setFontSize(8);
   doc.setFont('helvetica', 'italic');
   const disclaimerText = 'Questa è una stima automatica indicativa basata su dati di mercato. Non sostituisce una valutazione professionale effettuata da un agente immobiliare abilitato.';
@@ -136,7 +136,7 @@ export function generatePDFReport(
   yPos += 24;
 
   // Tabella composizione valore - COMPATTA
-  doc.setTextColor(...darkGray);
+  doc.setTextColor(51, 51, 51); // darkGray
   doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
   doc.text('COMPOSIZIONE DEL VALORE', 15, yPos);
@@ -233,7 +233,7 @@ export function generatePDFReport(
   doc.setFont('helvetica', 'bold');
   doc.text('CALCOLA TASSE E ONERI', pageWidth / 2, yPos + 12, { align: 'center' });
 
-  doc.setTextColor(...darkGray);
+  doc.setTextColor(51, 51, 51); // darkGray
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   const ctaText = 'Scopri quanto dovrai pagare in tasse, imposte e spese notarili. Calcolo gratuito e immediato.';
@@ -267,7 +267,7 @@ export function generatePDFReport(
   doc.setFont('helvetica', 'bold');
   doc.text('PERCHÉ SCEGLIERE RE/MAX?', pageWidth / 2, yPos + 10, { align: 'center' });
 
-  doc.setTextColor(...darkGray);
+  doc.setTextColor(51, 51, 51); // darkGray
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
 
@@ -299,10 +299,10 @@ export function generatePDFReport(
   doc.setFont('helvetica', 'bold');
   doc.text('MERCATO COMPETITIVO - AGISCI ORA', pageWidth / 2, yPos + 10, { align: 'center' });
 
-  doc.setTextColor(...darkGray);
+  doc.setTextColor(51, 51, 51); // darkGray
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
-  const urgenzaText = `Con ${risultato.immobiliSimiliZona} immobili simili in zona, è fondamentale posizionarsi correttamente e agire velocemente per ottenere il miglior prezzo.`;
+  const urgenzaText = `Attenzione: ${risultato.immobiliSimiliZona} immobili simili sono attualmente in vendita nella stessa zona. Un prezzo competitivo e una strategia di marketing efficace sono fondamentali per vendere rapidamente e al miglior prezzo. Contattaci per una consulenza personalizzata.`;
   const urgenzaLines = doc.splitTextToSize(urgenzaText, pageWidth - 40);
   doc.text(urgenzaLines, pageWidth / 2, yPos + 18, { align: 'center' });
 
@@ -323,10 +323,10 @@ export function generatePDFReport(
 
   doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
-  doc.text('📱 WhatsApp: Clicca qui', pageWidth / 2, yPos + 28, { align: 'center' });
+  doc.text('WhatsApp: Clicca qui', pageWidth / 2, yPos + 28, { align: 'center' });
   
   // Link WhatsApp cliccabile
-  const whatsappLinkWidth = doc.getTextWidth('📱 WhatsApp: Clicca qui');
+  const whatsappLinkWidth = doc.getTextWidth('WhatsApp: Clicca qui');
   const whatsappX = (pageWidth - whatsappLinkWidth) / 2;
   doc.link(whatsappX, yPos + 24, whatsappLinkWidth, 6, {
     url: 'https://wa.me/message/4K6JSOQWVOTRL1'
@@ -354,7 +354,7 @@ export function generatePDFReport(
 
   yPos = 45;
 
-  doc.setTextColor(...darkGray);
+  doc.setTextColor(51, 51, 51); // darkGray
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
   doc.text('NATURA DELLA STIMA', 15, yPos);
@@ -435,7 +435,7 @@ export function generatePDFReport(
   doc.setFont('helvetica', 'bold');
   doc.text('CONTATTI', pageWidth / 2, yPos + 8, { align: 'center' });
 
-  doc.setTextColor(...darkGray);
+  doc.setTextColor(51, 51, 51); // darkGray
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.text('Francesco Principe - RE/MAX Mindset', pageWidth / 2, yPos + 14, { align: 'center' });

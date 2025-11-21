@@ -280,3 +280,15 @@
 - [x] **Causa identificata**: jsPDF non supporta emoji e caratteri Unicode speciali
 - [x] **Soluzione applicata**: Usati solo caratteri ASCII/UTF-8 standard (*, >>, -, Email:)
 - [x] **Test confermato**: PDF generato con successo, nessun errore nella console
+
+
+---
+
+## ✅ NUOVI PROBLEMI PDF RISOLTI
+
+- [x] **Pagina 1 illeggibile RISOLTO**: Corretto sintassi setFillColor/setTextColor usando parametri RGB separati (0, 102, 179) invece di spread operator
+- [x] **Simbolo strano `Ø=Ün` RISOLTO**: Rimossa emoji telefono `📱` dalla sezione "RICHIEDI CONSULENZA GRATUITA"
+- [x] **Link WhatsApp funzionante**: Link "WhatsApp: Clicca qui" correttamente collegato a https://wa.me/message/4K6JSOQWVOTRL1
+- [x] **Testo MERCATO COMPETITIVO migliorato**: Ora più persuasivo e specifico ("Attenzione: X immobili simili sono attualmente in vendita nella stessa zona. Un prezzo competitivo e una strategia di marketing efficace sono fondamentali...")
+- [x] **Contrasto corretto**: Usati colori RGB separati per tutti i setFillColor/setTextColor
+- [x] **Test confermato**: PDF generato con successo, nessun errore nella console
