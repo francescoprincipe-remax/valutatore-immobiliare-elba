@@ -161,12 +161,38 @@ export function calcolaValutazione(dati: DatiImmobile): RisultatoValutazione {
     valoreTotale = Math.round(valoreTotale * 0.90);
   }
 
-  // 6.6. Applica sconto progressivo per ville/immobili grandi (>150mq)
-  if (dati.superficieAbitabile > 150) {
-    // Sconto progressivo: -5% per ogni 50mq oltre i 150mq (max -20%)
-    const mqOltre150 = dati.superficieAbitabile - 150;
-    const scontoPercentuale = Math.min(0.20, (Math.floor(mqOltre150 / 50) + 1) * 0.05);
-    valoreTotale = Math.round(valoreTotale * (1 - scontoPercentuale));
+  // 6.5b. Applica sconto per mansarde/sottotetti (non civile abitazione)
+  if (dati.piano && (dati.piano.toLowerCase().includes('mansarda') || dati.piano.toLowerCase().includes('sottotetto') || dati.piano.toLowerCase().includes('attico'))) {
+    // Sconto -15% per mansarde/sottotetti (altezze ridotte, non sempre abitabilità piena)
+    valoreTotale = Math.round(valoreTotale * 0.85);
+  }
+
+  // 6.6. Applica riduzione prezzo/mq per immobili grandi (curva progressiva)
+  // Modello: riduzione progressiva del prezzo/mq all'aumentare della superficie
+  // Rationale: immobili grandi hanno mercato più ristretto e prezzo/mq inferiore
+  if (dati.superficieAbitabile > 100) {
+    let fattoreRiduzione = 1.0;
+    
+    if (dati.superficieAbitabile <= 150) {
+      // 100-150mq: riduzione leggera -2%
+      fattoreRiduzione = 0.98;
+    } else if (dati.superficieAbitabile <= 200) {
+      // 150-200mq: riduzione moderata -5%
+      fattoreRiduzione = 0.95;
+    } else if (dati.superficieAbitabile <= 250) {
+      // 200-250mq: riduzione significativa -10%
+      fattoreRiduzione = 0.90;
+    } else if (dati.superficieAbitabile <= 300) {
+      // 250-300mq: riduzione forte -15%
+      fattoreRiduzione = 0.85;
+    } else {
+      // >300mq: riduzione massima -20% + ulteriore -1% ogni 50mq (max -30% totale)
+      const mqOltre300 = dati.superficieAbitabile - 300;
+      const riduzioneExtra = Math.min(0.10, Math.floor(mqOltre300 / 50) * 0.01);
+      fattoreRiduzione = 0.80 - riduzioneExtra;
+    }
+    
+    valoreTotale = Math.round(valoreTotale * fattoreRiduzione);
   }
 
   // 7. Calcola range (±10%)

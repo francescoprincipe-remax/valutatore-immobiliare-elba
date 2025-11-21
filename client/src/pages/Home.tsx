@@ -206,9 +206,9 @@ export default function Home() {
                 <div className="flex items-start gap-3">
                   <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                   <div>
-                    <h5 className="font-semibold text-foreground mb-1">6 Comuni Analizzati</h5>
+                    <h5 className="font-semibold text-foreground mb-1">7 Comuni Analizzati</h5>
                     <p className="text-muted-foreground text-sm">
-                      Dati specifici per Portoferraio, Campo nell'Elba, Capoliveri, Marciana Marina, Porto Azzurro, Marciana e tutte le località
+                      Dati specifici per Portoferraio, Campo nell'Elba, Capoliveri, Marciana Marina, Porto Azzurro, Marciana, Rio e tutte le località
                     </p>
                   </div>
                 </div>

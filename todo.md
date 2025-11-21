@@ -130,3 +130,17 @@
 - [x] Accuratezza ±20%: 33% → **60%** (+82% miglioramento)
 - [x] Errore medio: 43.7% → **30.6%** (-30% miglioramento)
 - [x] 9/15 annunci ora con errore ≤20%
+
+
+---
+
+## ✅ CORREZIONI COMPLETATE
+
+- [x] **Homepage aggiornata**: "7 Comuni Analizzati" (aggiunto Rio)
+- [x] **Modello ville curva progressiva**: 100-150mq -2%, 150-200mq -5%, 200-250mq -10%, 250-300mq -15%, >300mq -20%+
+- [x] **Mansarde/sottotetti**: Sconto -15% implementato (controllo campo "piano")
+- [x] Backtest finale: errore medio 30.4%, accuratezza ±20% = 60%
+
+### Note
+- Villa 210 Lacona (268mq, 5 unità): +214% - caso estremo da gestire con alert
+- Mansarda 624773118: sconto non applicato (campo "piano" non popolato dal form)
