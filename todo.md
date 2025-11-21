@@ -105,3 +105,28 @@
 ### Note
 - Villa 210 Lacona (268mq, 5 unità) ancora problematica: +208% - caso estremo
 - Accuratezza generale: 33.3% annunci con errore ≤20%
+
+
+---
+
+## ✅ OTTIMIZZAZIONI COMPLETATE (Prezzi Reali Mercato)
+
+### Aggiornamento Massivo Database (43 località)
+- [x] Caricati prezzi reali forniti dall'utente via CSV
+- [x] Aggiornati tutti i prezzi/mq con dati mercato attuali
+- [x] Marciana Marina Centro: €2.300 → €3.600/mq (+57%)
+- [x] Campo nell'Elba medio: €4.600 → €3.783/mq (-18%)
+- [x] Capoliveri medio: €3.500 → €4.085/mq (+17%)
+- [x] Portoferraio medio: €3.000 → €3.805/mq (+27%)
+- [x] Rio - Località Cavo: €4.000 → €3.300/mq
+
+### Correzioni Algoritmo Applicate
+- [x] Immobili <50mq: sconto -10% per monolocali
+- [x] Immobili >150mq: sconto -5% ogni 50mq (max -20%)
+- [x] Stato "Da ristrutturare": sconto aumentato a -35%
+- [x] Valorizzazione vista mare: ridotta a +1.5% per "alcune stanze"
+
+### Risultati Backtest Finale
+- [x] Accuratezza ±20%: 33% → **60%** (+82% miglioramento)
+- [x] Errore medio: 43.7% → **30.6%** (-30% miglioramento)
+- [x] 9/15 annunci ora con errore ≤20%

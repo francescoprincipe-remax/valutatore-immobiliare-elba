@@ -155,11 +155,17 @@ export function calcolaValutazione(dati: DatiImmobile): RisultatoValutazione {
   // 6. Calcola totale
   let valoreTotale = valoreBase + valorePertinenze + valoreValorizzazioni - valoreSvalutazioni;
 
-  // 6.5. Applica sconto progressivo per ville/immobili grandi (>150mq)
+  // 6.5. Applica sconto per monolocali/immobili piccoli (<50mq)
+  if (dati.superficieAbitabile < 50) {
+    // Sconto -10% per monolocali (mercato meno liquido)
+    valoreTotale = Math.round(valoreTotale * 0.90);
+  }
+
+  // 6.6. Applica sconto progressivo per ville/immobili grandi (>150mq)
   if (dati.superficieAbitabile > 150) {
-    // Sconto progressivo: -3% per ogni 50mq oltre i 150mq (max -15%)
+    // Sconto progressivo: -5% per ogni 50mq oltre i 150mq (max -20%)
     const mqOltre150 = dati.superficieAbitabile - 150;
-    const scontoPercentuale = Math.min(0.15, (Math.floor(mqOltre150 / 50) + 1) * 0.03);
+    const scontoPercentuale = Math.min(0.20, (Math.floor(mqOltre150 / 50) + 1) * 0.05);
     valoreTotale = Math.round(valoreTotale * (1 - scontoPercentuale));
   }
 
