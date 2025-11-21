@@ -70,10 +70,10 @@ export function generatePDFReport(
   doc.text('Superficie:', 20, yPos + 24);
   
   doc.setFont('helvetica', 'normal');
-  doc.text(datiImmobile.comune, 45, yPos + 6);
-  doc.text(datiImmobile.localita, 45, yPos + 12);
-  doc.text(datiImmobile.tipologia, 45, yPos + 18);
-  doc.text(`${datiImmobile.superficie} mq`, 45, yPos + 24);
+  doc.text(String(datiImmobile.comune || '-'), 45, yPos + 6);
+  doc.text(String(datiImmobile.localita || '-'), 45, yPos + 12);
+  doc.text(String(datiImmobile.tipologia || '-'), 45, yPos + 18);
+  doc.text(`${datiImmobile.superficie || 0} mq`, 45, yPos + 24);
   
   // Colonna destra
   doc.setFont('helvetica', 'bold');
@@ -83,10 +83,10 @@ export function generatePDFReport(
   doc.text('Dist. Mare:', 110, yPos + 24);
   
   doc.setFont('helvetica', 'normal');
-  doc.text(datiImmobile.piano, 130, yPos + 6);
-  doc.text(datiImmobile.statoManutenzione, 130, yPos + 12);
-  doc.text(datiImmobile.vistaMare, 130, yPos + 18);
-  doc.text(datiImmobile.distanzaMare, 130, yPos + 24);
+  doc.text(String(datiImmobile.piano || '-'), 130, yPos + 6);
+  doc.text(String(datiImmobile.statoManutenzione || '-'), 130, yPos + 12);
+  doc.text(String(datiImmobile.vistaMare || '-'), 130, yPos + 18);
+  doc.text(String(datiImmobile.distanzaMare || '-') + ' m', 130, yPos + 24);
 
   yPos += 38;
 

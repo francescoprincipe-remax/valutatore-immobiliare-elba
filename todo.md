@@ -245,3 +245,13 @@
 - [x] **Test PDF**: Generazione testata con successo (jsPDF funzionante, dimensioni corrette)
 - [x] **Design accattivante**: Box colorati (rosso/blu/grigio), layout professionale, watermark su ogni pagina
 - [x] **Copyright**: "© 2025 Francesco Principe - RE/MAX Mindset" su ogni pagina
+
+
+---
+
+## ✅ BUG GENERAZIONE PDF RISOLTO
+
+- [x] **Errore "Type of text must be string" RISOLTO**: Diagnosticato errore nella console (jsPDF richiede stringhe, non numeri)
+- [x] **Codice corretto**: Convertiti tutti i valori in stringhe con String() nel PDF generator (righe 73-76, 86-89)
+- [x] **Test confermato**: PDF generato e scaricato con successo senza errori
+- [x] **Causa**: datiImmobile.distanzaMare conteneva numero 500 invece di stringa "500"
