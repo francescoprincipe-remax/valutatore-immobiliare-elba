@@ -217,4 +217,14 @@
 
 - [x] **Alert immobili >200mq**: Banner arancione prominente nella pagina risultati per immobili >200mq con messaggio chiaro + CTA WhatsApp "Richiedi Valutazione Personalizzata"
 - [x] **Accesso dashboard lead**: Spiegata procedura accesso (/admin/leads, richiede autenticazione + role='admin')
-- [ ] **GitHub sync**: Sincronizzare ultima versione
+- [x] **GitHub sync**: Sincronizzato checkpoint 1c0aa06c (automatico)
+
+
+---
+
+## ✅ BUG REACT RISOLTO
+
+- [x] **Errore React #310 RISOLTO**: Hook useMutation spostato all'inizio del componente (prima del return condizionale)
+- [x] Pagina risultati funziona correttamente
+- [x] Test confermato: Villa 250mq Capoliveri mostra alert >200mq + disclaimer + valori corretti
+- [x] Tutte le funzionalità operative: alert immobili grandi, disclaimer, prezzi corretti, prezzo consigliato < medio

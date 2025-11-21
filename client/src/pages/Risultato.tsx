@@ -36,6 +36,9 @@ export default function Risultato() {
     gdprConsent: false
   });
 
+  // Hook tRPC - DEVE essere chiamato prima di qualsiasi return condizionale
+  const createLeadMutation = trpc.lead.create.useMutation();
+
   useEffect(() => {
     // Recupera i risultati dal sessionStorage
     const risultatoStr = sessionStorage.getItem('valutazione_risultato');
@@ -86,8 +89,6 @@ export default function Risultato() {
   const handleDownloadPDF = () => {
     setShowLeadForm(true);
   };
-
-  const createLeadMutation = trpc.lead.create.useMutation();
 
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
