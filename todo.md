@@ -340,3 +340,16 @@
 - [x] **Design**: Nessuna linea, nessun colore, nessuna formattazione - solo testo nero puro
 - [x] **Test confermato**: PDF generato con successo, nessun errore nella console
 - [x] **Struttura**: Pagina 1 (dati + valori + disclaimer + composizione + punti forza), Pagina 2 (funnel CTA), Pagina 3 (disclaimer)
+
+
+---
+
+## 🎨 MIGRAZIONE PDF DA JSPDF A PDFMAKE (COMPLETATO ✅)
+
+- [x] **Problema attuale**: jsPDF ha limitazioni gravi (box colorati non funzionano, allineamento impreciso, testo sovrapposto, emoji non supportate)
+- [x] **Soluzione**: Migrare a pdfmake - libreria professionale con supporto nativo per layout complessi
+- [x] **Installare**: pdfmake + pdfmake-types + @types/pdfmake
+- [x] **Riscrivere**: pdf-generator.ts usando pdfmake invece di jsPDF
+- [x] **Implementare design professionale**: Box colorati, tabelle formattate, allineamento preciso, layout a colonne, watermark mongolfiera, link cliccabili
+- [x] **Testare**: Generare PDF con pdfmake e verificare design professionale a 3 pagine
+- [x] **Import dinamico**: Usare import dinamico per evitare blocchi caricamento pagina
