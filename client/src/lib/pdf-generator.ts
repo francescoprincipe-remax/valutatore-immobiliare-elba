@@ -10,480 +10,234 @@ export function generatePDFReport(
   const pageWidth = doc.internal.pageSize.width;
   const pageHeight = doc.internal.pageSize.height;
 
-  // Colori RE/MAX
-  const remaxRed: [number, number, number] = [225, 27, 34];
-  const remaxBlue: [number, number, number] = [0, 102, 179];
-  const darkGray: [number, number, number] = [51, 51, 51];
-  const lightGray: [number, number, number] = [245, 245, 245];
-  const green: [number, number, number] = [34, 197, 94];
-  const yellow: [number, number, number] = [251, 191, 36];
-  const orange: [number, number, number] = [249, 115, 22];
-
-  // Funzione per aggiungere watermark mongolfiera trasparente
-  const addWatermark = () => {
-    const watermarkImg = new Image();
-    watermarkImg.src = '/remax-balloon.png';
-    
-    // Watermark centrato, trasparente (opacity 1%), dimensione 150x150
-    const watermarkSize = 150;
-    const watermarkX = (pageWidth - watermarkSize) / 2;
-    const watermarkY = (pageHeight - watermarkSize) / 2;
-    
-    try {
-      doc.setGState((doc as any).GState({ opacity: 0.01 }));
-      doc.addImage(watermarkImg, 'PNG', watermarkX, watermarkY, watermarkSize, watermarkSize);
-      doc.setGState((doc as any).GState({ opacity: 1 }));
-    } catch (e) {
-      console.warn('Watermark non disponibile');
-    }
-  };
-
-  // ========== PAGINA 1: STIMA E DATI IMMOBILE (DESIGN SEMPLICE - SOLO TESTO NERO) ==========
+  // ========== PAGINA 1: STIMA E DATI IMMOBILE (ULTRA-MINIMALISTA) ==========
   
-  addWatermark();
-
-  // Header semplice - SOLO TESTO NERO
-  doc.setTextColor(0, 0, 0);
-  doc.setFontSize(20);
-  doc.setFont('helvetica', 'bold');
-  doc.text('STIMA AUTOMATICA DI MERCATO', pageWidth / 2, 20, { align: 'center' });
-  doc.setFontSize(11);
-  doc.setFont('helvetica', 'normal');
-  doc.text('Isola d\'Elba - Analisi Immobiliare', pageWidth / 2, 28, { align: 'center' });
+  let y = 20;
   
-  // Linea separatore
-  doc.setDrawColor(200, 200, 200);
-  doc.setLineWidth(0.5);
-  doc.line(15, 32, pageWidth - 15, 32);
-
-  let yPos = 42;
-
-  // DATI IMMOBILE - SOLO TESTO NERO (2 colonne)
-  doc.setTextColor(0, 0, 0);
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'bold');
-  doc.text('DATI IMMOBILE', 15, yPos);
-  yPos += 8;
+  // Titolo
+  doc.text('STIMA AUTOMATICA DI MERCATO - ISOLA D\'ELBA', 20, y);
+  y += 10;
   
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
+  doc.text('Report Valutazione Immobiliare', 20, y);
+  y += 15;
   
-  // Colonna sinistra
-  doc.text('Comune:', 20, yPos);
-  doc.setFont('helvetica', 'normal');
-  doc.text(String(datiImmobile.comune || '-'), 55, yPos);
-  yPos += 6;
+  // DATI IMMOBILE
+  doc.text('DATI IMMOBILE', 20, y);
+  y += 8;
   
-  doc.setFont('helvetica', 'bold');
-  doc.text('Località:', 20, yPos);
-  doc.setFont('helvetica', 'normal');
-  doc.text(String(datiImmobile.localita || '-'), 55, yPos);
-  yPos += 6;
+  doc.text(`Comune: ${datiImmobile.comune || '-'}`, 25, y);
+  y += 6;
+  doc.text(`Localita: ${datiImmobile.localita || '-'}`, 25, y);
+  y += 6;
+  doc.text(`Tipologia: ${datiImmobile.tipologia || '-'}`, 25, y);
+  y += 6;
+  doc.text(`Superficie: ${datiImmobile.superficieAbitabile || 0} mq`, 25, y);
+  y += 6;
+  doc.text(`Piano: ${datiImmobile.piano || '-'}`, 25, y);
+  y += 6;
+  doc.text(`Stato: ${datiImmobile.statoManutenzione || '-'}`, 25, y);
+  y += 6;
+  doc.text(`Vista Mare: ${datiImmobile.vistaMare || 'No'}`, 25, y);
+  y += 6;
+  doc.text(`Distanza Mare: ${datiImmobile.distanzaMare || '-'} m`, 25, y);
+  y += 12;
   
-  doc.setFont('helvetica', 'bold');
-  doc.text('Tipologia:', 20, yPos);
-  doc.setFont('helvetica', 'normal');
-  doc.text(String(datiImmobile.tipologia || '-'), 55, yPos);
-  yPos += 6;
+  // VALORI STIMATI
+  doc.text('VALORI STIMATI', 20, y);
+  y += 8;
   
-  doc.setFont('helvetica', 'bold');
-  doc.text('Superficie:', 20, yPos);
-  doc.setFont('helvetica', 'normal');
-  doc.text(`${datiImmobile.superficieAbitabile || 0} mq`, 55, yPos);
+  doc.text(`Valore Minimo: EUR ${risultato.valoreMin.toLocaleString('it-IT')}`, 25, y);
+  y += 6;
+  doc.text(`Valore Medio: EUR ${risultato.valoreTotale.toLocaleString('it-IT')}`, 25, y);
+  y += 6;
+  doc.text(`Valore Massimo: EUR ${risultato.valoreMax.toLocaleString('it-IT')}`, 25, y);
+  y += 12;
   
-  // Colonna destra
-  yPos = 50;
-  doc.setFont('helvetica', 'bold');
-  doc.text('Piano:', 110, yPos);
-  doc.setFont('helvetica', 'normal');
-  doc.text(String(datiImmobile.piano || '-'), 135, yPos);
-  yPos += 6;
+  // DISCLAIMER
+  doc.text('DISCLAIMER', 20, y);
+  y += 8;
+  doc.text('Questa e una stima automatica indicativa basata su dati di mercato', 25, y);
+  y += 6;
+  doc.text('aggregati. Non sostituisce una valutazione professionale effettuata', 25, y);
+  y += 6;
+  doc.text('da un agente immobiliare abilitato.', 25, y);
+  y += 12;
   
-  doc.setFont('helvetica', 'bold');
-  doc.text('Stato:', 110, yPos);
-  doc.setFont('helvetica', 'normal');
-  doc.text(String(datiImmobile.statoManutenzione || '-'), 135, yPos);
-  yPos += 6;
+  // COMPOSIZIONE VALORE
+  doc.text('COMPOSIZIONE VALORE', 20, y);
+  y += 8;
+  doc.text(`Valore Base: EUR ${risultato.valoreBase.toLocaleString('it-IT')}`, 25, y);
+  y += 6;
+  doc.text(`Pertinenze: EUR ${risultato.valorePertinenze.toLocaleString('it-IT')}`, 25, y);
+  y += 6;
+  doc.text(`Valorizzazioni: EUR ${risultato.valoreValorizzazioni.toLocaleString('it-IT')}`, 25, y);
+  y += 6;
+  doc.text(`Totale: EUR ${risultato.valoreTotale.toLocaleString('it-IT')}`, 25, y);
+  y += 12;
   
-  doc.setFont('helvetica', 'bold');
-  doc.text('Vista Mare:', 110, yPos);
-  doc.setFont('helvetica', 'normal');
-  doc.text(String(datiImmobile.vistaMare || '-'), 135, yPos);
-  yPos += 6;
+  // Rimossa sezione COMPETITIVITA (campi non disponibili in RisultatoValutazione)
   
-  doc.setFont('helvetica', 'bold');
-  doc.text('Dist. Mare:', 110, yPos);
-  doc.setFont('helvetica', 'normal');
-  doc.text(String(datiImmobile.distanzaMare || '-') + ' m', 135, yPos);
-
-  yPos += 12;
-  
-  // Linea separatore
-  doc.setDrawColor(200, 200, 200);
-  doc.line(15, yPos, pageWidth - 15, yPos);
-  yPos += 10;
-
-  // VALORI STIMATI - SOLO TESTO NERO
-  doc.setTextColor(0, 0, 0);
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'bold');
-  doc.text('VALORI STIMATI', pageWidth / 2, yPos, { align: 'center' });
-  yPos += 10;
-  
-  // Range min-max
-  doc.setFontSize(11);
-  doc.setFont('helvetica', 'normal');
-  doc.text(`Min: € ${risultato.valoreMin.toLocaleString('it-IT')}`, 30, yPos);
-  doc.text(`Max: € ${risultato.valoreMax.toLocaleString('it-IT')}`, pageWidth - 30, yPos, { align: 'right' });
-  yPos += 8;
-  
-  // Valore medio GRANDE E NERO
-  doc.setFontSize(22);
-  doc.setFont('helvetica', 'bold');
-  doc.text(`€ ${risultato.valoreTotale.toLocaleString('it-IT')}`, pageWidth / 2, yPos, { align: 'center' });
-  yPos += 6;
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'normal');
-  doc.text('Valore Medio Stimato', pageWidth / 2, yPos, { align: 'center' });
-
-  yPos += 12;
-  
-  // Linea separatore
-  doc.setDrawColor(200, 200, 200);
-  doc.line(15, yPos, pageWidth - 15, yPos);
-  yPos += 8;
-
-  // Disclaimer - SOLO TESTO NERO
-  doc.setTextColor(0, 0, 0);
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'italic');
-  const disclaimerText = 'Questa è una stima automatica indicativa basata su dati di mercato. Non sostituisce una valutazione professionale effettuata da un agente immobiliare abilitato.';
-  const disclaimerLines = doc.splitTextToSize(disclaimerText, pageWidth - 30);
-  doc.text(disclaimerLines, pageWidth / 2, yPos, { align: 'center' });
-
-  yPos += disclaimerLines.length * 5 + 6;
-
-  // Linea separatore
-  doc.setDrawColor(200, 200, 200);
-  doc.line(15, yPos, pageWidth - 15, yPos);
-  yPos += 8;
-
-  // COMPOSIZIONE DEL VALORE - SOLO TESTO NERO
-  doc.setTextColor(0, 0, 0);
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'bold');
-  doc.text('COMPOSIZIONE DEL VALORE', 15, yPos);
-  yPos += 8;
-
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'normal');
-  doc.text(`Valore Base:`, 20, yPos);
-  doc.text(`€ ${risultato.valoreBase.toLocaleString('it-IT')}`, pageWidth - 20, yPos, { align: 'right' });
-  yPos += 6;
-  doc.text(`Pertinenze:`, 20, yPos);
-  doc.text(`+ € ${risultato.valorePertinenze.toLocaleString('it-IT')}`, pageWidth - 20, yPos, { align: 'right' });
-  yPos += 6;
-  doc.text(`Valorizzazioni:`, 20, yPos);
-  doc.text(`+ € ${risultato.valoreValorizzazioni.toLocaleString('it-IT')}`, pageWidth - 20, yPos, { align: 'right' });
-  yPos += 8;
-  
-  // Linea separatore
-  doc.setDrawColor(200, 200, 200);
-  doc.line(20, yPos, pageWidth - 20, yPos);
-  yPos += 6;
-  
-  doc.setFontSize(11);
-  doc.setFont('helvetica', 'bold');
-  doc.text(`VALORE TOTALE:`, 20, yPos);
-  doc.text(`€ ${risultato.valoreTotale.toLocaleString('it-IT')}`, pageWidth - 20, yPos, { align: 'right' });
-  yPos += 10;
-
-  // Linea separatore
-  doc.setDrawColor(200, 200, 200);
-  doc.line(15, yPos, pageWidth - 15, yPos);
-  yPos += 8;
-
-  // COMPETITIVITÀ MERCATO - SOLO TESTO NERO
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'bold');
-  doc.text('COMPETITIVITÀ MERCATO', 15, yPos);
-  yPos += 8;
-
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'normal');
-  doc.text(`Livello: ${risultato.livelloCompetitivita}`, 20, yPos);
-  yPos += 6;
-  doc.text(`Immobili simili in zona: ${risultato.immobiliSimiliZona}`, 20, yPos);
-  yPos += 6;
-  doc.text(`Prezzo consigliato: € ${risultato.prezzoConsigliato.toLocaleString('it-IT')}`, 20, yPos);
-  yPos += 10;
-
-  // PUNTI DI FORZA - SOLO TESTO NERO
-  if (risultato.consigli?.puntiForza && risultato.consigli.puntiForza.length > 0) {
-    // Linea separatore
-    doc.setDrawColor(200, 200, 200);
-    doc.line(15, yPos, pageWidth - 15, yPos);
-    yPos += 8;
-    
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.text('PUNTI DI FORZA', 15, yPos);
-    yPos += 8;
-
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    risultato.consigli.puntiForza.slice(0, 4).forEach((punto: string) => {
-      doc.text(`* ${punto}`, 20, yPos);
-      yPos += 6;
+  // PUNTI DI FORZA
+  if (risultato.consigli.puntiForza && risultato.consigli.puntiForza.length > 0) {
+    doc.text('PUNTI DI FORZA', 20, y);
+    y += 8;
+    risultato.consigli.puntiForza.forEach((punto: string) => {
+      doc.text(`* ${punto}`, 25, y);
+      y += 6;
     });
   }
 
-  // Footer Pagina 1
-  doc.setFontSize(7);
-  doc.setTextColor(150, 150, 150);
-  doc.text('© 2025 Francesco Principe - RE/MAX Mindset', pageWidth / 2, pageHeight - 10, { align: 'center' });
-
-  // ========== PAGINA 2: FUNNEL CTA + VALORE AGGIUNTO ==========
-  
+  // ========== PAGINA 2: FUNNEL CTA ==========
   doc.addPage();
-  addWatermark();
-
-  yPos = 20;
-
-  // Header pagina 2
-  doc.setFillColor(225, 27, 34); // remaxRed
-  doc.rect(0, 0, pageWidth, 30, 'F');
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(18);
-  doc.setFont('helvetica', 'bold');
-  doc.text('IL TUO PROSSIMO PASSO', pageWidth / 2, 20, { align: 'center' });
-
-  yPos = 45;
-
-  // BOX CTA PRINCIPALE - CALCOLATORE TASSE (GRANDE E CENTRALE)
-  doc.setFillColor(255, 250, 240);
-  doc.setDrawColor(249, 115, 22); // orange
-  doc.setLineWidth(1);
-  doc.roundedRect(20, yPos, pageWidth - 40, 50, 3, 3, 'FD');
-
-  doc.setTextColor(225, 27, 34); // remaxRed
-  doc.setFontSize(16);
-  doc.setFont('helvetica', 'bold');
-  doc.text('CALCOLA TASSE E ONERI', pageWidth / 2, yPos + 12, { align: 'center' });
-
-  doc.setTextColor(51, 51, 51); // darkGray
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'normal');
-  const ctaText = 'Scopri quanto dovrai pagare in tasse, imposte e spese notarili. Calcolo gratuito e immediato.';
-  const ctaLines = doc.splitTextToSize(ctaText, pageWidth - 60);
-  doc.text(ctaLines, pageWidth / 2, yPos + 22, { align: 'center' });
-
-  // Link cliccabile al calcolatore tasse
-  doc.setTextColor(0, 102, 179); // remaxBlue
-  doc.setFontSize(11);
-  doc.setFont('helvetica', 'bold');
-  const linkText = '>> CLICCA QUI PER CALCOLARE';
-  const linkWidth = doc.getTextWidth(linkText);
-  const linkX = (pageWidth - linkWidth) / 2;
-  doc.textWithLink(linkText, linkX, yPos + 38, {
-    url: 'https://tasseimmob-ttn8lkb9.manus.space/'
-  });
+  y = 20;
   
-  // Sottolineatura link
-  doc.setDrawColor(0, 102, 179); // remaxBlue
-  doc.setLineWidth(0.3);
-  doc.line(linkX, yPos + 39, linkX + linkWidth, yPos + 39);
-
-  yPos += 60;
-
-  // Sezione "Perché RE/MAX" - BOX CON ICONE
-  doc.setFillColor(245, 245, 245); // lightGray
-  doc.roundedRect(15, yPos, pageWidth - 30, 70, 2, 2, 'F');
-
-  doc.setTextColor(225, 27, 34); // remaxRed
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'bold');
-  doc.text('PERCHÉ SCEGLIERE RE/MAX?', pageWidth / 2, yPos + 10, { align: 'center' });
-
-  doc.setTextColor(51, 51, 51); // darkGray
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-
-  const vantaggi = [
-    '* Leader mondiale nel settore immobiliare',
-    '* Network internazionale per massima visibilita',
-    '* Marketing professionale (foto, video, virtual tour)',
-    '* Strategie di pricing basate su dati reali',
-    '* Vendita piu veloce grazie a tecnologia avanzata',
-    '* Assistenza completa dalla stima alla firma',
-  ];
-
-  let vantY = yPos + 20;
-  vantaggi.forEach((vantaggio) => {
-    doc.text(vantaggio, 25, vantY);
-    vantY += 8;
-  });
-
-  yPos += 80;
-
-  // Box urgenza - ROSSO
-  doc.setFillColor(254, 242, 242);
-  doc.setDrawColor(225, 27, 34); // remaxRed
-  doc.setLineWidth(1);
-  doc.roundedRect(15, yPos, pageWidth - 30, 28, 2, 2, 'FD');
-
-  doc.setTextColor(225, 27, 34); // remaxRed
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'bold');
-  doc.text('MERCATO COMPETITIVO - AGISCI ORA', pageWidth / 2, yPos + 10, { align: 'center' });
-
-  doc.setTextColor(51, 51, 51); // darkGray
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  const urgenzaText = `Attenzione: ${risultato.immobiliSimiliZona} immobili simili sono attualmente in vendita nella stessa zona. Un prezzo competitivo e una strategia di marketing efficace sono fondamentali per vendere rapidamente e al miglior prezzo. Contattaci per una consulenza personalizzata.`;
-  const urgenzaLines = doc.splitTextToSize(urgenzaText, pageWidth - 40);
-  doc.text(urgenzaLines, pageWidth / 2, yPos + 18, { align: 'center' });
-
-  yPos += 38;
-
-  // CTA Consulenza - BOX BLU GRANDE
-  doc.setFillColor(0, 102, 179); // remaxBlue
-  doc.roundedRect(15, yPos, pageWidth - 30, 35, 3, 3, 'F');
-
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'bold');
-  doc.text('RICHIEDI CONSULENZA GRATUITA', pageWidth / 2, yPos + 12, { align: 'center' });
-
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'normal');
-  doc.text('Contattami per una valutazione professionale completa', pageWidth / 2, yPos + 20, { align: 'center' });
-
-  doc.setFontSize(11);
-  doc.setFont('helvetica', 'bold');
-  doc.text('WhatsApp: Clicca qui', pageWidth / 2, yPos + 28, { align: 'center' });
+  doc.text('IL TUO PROSSIMO PASSO', pageWidth / 2, y, { align: 'center' });
+  y += 15;
   
-  // Link WhatsApp cliccabile
-  const whatsappLinkWidth = doc.getTextWidth('WhatsApp: Clicca qui');
-  const whatsappX = (pageWidth - whatsappLinkWidth) / 2;
-  doc.link(whatsappX, yPos + 24, whatsappLinkWidth, 6, {
-    url: 'https://wa.me/message/4K6JSOQWVOTRL1'
-  });
-
-  // Footer Pagina 2
-  doc.setFontSize(7);
-  doc.setTextColor(150, 150, 150);
-  doc.text('© 2025 Francesco Principe - RE/MAX Mindset', pageWidth / 2, pageHeight - 10, { align: 'center' });
-
-  // ========== PAGINA 3: DISCLAIMER PROFESSIONALE COMPLETO ==========
+  // CTA CALCOLATORE TASSE
+  doc.text('>> CALCOLA TASSE E ONERI', 20, y);
+  y += 8;
+  doc.text('Scopri quanto dovrai pagare in tasse, imposte e spese notarili.', 20, y);
+  y += 6;
+  doc.text('Calcolo gratuito e immediato.', 20, y);
+  y += 10;
+  doc.textWithLink('>> CLICCA QUI PER CALCOLARE', 20, y, { url: 'https://tasseimmob-ttn8lkb9.manus.space/' });
+  y += 15;
   
+  // PERCHE RE/MAX
+  doc.text('PERCHE SCEGLIERE RE/MAX?', 20, y);
+  y += 8;
+  doc.text('* Leader mondiale nel settore immobiliare', 25, y);
+  y += 6;
+  doc.text('* Network internazionale per massima visibilita', 25, y);
+  y += 6;
+  doc.text('* Marketing professionale (foto, video, virtual tour)', 25, y);
+  y += 6;
+  doc.text('* Strategie di pricing basate su dati reali', 25, y);
+  y += 6;
+  doc.text('* Vendita piu veloce grazie a tecnologia avanzata', 25, y);
+  y += 6;
+  doc.text('* Assistenza completa dalla stima alla firma', 25, y);
+  y += 15;
+  
+  // URGENZA MERCATO
+  doc.text('MERCATO COMPETITIVO - AGISCI ORA', 20, y);
+  y += 8;
+  doc.text('Attenzione: Diversi immobili simili sono attualmente in vendita', 20, y);
+  y += 6;
+  doc.text('nella stessa zona. Un prezzo competitivo e una strategia di marketing', 20, y);
+  y += 6;
+  doc.text('efficace sono fondamentali per vendere velocemente al miglior prezzo.', 20, y);
+  y += 15;
+  
+  // CTA CONSULENZA
+  doc.text('RICHIEDI CONSULENZA GRATUITA', 20, y);
+  y += 8;
+  doc.text('Contattami per una valutazione professionale completa', 20, y);
+  y += 10;
+  doc.textWithLink('WhatsApp: Clicca qui', 20, y, { url: 'https://wa.me/message/4K6JSOQWVOTRL1' });
+  
+  // ========== PAGINA 3: DISCLAIMER PROFESSIONALE ==========
   doc.addPage();
-  addWatermark();
-
-  yPos = 20;
-
-  // Header pagina 3
-  doc.setFillColor(51, 51, 51); // darkGray
-  doc.rect(0, 0, pageWidth, 30, 'F');
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(16);
-  doc.setFont('helvetica', 'bold');
-  doc.text('NOTE LEGALI E DISCLAIMER', pageWidth / 2, 20, { align: 'center' });
-
-  yPos = 45;
-
-  doc.setTextColor(51, 51, 51); // darkGray
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.text('NATURA DELLA STIMA', 15, yPos);
-  yPos += 7;
-
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  const disclaimerNatura = 'Questa stima è generata automaticamente da un algoritmo basato su dati di mercato aggregati e caratteristiche dell\'immobile. Si tratta di una stima indicativa e non vincolante, che non sostituisce in alcun modo una valutazione professionale effettuata da un agente immobiliare abilitato o da un perito qualificato.';
-  const naturaLines = doc.splitTextToSize(disclaimerNatura, pageWidth - 30);
-  doc.text(naturaLines, 15, yPos);
-  yPos += naturaLines.length * 5 + 8;
-
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.text('LIMITAZIONI E PRECISAZIONI', 15, yPos);
-  yPos += 7;
-
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  const limitazioni = [
-    '• La stima si basa su dati di mercato aggregati e può non riflettere condizioni specifiche dell\'immobile',
-    '• Fattori non considerati: stato interno dettagliato, conformità urbanistica, vincoli, situazione legale',
-    '• Il valore reale può variare significativamente in base a condizioni di mercato, stagionalità e negoziazione',
-    '• La stima non tiene conto di eventuali difetti strutturali, problemi legali o vincoli non dichiarati',
-    '• I prezzi di mercato possono variare rapidamente in base a domanda, offerta e condizioni economiche',
-  ];
-
-  limitazioni.forEach((limitazione) => {
-    const limLines = doc.splitTextToSize(limitazione, pageWidth - 30);
-    doc.text(limLines, 15, yPos);
-    yPos += limLines.length * 5 + 3;
-  });
-
-  yPos += 5;
-
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.text('RACCOMANDAZIONI PROFESSIONALI', 15, yPos);
-  yPos += 7;
-
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  const raccomandazioni = 'Prima di prendere qualsiasi decisione di vendita, acquisto o investimento immobiliare, è fortemente consigliato richiedere una valutazione professionale completa da parte di un agente immobiliare abilitato. Una valutazione professionale include: sopralluogo dettagliato, analisi comparativa di mercato aggiornata, verifica documentale, analisi urbanistica e catastale, strategia di pricing personalizzata.';
-  const raccoLines = doc.splitTextToSize(raccomandazioni, pageWidth - 30);
-  doc.text(raccoLines, 15, yPos);
-  yPos += raccoLines.length * 5 + 8;
-
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.text('ESCLUSIONE DI RESPONSABILITÀ', 15, yPos);
-  yPos += 7;
-
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  const responsabilita = 'Francesco Principe e RE/MAX Mindset non si assumono alcuna responsabilità per decisioni prese sulla base di questa stima automatica. L\'utilizzatore riconosce di aver compreso la natura indicativa della stima e di non poter avanzare pretese basate esclusivamente su questo documento. Per qualsiasi utilizzo professionale, legale o finanziario, è necessaria una valutazione professionale certificata.';
-  const respLines = doc.splitTextToSize(responsabilita, pageWidth - 30);
-  doc.text(respLines, 15, yPos);
-  yPos += respLines.length * 5 + 8;
-
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.text('PRIVACY E DATI PERSONALI', 15, yPos);
-  yPos += 7;
-
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  const privacy = 'I dati forniti per la generazione di questa stima sono trattati in conformità al Regolamento UE 2016/679 (GDPR). I dati saranno utilizzati esclusivamente per finalità di contatto commerciale e non saranno ceduti a terzi senza consenso esplicito. Per maggiori informazioni sul trattamento dei dati, contattare francesco.principe@remax.it';
-  const privacyLines = doc.splitTextToSize(privacy, pageWidth - 30);
-  doc.text(privacyLines, 15, yPos);
-  yPos += privacyLines.length * 5 + 10;
-
-  // Box contatti finale
-  doc.setFillColor(245, 245, 245); // lightGray
-  doc.roundedRect(15, yPos, pageWidth - 30, 25, 2, 2, 'F');
-
-  doc.setTextColor(225, 27, 34); // remaxRed
-  doc.setFontSize(11);
-  doc.setFont('helvetica', 'bold');
-  doc.text('CONTATTI', pageWidth / 2, yPos + 8, { align: 'center' });
-
-  doc.setTextColor(51, 51, 51); // darkGray
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  doc.text('Francesco Principe - RE/MAX Mindset', pageWidth / 2, yPos + 14, { align: 'center' });
-  doc.text('Email: francesco.principe@remax.it', pageWidth / 2, yPos + 19, { align: 'center' });
-
-  // Footer Pagina 3
-  doc.setFontSize(7);
-  doc.setTextColor(150, 150, 150);
-  doc.text('© 2025 Francesco Principe - RE/MAX Mindset', pageWidth / 2, pageHeight - 10, { align: 'center' });
-  doc.text('Documento generato automaticamente - Non ha valore legale', pageWidth / 2, pageHeight - 6, { align: 'center' });
+  y = 20;
+  
+  doc.text('NOTE LEGALI E DISCLAIMER', pageWidth / 2, y, { align: 'center' });
+  y += 15;
+  
+  // NATURA DELLA STIMA
+  doc.text('NATURA DELLA STIMA', 20, y);
+  y += 8;
+  doc.text('Questa stima e generata automaticamente da un algoritmo basato su dati', 20, y);
+  y += 6;
+  doc.text('di mercato aggregati e caratteristiche dell\'immobile. Si tratta di una', 20, y);
+  y += 6;
+  doc.text('stima indicativa e non vincolante, che non sostituisce in alcun modo una', 20, y);
+  y += 6;
+  doc.text('valutazione professionale effettuata da un agente immobiliare abilitato', 20, y);
+  y += 6;
+  doc.text('o da un perito qualificato.', 20, y);
+  y += 12;
+  
+  // LIMITAZIONI E PRECISAZIONI
+  doc.text('LIMITAZIONI E PRECISAZIONI', 20, y);
+  y += 8;
+  doc.text('* La stima si basa su dati di mercato aggregati e puo non riflettere', 20, y);
+  y += 6;
+  doc.text('  condizioni specifiche dell\'immobile', 20, y);
+  y += 6;
+  doc.text('* Fattori non considerati: stato interno dettagliato, conformita', 20, y);
+  y += 6;
+  doc.text('  urbanistica, vincoli, situazione legale', 20, y);
+  y += 6;
+  doc.text('* Il valore reale puo variare significativamente in base a condizioni', 20, y);
+  y += 6;
+  doc.text('  di mercato, stagionalita e negoziazione', 20, y);
+  y += 6;
+  doc.text('* La stima non tiene conto di eventuali difetti strutturali, problemi', 20, y);
+  y += 6;
+  doc.text('  legali o vincoli non dichiarati', 20, y);
+  y += 6;
+  doc.text('* I prezzi di mercato possono variare rapidamente in base a domanda,', 20, y);
+  y += 6;
+  doc.text('  offerta e condizioni economiche', 20, y);
+  y += 12;
+  
+  // RACCOMANDAZIONI PROFESSIONALI
+  doc.text('RACCOMANDAZIONI PROFESSIONALI', 20, y);
+  y += 8;
+  doc.text('Prima di prendere qualsiasi decisione di vendita, acquisto o investimento', 20, y);
+  y += 6;
+  doc.text('immobiliare, e fortemente consigliato richiedere una valutazione', 20, y);
+  y += 6;
+  doc.text('professionale completa da parte di un agente immobiliare abilitato. La', 20, y);
+  y += 6;
+  doc.text('valutazione professionale include: sopralluogo dettagliato, analisi', 20, y);
+  y += 6;
+  doc.text('comparativa di mercato aggiornata, verifica documentale, analisi', 20, y);
+  y += 6;
+  doc.text('urbanistica e catastale, strategia di pricing personalizzata.', 20, y);
+  y += 12;
+  
+  // ESCLUSIONE DI RESPONSABILITA
+  doc.text('ESCLUSIONE DI RESPONSABILITA', 20, y);
+  y += 8;
+  doc.text('Francesco Principe e RE/MAX Mindset non si assumono alcuna responsabilita', 20, y);
+  y += 6;
+  doc.text('per decisioni prese sulla base di questa stima automatica. L\'utilizzatore', 20, y);
+  y += 6;
+  doc.text('riconosce di aver compreso la natura indicativa della stima e di non', 20, y);
+  y += 6;
+  doc.text('poter avanzare pretese basate esclusivamente su questo documento. Per', 20, y);
+  y += 6;
+  doc.text('qualsiasi utilizzo professionale, legale o finanziario, e necessaria una', 20, y);
+  y += 6;
+  doc.text('valutazione professionale certificata.', 20, y);
+  y += 12;
+  
+  // PRIVACY E DATI PERSONALI
+  doc.text('PRIVACY E DATI PERSONALI', 20, y);
+  y += 8;
+  doc.text('I dati forniti per la generazione di questa stima sono trattati in', 20, y);
+  y += 6;
+  doc.text('conformita al Regolamento UE 2016/679 (GDPR). I dati saranno utilizzati', 20, y);
+  y += 6;
+  doc.text('esclusivamente per finalita di contatto commerciale e non saranno ceduti', 20, y);
+  y += 6;
+  doc.text('a terzi senza consenso esplicito. Per maggiori informazioni sul', 20, y);
+  y += 6;
+  doc.text('trattamento dei dati, contattare francesco.principe@remax.it', 20, y);
+  y += 15;
+  
+  // CONTATTI FINALI
+  doc.text('CONTATTI', 20, y);
+  y += 8;
+  doc.text('Francesco Principe - RE/MAX Mindset', 20, y);
+  y += 6;
+  doc.text('Email: francesco.principe@remax.it', 20, y);
+  
+  // Footer
+  doc.text('(c) 2025 Francesco Principe - RE/MAX Mindset', pageWidth / 2, pageHeight - 10, { align: 'center' });
+  doc.text('Documento generato automaticamente - Non ha valore legale', pageWidth / 2, pageHeight - 5, { align: 'center' });
 
   // Salva PDF
   doc.save('stima-immobiliare-elba.pdf');

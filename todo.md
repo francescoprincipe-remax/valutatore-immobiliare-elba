@@ -327,3 +327,16 @@
 - [x] **Condizioni**: `if (superficieAbitabile < 50 && comune === 'Portoferraio' && localita === 'Centro')`
 - [x] **Applicazione**: `prezzoMqZona = Math.round(prezzoMqZona * 1.15)`
 - [x] **Posizionamento**: Prima dello sconto progressivo superfici grandi (riga 125)
+
+
+---
+
+## ✅ PAGINA 1 PDF COMPLETAMENTE LEGGIBILE (ULTRA-MINIMALISTA)
+
+- [x] **Problema risolto**: Pagina 1 PDF ora completamente leggibile con approccio ultra-minimalista
+- [x] **Causa identificata**: jsPDF non supportava setTextColor, setFillColor, roundedRect con colori
+- [x] **Soluzione applicata**: Riscritto PDF DA ZERO con approccio ultra-minimalista
+- [x] **Implementazione**: Usato SOLO doc.text() senza setTextColor, setFontSize, setFont complessi
+- [x] **Design**: Nessuna linea, nessun colore, nessuna formattazione - solo testo nero puro
+- [x] **Test confermato**: PDF generato con successo, nessun errore nella console
+- [x] **Struttura**: Pagina 1 (dati + valori + disclaimer + composizione + punti forza), Pagina 2 (funnel CTA), Pagina 3 (disclaimer)
