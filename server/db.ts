@@ -147,3 +147,98 @@ export async function getDatiMercatoByLocation(comune: string, localita?: string
 
   return result.length > 0 ? result[0] : null;
 }
+
+
+// ========== Lead Management ==========
+
+import { leads, InsertLead, type Lead } from "../drizzle/schema";
+import { gte, lte, sql } from "drizzle-orm";
+
+export async function saveLead(data: InsertLead) {
+  const db = await getDb();
+  if (!db) throw new Error("Database non disponibile");
+
+  const result = await db.insert(leads).values(data);
+  return result;
+}
+
+export async function getAllLeads(filters?: {
+  dateFrom?: Date;
+  dateTo?: Date;
+  comune?: string;
+  prezzoMin?: number;
+  prezzoMax?: number;
+}) {
+  const db = await getDb();
+  if (!db) return [];
+
+  let query = db.select().from(leads);
+
+  const conditions = [];
+  
+  if (filters?.dateFrom) {
+    conditions.push(gte(leads.createdAt, filters.dateFrom));
+  }
+  
+  if (filters?.dateTo) {
+    conditions.push(lte(leads.createdAt, filters.dateTo));
+  }
+  
+  if (filters?.comune) {
+    conditions.push(eq(leads.comune, filters.comune));
+  }
+  
+  if (filters?.prezzoMin && leads.valoreTotale) {
+    conditions.push(gte(leads.valoreTotale, filters.prezzoMin));
+  }
+  
+  if (filters?.prezzoMax && leads.valoreTotale) {
+    conditions.push(lte(leads.valoreTotale, filters.prezzoMax));
+  }
+
+  if (conditions.length > 0) {
+    query = query.where(and(...conditions)) as any;
+  }
+
+  return query.orderBy(desc(leads.createdAt));
+}
+
+export async function getLeadStats() {
+  const db = await getDb();
+  if (!db) return {
+    totalLeads: 0,
+    leadsByComune: [],
+    leadsByMonth: [],
+  };
+
+  // Total leads
+  const totalResult = await db.select({ count: sql<number>`count(*)` }).from(leads);
+  const totalLeads = totalResult[0]?.count || 0;
+
+  // Leads by comune
+  const leadsByComune = await db
+    .select({
+      comune: leads.comune,
+      count: sql<number>`count(*)`,
+    })
+    .from(leads)
+    .groupBy(leads.comune)
+    .orderBy(desc(sql`count(*)`));
+
+  // Leads by month (last 6 months)
+  const leadsByMonth = await db
+    .select({
+      month: sql<string>`DATE_FORMAT(createdAt, '%Y-%m')`,
+      count: sql<number>`count(*)`,
+    })
+    .from(leads)
+    .where(gte(leads.createdAt, sql`DATE_SUB(NOW(), INTERVAL 6 MONTH)`))
+    .groupBy(sql`DATE_FORMAT(createdAt, '%Y-%m')`)
+    .orderBy(sql`DATE_FORMAT(createdAt, '%Y-%m')`);
+
+  return {
+    totalLeads,
+    leadsByComune,
+    leadsByMonth,
+  };
+}

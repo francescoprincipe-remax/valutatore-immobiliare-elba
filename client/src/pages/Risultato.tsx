@@ -20,6 +20,7 @@ import { Link, useLocation } from "wouter";
 import { APP_LOGO } from "@/const";
 import type { RisultatoValutazione } from "../../../server/valutazione-engine";
 import { generatePDFReport } from "@/lib/pdf-generator";
+import { trpc } from "@/lib/trpc";
 
 export default function Risultato() {
   const [, setLocation] = useLocation();
@@ -86,6 +87,8 @@ export default function Risultato() {
     setShowLeadForm(true);
   };
 
+  const createLeadMutation = trpc.lead.create.useMutation();
+
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -93,13 +96,26 @@ export default function Risultato() {
       alert('Compila tutti i campi obbligatori');
       return;
     }
-    
+
     if (!leadData.gdprConsent) {
-      alert('Devi accettare il consenso al trattamento dei dati per scaricare il PDF');
+      alert('Devi accettare il consenso GDPR per scaricare il PDF');
       return;
     }
     
     try {
+      // Salva lead nel database e invia notifica email
+      await createLeadMutation.mutateAsync({
+        nome: leadData.nome,
+        cognome: leadData.cognome,
+        email: leadData.email,
+        telefono: leadData.telefono,
+        gdprConsent: leadData.gdprConsent,
+        comune: datiImmobile?.comune,
+        tipologia: datiImmobile?.tipologia,
+        superficie: datiImmobile?.superficieAbitabile,
+        valoreTotale: risultato?.valoreTotale,
+      });
+
       // Genera PDF con dati lead
       if (risultato && datiImmobile) {
         await generatePDFReport(risultato, datiImmobile);

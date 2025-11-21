@@ -9,6 +9,7 @@ import Valuta from "./pages/Valuta";
 import Risultato from "./pages/Risultato";
 import Privacy from "./pages/Privacy";
 import FAQ from "./pages/FAQ";
+import AdminLeads from "./pages/AdminLeads";
 import RemaxWatermark from "./components/RemaxWatermark";
 import WhatsAppCTA from "./components/WhatsAppCTA";
 import GDPRBanner from "./components/GDPRBanner";
@@ -22,6 +23,7 @@ function Router() {
       <Route path={"/risultato"} component={Risultato} />
       <Route path={"/privacy"} component={Privacy} />
       <Route path={"/faq"} component={FAQ} />
+      <Route path={"/admin/leads"} component={AdminLeads} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

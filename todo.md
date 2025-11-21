@@ -182,3 +182,30 @@
   - Contenuti funnel (valore RE/MAX, urgenza mercato, vantaggi)
   - Rimossi dettagli valorizzazioni (solo totali)
 - [x] **Sync GitHub**: Da eseguire nel prossimo step
+
+
+---
+
+## ✅ NUOVE FUNZIONALITÀ COMPLETATE
+
+### Dashboard Admin Lead
+- [x] Verificata tabella leads esistente nel database
+- [x] Create procedure tRPC per recuperare lead (getAll, getStats)
+- [x] Implementata pagina dashboard admin (/admin/leads)
+- [x] Tabella lead con colonne: nome, cognome, email, telefono, comune, tipologia, superficie, valore stimato, data, GDPR
+- [x] Filtri: data (range), comune, range prezzo stimato
+- [x] Statistiche: totale lead, comune più attivo, trend mensile
+- [x] Esportazione CSV implementata (bottone "Esporta CSV")
+- [x] Protezione admin: solo utenti con role='admin' possono accedere
+
+### Notifiche Email SendGrid
+- [x] Richiesta API key SendGrid tramite webdev_request_secrets
+- [x] Creato helper email in server/_core/email.ts
+- [x] Implementato invio email automatico al proprietario quando lead compila form
+- [x] Template email HTML professionale con: dati immobile completi + dati contatto lead + CTA
+- [x] Testato invio email con lead di prova - FUNZIONANTE ✅
+- [x] Integrazione tRPC: lead.create salva DB + invia email automaticamente
+
+### Sync GitHub
+- [ ] Salvare checkpoint finale
+- [ ] Sincronizzare modifiche su GitHub

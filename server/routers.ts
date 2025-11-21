@@ -4,7 +4,9 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { calcolaValutazione, type DatiImmobile } from "./valutazione-engine";
-import { saveValutazione, getValutazioneById, getUserValutazioni, getDatiMercatoByLocation } from "./db";
+import { saveValutazione, getValutazioneById, getUserValutazioni, getDatiMercatoByLocation, saveLead, getAllLeads, getLeadStats } from "./db";
+import { TRPCError } from "@trpc/server";
+import { sendLeadNotification } from "./_core/email";
 
 export const appRouter = router({
   system: systemRouter,
@@ -176,6 +178,100 @@ export const appRouter = router({
       .query(async ({ input }) => {
         return await getDatiMercatoByLocation(input.comune, input.localita);
       }),
+  }),
+
+  lead: router({
+    /**
+     * Salva un nuovo lead (pubblico - dal form PDF)
+     */
+    create: publicProcedure
+      .input(
+        z.object({
+          nome: z.string(),
+          cognome: z.string(),
+          email: z.string().email(),
+          telefono: z.string(),
+          gdprConsent: z.boolean(),
+          comune: z.string().optional(),
+          tipologia: z.string().optional(),
+          superficie: z.number().optional(),
+          valoreTotale: z.number().optional(),
+        })
+      )
+      .mutation(async ({ input }) => {
+        if (!input.gdprConsent) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'Consenso GDPR richiesto',
+          });
+        }
+
+        await saveLead({
+          nome: input.nome,
+          cognome: input.cognome,
+          email: input.email,
+          telefono: input.telefono,
+          gdprConsent: input.gdprConsent,
+          comune: input.comune || null,
+          tipologia: input.tipologia || null,
+          superficie: input.superficie || null,
+          valoreTotale: input.valoreTotale || null,
+        });
+
+        // Invia notifica email al proprietario
+        await sendLeadNotification({
+          nome: input.nome,
+          cognome: input.cognome,
+          email: input.email,
+          telefono: input.telefono,
+          comune: input.comune,
+          tipologia: input.tipologia,
+          superficie: input.superficie,
+          valoreTotale: input.valoreTotale,
+        });
+
+        return { success: true };
+      }),
+
+    /**
+     * Ottiene tutti i lead con filtri (solo admin)
+     */
+    getAll: protectedProcedure
+      .input(
+        z.object({
+          dateFrom: z.date().optional(),
+          dateTo: z.date().optional(),
+          comune: z.string().optional(),
+          prezzoMin: z.number().optional(),
+          prezzoMax: z.number().optional(),
+        }).optional()
+      )
+      .query(async ({ ctx, input }) => {
+        // Verifica che l'utente sia admin
+        if (ctx.user.role !== 'admin') {
+          throw new TRPCError({
+            code: 'FORBIDDEN',
+            message: 'Solo gli amministratori possono accedere ai lead',
+          });
+        }
+
+        return await getAllLeads(input);
+      }),
+
+    /**
+     * Ottiene statistiche lead (solo admin)
+     */
+    getStats: protectedProcedure.query(async ({ ctx }) => {
+      // Verifica che l'utente sia admin
+      if (ctx.user.role !== 'admin') {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'Solo gli amministratori possono accedere alle statistiche',
+        });
+      }
+
+      return await getLeadStats();
+    }),
   }),
 });
 
