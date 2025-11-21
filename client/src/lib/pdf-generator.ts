@@ -38,165 +38,203 @@ export function generatePDFReport(
     }
   };
 
-  // ========== PAGINA 1: STIMA E DATI IMMOBILE ==========
+  // ========== PAGINA 1: STIMA E DATI IMMOBILE (DESIGN SEMPLICE - SOLO TESTO NERO) ==========
   
   addWatermark();
 
-  // Header RE/MAX rosso
-  doc.setFillColor(225, 27, 34); // remaxRed
-  doc.rect(0, 0, pageWidth, 40, 'F');
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(24);
+  // Header semplice - SOLO TESTO NERO
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(20);
   doc.setFont('helvetica', 'bold');
-  doc.text('STIMA AUTOMATICA DI MERCATO', pageWidth / 2, 18, { align: 'center' });
+  doc.text('STIMA AUTOMATICA DI MERCATO', pageWidth / 2, 20, { align: 'center' });
   doc.setFontSize(11);
   doc.setFont('helvetica', 'normal');
   doc.text('Isola d\'Elba - Analisi Immobiliare', pageWidth / 2, 28, { align: 'center' });
-
-  let yPos = 50;
-
-  // Box dati immobile compatti (2 colonne)
-  doc.setFillColor(245, 245, 245); // lightGray
-  doc.roundedRect(15, yPos, pageWidth - 30, 28, 2, 2, 'F');
   
-  doc.setTextColor(51, 51, 51); // darkGray
-  doc.setFontSize(9);
+  // Linea separatore
+  doc.setDrawColor(200, 200, 200);
+  doc.setLineWidth(0.5);
+  doc.line(15, 32, pageWidth - 15, 32);
+
+  let yPos = 42;
+
+  // DATI IMMOBILE - SOLO TESTO NERO (2 colonne)
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text('DATI IMMOBILE', 15, yPos);
+  yPos += 8;
+  
+  doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
   
   // Colonna sinistra
-  doc.text('Comune:', 20, yPos + 6);
-  doc.text('Località:', 20, yPos + 12);
-  doc.text('Tipologia:', 20, yPos + 18);
-  doc.text('Superficie:', 20, yPos + 24);
-  
+  doc.text('Comune:', 20, yPos);
   doc.setFont('helvetica', 'normal');
-  doc.text(String(datiImmobile.comune || '-'), 45, yPos + 6);
-  doc.text(String(datiImmobile.localita || '-'), 45, yPos + 12);
-  doc.text(String(datiImmobile.tipologia || '-'), 45, yPos + 18);
-  doc.text(`${datiImmobile.superficieAbitabile || 0} mq`, 45, yPos + 24);
+  doc.text(String(datiImmobile.comune || '-'), 55, yPos);
+  yPos += 6;
+  
+  doc.setFont('helvetica', 'bold');
+  doc.text('Località:', 20, yPos);
+  doc.setFont('helvetica', 'normal');
+  doc.text(String(datiImmobile.localita || '-'), 55, yPos);
+  yPos += 6;
+  
+  doc.setFont('helvetica', 'bold');
+  doc.text('Tipologia:', 20, yPos);
+  doc.setFont('helvetica', 'normal');
+  doc.text(String(datiImmobile.tipologia || '-'), 55, yPos);
+  yPos += 6;
+  
+  doc.setFont('helvetica', 'bold');
+  doc.text('Superficie:', 20, yPos);
+  doc.setFont('helvetica', 'normal');
+  doc.text(`${datiImmobile.superficieAbitabile || 0} mq`, 55, yPos);
   
   // Colonna destra
+  yPos = 50;
   doc.setFont('helvetica', 'bold');
-  doc.text('Piano:', 110, yPos + 6);
-  doc.text('Stato:', 110, yPos + 12);
-  doc.text('Vista Mare:', 110, yPos + 18);
-  doc.text('Dist. Mare:', 110, yPos + 24);
-  
+  doc.text('Piano:', 110, yPos);
   doc.setFont('helvetica', 'normal');
-  doc.text(String(datiImmobile.piano || '-'), 130, yPos + 6);
-  doc.text(String(datiImmobile.statoManutenzione || '-'), 130, yPos + 12);
-  doc.text(String(datiImmobile.vistaMare || '-'), 130, yPos + 18);
-  doc.text(String(datiImmobile.distanzaMare || '-') + ' m', 130, yPos + 24);
-
-  yPos += 38;
-
-  // Box valori stimati - GRANDE E CENTRALE
-  doc.setFillColor(0, 102, 179); // remaxBlue
-  doc.roundedRect(15, yPos, pageWidth - 30, 45, 3, 3, 'F');
+  doc.text(String(datiImmobile.piano || '-'), 135, yPos);
+  yPos += 6;
   
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
-  doc.text('VALORI STIMATI', pageWidth / 2, yPos + 8, { align: 'center' });
+  doc.text('Stato:', 110, yPos);
+  doc.setFont('helvetica', 'normal');
+  doc.text(String(datiImmobile.statoManutenzione || '-'), 135, yPos);
+  yPos += 6;
+  
+  doc.setFont('helvetica', 'bold');
+  doc.text('Vista Mare:', 110, yPos);
+  doc.setFont('helvetica', 'normal');
+  doc.text(String(datiImmobile.vistaMare || '-'), 135, yPos);
+  yPos += 6;
+  
+  doc.setFont('helvetica', 'bold');
+  doc.text('Dist. Mare:', 110, yPos);
+  doc.setFont('helvetica', 'normal');
+  doc.text(String(datiImmobile.distanzaMare || '-') + ' m', 135, yPos);
+
+  yPos += 12;
+  
+  // Linea separatore
+  doc.setDrawColor(200, 200, 200);
+  doc.line(15, yPos, pageWidth - 15, yPos);
+  yPos += 10;
+
+  // VALORI STIMATI - SOLO TESTO NERO
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('VALORI STIMATI', pageWidth / 2, yPos, { align: 'center' });
+  yPos += 10;
   
   // Range min-max
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'normal');
+  doc.text(`Min: € ${risultato.valoreMin.toLocaleString('it-IT')}`, 30, yPos);
+  doc.text(`Max: € ${risultato.valoreMax.toLocaleString('it-IT')}`, pageWidth - 30, yPos, { align: 'right' });
+  yPos += 8;
+  
+  // Valore medio GRANDE E NERO
+  doc.setFontSize(22);
+  doc.setFont('helvetica', 'bold');
+  doc.text(`€ ${risultato.valoreTotale.toLocaleString('it-IT')}`, pageWidth / 2, yPos, { align: 'center' });
+  yPos += 6;
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
-  doc.text(`€ ${risultato.valoreMin.toLocaleString('it-IT')}`, 30, yPos + 18);
-  doc.text(`€ ${risultato.valoreMax.toLocaleString('it-IT')}`, pageWidth - 30, yPos + 18, { align: 'right' });
+  doc.text('Valore Medio Stimato', pageWidth / 2, yPos, { align: 'center' });
+
+  yPos += 12;
   
-  // Linea range
-  doc.setDrawColor(255, 255, 255);
-  doc.setLineWidth(0.5);
-  doc.line(30, yPos + 22, pageWidth - 30, yPos + 22);
-  
-  // Valore medio GRANDE
-  doc.setFontSize(20);
-  doc.setFont('helvetica', 'bold');
-  doc.text(`€ ${risultato.valoreTotale.toLocaleString('it-IT')}`, pageWidth / 2, yPos + 32, { align: 'center' });
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  doc.text('Valore Medio Stimato', pageWidth / 2, yPos + 39, { align: 'center' });
-
-  yPos += 50;
-
-  // Disclaimer importante - subito sotto i valori
-  doc.setFillColor(255, 250, 240);
-  doc.setDrawColor(249, 115, 22); // orange
-  doc.setLineWidth(0.5);
-  doc.roundedRect(15, yPos, pageWidth - 30, 18, 2, 2, 'FD');
-  
-  doc.setTextColor(51, 51, 51); // darkGray
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'italic');
-  const disclaimerText = 'Questa è una stima automatica indicativa basata su dati di mercato. Non sostituisce una valutazione professionale effettuata da un agente immobiliare abilitato.';
-  const disclaimerLines = doc.splitTextToSize(disclaimerText, pageWidth - 40);
-  doc.text(disclaimerLines, pageWidth / 2, yPos + 6, { align: 'center' });
-
-  yPos += 24;
-
-  // Tabella composizione valore - COMPATTA
-  doc.setTextColor(51, 51, 51); // darkGray
-  doc.setFontSize(11);
-  doc.setFont('helvetica', 'bold');
-  doc.text('COMPOSIZIONE DEL VALORE', 15, yPos);
-  yPos += 2;
-
-  autoTable(doc, {
-    startY: yPos,
-    head: [['Voce', 'Importo']],
-    body: [
-      ['Valore Base', `€ ${risultato.valoreBase.toLocaleString('it-IT')}`],
-      ['Pertinenze', `+ € ${risultato.valorePertinenze.toLocaleString('it-IT')}`],
-      ['Valorizzazioni', `+ € ${risultato.valoreValorizzazioni.toLocaleString('it-IT')}`],
-    ],
-    foot: [['VALORE TOTALE', `€ ${risultato.valoreTotale.toLocaleString('it-IT')}`]],
-    theme: 'grid',
-    headStyles: {
-      fillColor: [0, 102, 179], // remaxBlue
-      fontSize: 9,
-      fontStyle: 'bold',
-    },
-    bodyStyles: {
-      fontSize: 9,
-    },
-    footStyles: {
-      fillColor: [225, 27, 34], // remaxRed
-      fontSize: 10,
-      fontStyle: 'bold',
-    },
-    margin: { left: 15, right: 15 },
-  });
-
-  yPos = (doc as any).lastAutoTable.finalY + 8;
-
-  // Competitività mercato
-  doc.setFontSize(11);
-  doc.setFont('helvetica', 'bold');
-  doc.text('COMPETITIVITÀ MERCATO', 15, yPos);
-  yPos += 6;
-
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  doc.text(`Livello: ${risultato.livelloCompetitivita}`, 15, yPos);
-  yPos += 5;
-  doc.text(`Immobili simili in zona: ${risultato.immobiliSimiliZona}`, 15, yPos);
-  yPos += 5;
-  doc.text(`Prezzo consigliato: € ${risultato.prezzoConsigliato.toLocaleString('it-IT')}`, 15, yPos);
+  // Linea separatore
+  doc.setDrawColor(200, 200, 200);
+  doc.line(15, yPos, pageWidth - 15, yPos);
   yPos += 8;
 
-  // Punti di forza - COMPATTI
+  // Disclaimer - SOLO TESTO NERO
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'italic');
+  const disclaimerText = 'Questa è una stima automatica indicativa basata su dati di mercato. Non sostituisce una valutazione professionale effettuata da un agente immobiliare abilitato.';
+  const disclaimerLines = doc.splitTextToSize(disclaimerText, pageWidth - 30);
+  doc.text(disclaimerLines, pageWidth / 2, yPos, { align: 'center' });
+
+  yPos += disclaimerLines.length * 5 + 6;
+
+  // Linea separatore
+  doc.setDrawColor(200, 200, 200);
+  doc.line(15, yPos, pageWidth - 15, yPos);
+  yPos += 8;
+
+  // COMPOSIZIONE DEL VALORE - SOLO TESTO NERO
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text('COMPOSIZIONE DEL VALORE', 15, yPos);
+  yPos += 8;
+
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.text(`Valore Base:`, 20, yPos);
+  doc.text(`€ ${risultato.valoreBase.toLocaleString('it-IT')}`, pageWidth - 20, yPos, { align: 'right' });
+  yPos += 6;
+  doc.text(`Pertinenze:`, 20, yPos);
+  doc.text(`+ € ${risultato.valorePertinenze.toLocaleString('it-IT')}`, pageWidth - 20, yPos, { align: 'right' });
+  yPos += 6;
+  doc.text(`Valorizzazioni:`, 20, yPos);
+  doc.text(`+ € ${risultato.valoreValorizzazioni.toLocaleString('it-IT')}`, pageWidth - 20, yPos, { align: 'right' });
+  yPos += 8;
+  
+  // Linea separatore
+  doc.setDrawColor(200, 200, 200);
+  doc.line(20, yPos, pageWidth - 20, yPos);
+  yPos += 6;
+  
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'bold');
+  doc.text(`VALORE TOTALE:`, 20, yPos);
+  doc.text(`€ ${risultato.valoreTotale.toLocaleString('it-IT')}`, pageWidth - 20, yPos, { align: 'right' });
+  yPos += 10;
+
+  // Linea separatore
+  doc.setDrawColor(200, 200, 200);
+  doc.line(15, yPos, pageWidth - 15, yPos);
+  yPos += 8;
+
+  // COMPETITIVITÀ MERCATO - SOLO TESTO NERO
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text('COMPETITIVITÀ MERCATO', 15, yPos);
+  yPos += 8;
+
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.text(`Livello: ${risultato.livelloCompetitivita}`, 20, yPos);
+  yPos += 6;
+  doc.text(`Immobili simili in zona: ${risultato.immobiliSimiliZona}`, 20, yPos);
+  yPos += 6;
+  doc.text(`Prezzo consigliato: € ${risultato.prezzoConsigliato.toLocaleString('it-IT')}`, 20, yPos);
+  yPos += 10;
+
+  // PUNTI DI FORZA - SOLO TESTO NERO
   if (risultato.consigli?.puntiForza && risultato.consigli.puntiForza.length > 0) {
-    doc.setFontSize(11);
+    // Linea separatore
+    doc.setDrawColor(200, 200, 200);
+    doc.line(15, yPos, pageWidth - 15, yPos);
+    yPos += 8;
+    
+    doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.text('PUNTI DI FORZA', 15, yPos);
-    yPos += 6;
+    yPos += 8;
 
-    doc.setFontSize(9);
+    doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
     risultato.consigli.puntiForza.slice(0, 4).forEach((punto: string) => {
       doc.text(`* ${punto}`, 20, yPos);
-      yPos += 5;
+      yPos += 6;
     });
   }
 

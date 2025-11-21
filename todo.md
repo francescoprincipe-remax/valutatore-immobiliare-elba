@@ -304,3 +304,26 @@
 - [x] **Watermark ridotto**: Opacity ridotta da 3% a 1% per evitare copertura testo
 - [x] **Test confermato**: PDF generato con successo, nessun errore nella console
 - [x] **Correzioni applicate**: 13 spread operator rimossi in pagine 1, 2 e 3
+
+
+---
+
+## ✅ PAGINA 1 PDF COMPLETAMENTE LEGGIBILE (DESIGN SEMPLIFICATO)
+
+- [x] **Problema risolto**: Pagina 1 ora completamente leggibile con design semplificato
+- [x] **Causa identificata**: jsPDF non supportava box colorati con setFillColor/roundedRect
+- [x] **Soluzione applicata**: Riscritta pagina 1 con design SEMPLICE - solo testo nero su sfondo bianco
+- [x] **Eliminati**: Header rosso, box blu valori, box grigio dati, box arancione disclaimer, tabella autoTable colorata
+- [x] **Implementati**: Testo nero (font size 10-22), linee grigie separatrici (200,200,200), layout minimalista pulito
+- [x] **Struttura**: Titolo + dati immobile (2 colonne) + valori stimati (min/medio/max) + disclaimer + composizione valore + competitività + punti di forza
+- [x] **Test confermato**: PDF generato con successo, nessun errore nella console
+
+---
+
+## ✅ REGOLA PREZZI PORTOFERRAIO CENTRO AGGIUNTA
+
+- [x] **Nuova regola implementata**: Immobili <50mq a Portoferraio centro → +15% sul prezzo base
+- [x] **Codice aggiunto**: valutazione-engine.ts riga 121-123
+- [x] **Condizioni**: `if (superficieAbitabile < 50 && comune === 'Portoferraio' && localita === 'Centro')`
+- [x] **Applicazione**: `prezzoMqZona = Math.round(prezzoMqZona * 1.15)`
+- [x] **Posizionamento**: Prima dello sconto progressivo superfici grandi (riga 125)

@@ -117,6 +117,11 @@ export function calcolaValutazione(dati: DatiImmobile): RisultatoValutazione {
   // 1. Determina il prezzo al mq della zona
   let prezzoMqZona = getPrezzoMqZona(dati.comune, dati.localita);
 
+  // 1.5. Regola speciale: +15% per immobili <50mq a Portoferraio centro
+  if (dati.superficieAbitabile < 50 && dati.comune === 'Portoferraio' && dati.localita === 'Centro') {
+    prezzoMqZona = Math.round(prezzoMqZona * 1.15);
+  }
+
   // 2. Applica sconto progressivo per superfici grandi
   // Più mq = prezzo/mq più basso (economia di scala)
   const superficie = dati.superficieAbitabile;
