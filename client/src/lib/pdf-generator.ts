@@ -73,7 +73,7 @@ export function generatePDFReport(
   doc.text(String(datiImmobile.comune || '-'), 45, yPos + 6);
   doc.text(String(datiImmobile.localita || '-'), 45, yPos + 12);
   doc.text(String(datiImmobile.tipologia || '-'), 45, yPos + 18);
-  doc.text(`${datiImmobile.superficie || 0} mq`, 45, yPos + 24);
+  doc.text(`${datiImmobile.superficieAbitabile || 0} mq`, 45, yPos + 24);
   
   // Colonna destra
   doc.setFont('helvetica', 'bold');
