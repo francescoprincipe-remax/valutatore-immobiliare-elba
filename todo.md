@@ -207,5 +207,14 @@
 - [x] Integrazione tRPC: lead.create salva DB + invia email automaticamente
 
 ### Sync GitHub
-- [ ] Salvare checkpoint finale
-- [ ] Sincronizzare modifiche su GitHub
+- [x] Salvare checkpoint finale (version: 6f9e687a)
+- [x] Sincronizzare modifiche su GitHub (automatico)
+
+
+---
+
+## ✅ NUOVE IMPLEMENTAZIONI COMPLETATE
+
+- [x] **Alert immobili >200mq**: Banner arancione prominente nella pagina risultati per immobili >200mq con messaggio chiaro + CTA WhatsApp "Richiedi Valutazione Personalizzata"
+- [x] **Accesso dashboard lead**: Spiegata procedura accesso (/admin/leads, richiede autenticazione + role='admin')
+- [ ] **GitHub sync**: Sincronizzare ultima versione
