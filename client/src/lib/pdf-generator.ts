@@ -24,13 +24,13 @@ export function generatePDFReport(
     const watermarkImg = new Image();
     watermarkImg.src = '/remax-balloon.png';
     
-    // Watermark centrato, trasparente (opacity 3%), dimensione 150x150
+    // Watermark centrato, trasparente (opacity 1%), dimensione 150x150
     const watermarkSize = 150;
     const watermarkX = (pageWidth - watermarkSize) / 2;
     const watermarkY = (pageHeight - watermarkSize) / 2;
     
     try {
-      doc.setGState((doc as any).GState({ opacity: 0.03 }));
+      doc.setGState((doc as any).GState({ opacity: 0.01 }));
       doc.addImage(watermarkImg, 'PNG', watermarkX, watermarkY, watermarkSize, watermarkSize);
       doc.setGState((doc as any).GState({ opacity: 1 }));
     } catch (e) {
@@ -43,7 +43,7 @@ export function generatePDFReport(
   addWatermark();
 
   // Header RE/MAX rosso
-  doc.setFillColor(...remaxRed);
+  doc.setFillColor(225, 27, 34); // remaxRed
   doc.rect(0, 0, pageWidth, 40, 'F');
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(24);
@@ -122,7 +122,7 @@ export function generatePDFReport(
 
   // Disclaimer importante - subito sotto i valori
   doc.setFillColor(255, 250, 240);
-  doc.setDrawColor(...orange);
+  doc.setDrawColor(249, 115, 22); // orange
   doc.setLineWidth(0.5);
   doc.roundedRect(15, yPos, pageWidth - 30, 18, 2, 2, 'FD');
   
@@ -153,7 +153,7 @@ export function generatePDFReport(
     foot: [['VALORE TOTALE', `€ ${risultato.valoreTotale.toLocaleString('it-IT')}`]],
     theme: 'grid',
     headStyles: {
-      fillColor: remaxBlue,
+      fillColor: [0, 102, 179], // remaxBlue
       fontSize: 9,
       fontStyle: 'bold',
     },
@@ -161,7 +161,7 @@ export function generatePDFReport(
       fontSize: 9,
     },
     footStyles: {
-      fillColor: remaxRed,
+      fillColor: [225, 27, 34], // remaxRed
       fontSize: 10,
       fontStyle: 'bold',
     },
@@ -213,7 +213,7 @@ export function generatePDFReport(
   yPos = 20;
 
   // Header pagina 2
-  doc.setFillColor(...remaxRed);
+  doc.setFillColor(225, 27, 34); // remaxRed
   doc.rect(0, 0, pageWidth, 30, 'F');
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(18);
@@ -224,11 +224,11 @@ export function generatePDFReport(
 
   // BOX CTA PRINCIPALE - CALCOLATORE TASSE (GRANDE E CENTRALE)
   doc.setFillColor(255, 250, 240);
-  doc.setDrawColor(...orange);
+  doc.setDrawColor(249, 115, 22); // orange
   doc.setLineWidth(1);
   doc.roundedRect(20, yPos, pageWidth - 40, 50, 3, 3, 'FD');
 
-  doc.setTextColor(...remaxRed);
+  doc.setTextColor(225, 27, 34); // remaxRed
   doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
   doc.text('CALCOLA TASSE E ONERI', pageWidth / 2, yPos + 12, { align: 'center' });
@@ -241,7 +241,7 @@ export function generatePDFReport(
   doc.text(ctaLines, pageWidth / 2, yPos + 22, { align: 'center' });
 
   // Link cliccabile al calcolatore tasse
-  doc.setTextColor(...remaxBlue);
+  doc.setTextColor(0, 102, 179); // remaxBlue
   doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
   const linkText = '>> CLICCA QUI PER CALCOLARE';
@@ -252,17 +252,17 @@ export function generatePDFReport(
   });
   
   // Sottolineatura link
-  doc.setDrawColor(...remaxBlue);
+  doc.setDrawColor(0, 102, 179); // remaxBlue
   doc.setLineWidth(0.3);
   doc.line(linkX, yPos + 39, linkX + linkWidth, yPos + 39);
 
   yPos += 60;
 
   // Sezione "Perché RE/MAX" - BOX CON ICONE
-  doc.setFillColor(...lightGray);
+  doc.setFillColor(245, 245, 245); // lightGray
   doc.roundedRect(15, yPos, pageWidth - 30, 70, 2, 2, 'F');
 
-  doc.setTextColor(...remaxRed);
+  doc.setTextColor(225, 27, 34); // remaxRed
   doc.setFontSize(14);
   doc.setFont('helvetica', 'bold');
   doc.text('PERCHÉ SCEGLIERE RE/MAX?', pageWidth / 2, yPos + 10, { align: 'center' });
@@ -290,11 +290,11 @@ export function generatePDFReport(
 
   // Box urgenza - ROSSO
   doc.setFillColor(254, 242, 242);
-  doc.setDrawColor(...remaxRed);
+  doc.setDrawColor(225, 27, 34); // remaxRed
   doc.setLineWidth(1);
   doc.roundedRect(15, yPos, pageWidth - 30, 28, 2, 2, 'FD');
 
-  doc.setTextColor(...remaxRed);
+  doc.setTextColor(225, 27, 34); // remaxRed
   doc.setFontSize(12);
   doc.setFont('helvetica', 'bold');
   doc.text('MERCATO COMPETITIVO - AGISCI ORA', pageWidth / 2, yPos + 10, { align: 'center' });
@@ -309,7 +309,7 @@ export function generatePDFReport(
   yPos += 38;
 
   // CTA Consulenza - BOX BLU GRANDE
-  doc.setFillColor(...remaxBlue);
+  doc.setFillColor(0, 102, 179); // remaxBlue
   doc.roundedRect(15, yPos, pageWidth - 30, 35, 3, 3, 'F');
 
   doc.setTextColor(255, 255, 255);
@@ -345,7 +345,7 @@ export function generatePDFReport(
   yPos = 20;
 
   // Header pagina 3
-  doc.setFillColor(...darkGray);
+  doc.setFillColor(51, 51, 51); // darkGray
   doc.rect(0, 0, pageWidth, 30, 'F');
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(16);
@@ -427,10 +427,10 @@ export function generatePDFReport(
   yPos += privacyLines.length * 5 + 10;
 
   // Box contatti finale
-  doc.setFillColor(...lightGray);
+  doc.setFillColor(245, 245, 245); // lightGray
   doc.roundedRect(15, yPos, pageWidth - 30, 25, 2, 2, 'F');
 
-  doc.setTextColor(...remaxRed);
+  doc.setTextColor(225, 27, 34); // remaxRed
   doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
   doc.text('CONTATTI', pageWidth / 2, yPos + 8, { align: 'center' });

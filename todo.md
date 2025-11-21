@@ -292,3 +292,15 @@
 - [x] **Testo MERCATO COMPETITIVO migliorato**: Ora più persuasivo e specifico ("Attenzione: X immobili simili sono attualmente in vendita nella stessa zona. Un prezzo competitivo e una strategia di marketing efficace sono fondamentali...")
 - [x] **Contrasto corretto**: Usati colori RGB separati per tutti i setFillColor/setTextColor
 - [x] **Test confermato**: PDF generato con successo, nessun errore nella console
+
+
+---
+
+## ✅ PROBLEMA CONTRASTO PAGINA 1 PDF RISOLTO
+
+- [x] **Pagina 1 ora leggibile**: Rimossi TUTTI gli spread operator (13 in totale), usati parametri RGB separati
+- [x] **Analizzato codice completo**: Identificati tutti i setTextColor, setFillColor, setDrawColor problematici
+- [x] **Colori corretti**: Usati parametri RGB separati (225, 27, 34) invece di spread operator (...remaxRed)
+- [x] **Watermark ridotto**: Opacity ridotta da 3% a 1% per evitare copertura testo
+- [x] **Test confermato**: PDF generato con successo, nessun errore nella console
+- [x] **Correzioni applicate**: 13 spread operator rimossi in pagine 1, 2 e 3
