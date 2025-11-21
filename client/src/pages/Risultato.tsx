@@ -19,7 +19,7 @@ import {
 import { Link, useLocation } from "wouter";
 import { APP_LOGO } from "@/const";
 import type { RisultatoValutazione } from "../../../server/valutazione-engine";
-import { generatePDFReport } from "@/lib/pdf-generator";
+import { generatePDF } from "@/lib/pdf-generator";
 import { trpc } from "@/lib/trpc";
 
 export default function Risultato() {
@@ -119,7 +119,7 @@ export default function Risultato() {
 
       // Genera PDF con dati lead
       if (risultato && datiImmobile) {
-        await generatePDFReport(risultato, datiImmobile);
+        await generatePDF(risultato, datiImmobile, leadData);
         setShowLeadForm(false);
         // Reset form
         setLeadData({ nome: '', cognome: '', telefono: '', email: '', gdprConsent: false });
