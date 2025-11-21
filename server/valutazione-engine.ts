@@ -515,17 +515,18 @@ function determinaCompetitivita(immobiliSimili: number): 'BASSA' | 'MEDIA' | 'AL
  * Calcola il prezzo consigliato in base alla competitività
  */
 function calcolaPrezzoConsigliato(valoreTotale: number, livello: string): number {
+  // Il prezzo consigliato è sempre inferiore al valore medio per strategia di vendita
   switch (livello) {
     case 'BASSA':
-      return Math.round(valoreTotale * 1.05); // +5%
+      return Math.round(valoreTotale * 0.97); // -3% (poca concorrenza, prezzo vicino al valore)
     case 'MEDIA':
-      return Math.round(valoreTotale);
+      return Math.round(valoreTotale * 0.95); // -5% (concorrenza media)
     case 'ALTA':
-      return Math.round(valoreTotale * 0.95); // -5%
+      return Math.round(valoreTotale * 0.92); // -8% (alta concorrenza, prezzo più competitivo)
     case 'MOLTO_ALTA':
-      return Math.round(valoreTotale * 0.90); // -10%
+      return Math.round(valoreTotale * 0.88); // -12% (concorrenza altissima, prezzo aggressivo)
     default:
-      return Math.round(valoreTotale);
+      return Math.round(valoreTotale * 0.95);
   }
 }
 

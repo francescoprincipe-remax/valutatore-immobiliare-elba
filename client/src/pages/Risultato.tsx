@@ -105,7 +105,7 @@ export default function Risultato() {
         await generatePDFReport(risultato, datiImmobile);
         setShowLeadForm(false);
         // Reset form
-        setLeadData({ nome: '', cognome: '', telefono: '', email: '' });
+        setLeadData({ nome: '', cognome: '', telefono: '', email: '', gdprConsent: false });
       }
     } catch (error) {
       console.error('Errore durante la generazione del PDF:', error);
@@ -155,21 +155,6 @@ export default function Risultato() {
       </header>
 
       <div className="container py-8 max-w-6xl">
-        {/* Disclaimer */}
-        <div className="mb-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg">
-          <div className="flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-semibold text-amber-900 mb-1">Stima Automatica Indicativa</h3>
-              <p className="text-sm text-amber-800">
-                Questa è una <strong>stima automatica di mercato</strong> generata da un algoritmo basato su dati pubblici e statistiche. 
-                <strong className="block mt-1">Non sostituisce una valutazione professionale</strong> effettuata da un agente immobiliare abilitato. 
-                I valori indicati sono puramente orientativi e non vincolanti.
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Hero Result Card */}
         <Card className="mb-8 border-2 border-primary/20 shadow-lg">
           <CardContent className="pt-8">
@@ -212,9 +197,24 @@ export default function Risultato() {
               </div>
             </div>
 
-            <div className="flex items-center justify-center gap-4 text-sm">
+            <div className="flex items-center justify-center gap-4 text-sm mb-6">
               <div className={`px-4 py-2 rounded-full font-semibold ${competitivitaColor}`}>
                 Competitività: {risultato.livelloCompetitivita.replace('_', ' ')}
+              </div>
+            </div>
+
+            {/* Disclaimer */}
+            <div className="p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="font-semibold text-amber-900 mb-1">Stima Automatica Indicativa</h3>
+                  <p className="text-sm text-amber-800">
+                    Questa è una <strong>stima automatica di mercato</strong> generata da un algoritmo basato su dati pubblici e statistiche. 
+                    <strong className="block mt-1">Non sostituisce una valutazione professionale</strong> effettuata da un agente immobiliare abilitato. 
+                    I valori indicati sono puramente orientativi e non vincolanti.
+                  </p>
+                </div>
               </div>
             </div>
           </CardContent>
@@ -257,14 +257,6 @@ export default function Risultato() {
                   </span>
                 </div>
                 <Progress value={percPertinenze} className="h-3" />
-                <div className="mt-2 space-y-1">
-                  {Object.entries(risultato.dettaglioPertinenze).map(([key, value]) => (
-                    <div key={key} className="text-xs text-muted-foreground flex justify-between">
-                      <span className="capitalize">{key.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
-                      <span>+€{(value as number).toLocaleString()}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
             )}
 
@@ -281,14 +273,6 @@ export default function Risultato() {
                   </span>
                 </div>
                 <Progress value={percValorizzazioni} className="h-3" />
-                <div className="mt-2 space-y-1">
-                  {Object.entries(risultato.dettaglioValorizzazioni).map(([key, value]) => (
-                    <div key={key} className="text-xs text-muted-foreground flex justify-between">
-                      <span className="capitalize">{key.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
-                      <span>+€{(value as number).toLocaleString()}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
             )}
 
@@ -304,14 +288,7 @@ export default function Risultato() {
                     -€{(risultato.valoreSvalutazioni || 0).toLocaleString()}
                   </span>
                 </div>
-                <div className="mt-2 space-y-1">
-                  {Object.entries(risultato.dettaglioSvalutazioni).map(([key, value]) => (
-                    <div key={key} className="text-xs text-muted-foreground flex justify-between">
-                      <span className="capitalize">{key.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
-                      <span>-€{(value as number).toLocaleString()}</span>
-                    </div>
-                  ))}
-                </div>
+
               </div>
             )}
 

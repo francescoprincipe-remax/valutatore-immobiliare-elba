@@ -13,342 +13,342 @@
   "comuni": {
     "portoferraio": {
       "nome": "Portoferraio",
-      "prezzo_medio_mq": 3805,
+      "prezzo_medio_mq": 3538,
       "trend_annuale": "+5.45%",
       "localita": {
         "acquabona": {
           "nome": "Acquabona",
-          "prezzo_mq": 3500
+          "prezzo_mq": 3255
         },
         "acquaviva": {
           "nome": "Acquaviva",
-          "prezzo_mq": 4400
+          "prezzo_mq": 4092
         },
         "bagnaia": {
           "nome": "Bagnaia",
-          "prezzo_mq": 3600
+          "prezzo_mq": 3348
         },
         "biodola": {
           "nome": "Biodola",
-          "prezzo_mq": 4700
+          "prezzo_mq": 4371
         },
         "campo_ai_peri": {
           "nome": "Campo ai Peri",
-          "prezzo_mq": 3500
+          "prezzo_mq": 3255
         },
         "capobianco": {
           "nome": "Capobianco",
-          "prezzo_mq": 4200
+          "prezzo_mq": 3906
         },
         "carpani": {
           "nome": "Carpani",
-          "prezzo_mq": 3100
+          "prezzo_mq": 2883
         },
         "centro": {
           "nome": "Centro",
-          "prezzo_mq": 3300
+          "prezzo_mq": 3069
         },
         "ghiaie": {
           "nome": "Ghiaie",
-          "prezzo_mq": 4200
+          "prezzo_mq": 3906
         },
         "magazzini": {
           "nome": "Magazzini",
-          "prezzo_mq": 3800
+          "prezzo_mq": 3534
         },
         "ottone": {
           "nome": "Ottone",
-          "prezzo_mq": 3800
+          "prezzo_mq": 3534
         },
         "s_giovanni": {
           "nome": "S. Giovanni",
-          "prezzo_mq": 4000
+          "prezzo_mq": 3720
         },
         "s_martino": {
           "nome": "S. Martino",
-          "prezzo_mq": 3800
+          "prezzo_mq": 3534
         },
         "schiopparello": {
           "nome": "Schiopparello",
-          "prezzo_mq": 3800
+          "prezzo_mq": 3534
         },
         "valdana": {
           "nome": "Valdana",
-          "prezzo_mq": 3800
+          "prezzo_mq": 3534
         },
         "valle_di_lazzaro": {
           "nome": "Valle di Lazzaro",
-          "prezzo_mq": 3000
+          "prezzo_mq": 2790
         },
         "viticcio": {
           "nome": "Viticcio",
-          "prezzo_mq": 4200
+          "prezzo_mq": 3906
         }
       }
     },
     "marciana": {
       "nome": "Marciana",
-      "prezzo_medio_mq": 3346,
+      "prezzo_medio_mq": 3111,
       "trend_annuale": "+4.0%",
       "localita": {
         "campo_all_aia": {
           "nome": "Campo all'Aia",
-          "prezzo_mq": 4000
+          "prezzo_mq": 3720
         },
         "chiessi": {
           "nome": "Chiessi",
-          "prezzo_mq": 3000
+          "prezzo_mq": 2790
         },
         "colle_d_orano": {
           "nome": "Colle d'Orano",
-          "prezzo_mq": 3000
+          "prezzo_mq": 2790
         },
         "marciana_alta": {
           "nome": "Marciana Alta",
-          "prezzo_mq": 2500
+          "prezzo_mq": 2325
         },
         "patresi": {
           "nome": "Patresi",
-          "prezzo_mq": 3350
+          "prezzo_mq": 3115
         },
         "poggio": {
           "nome": "Poggio",
-          "prezzo_mq": 2700
+          "prezzo_mq": 2511
         },
         "pomonte": {
           "nome": "Pomonte",
-          "prezzo_mq": 3000
+          "prezzo_mq": 2790
         },
         "procchio": {
           "nome": "Procchio",
-          "prezzo_mq": 4070
+          "prezzo_mq": 3785
         },
         "redinoce": {
           "nome": "Redinoce",
-          "prezzo_mq": 3600
+          "prezzo_mq": 3348
         },
         "s_andrea": {
           "nome": "S. Andrea",
-          "prezzo_mq": 3820
+          "prezzo_mq": 3552
         },
         "seccheto": {
           "nome": "Seccheto",
-          "prezzo_mq": 3900
+          "prezzo_mq": 3627
         },
         "zanca": {
           "nome": "Zanca",
-          "prezzo_mq": 3220
+          "prezzo_mq": 2994
         }
       }
     },
     "campo_nell_elba": {
       "nome": "Campo nell'Elba",
-      "prezzo_medio_mq": 3783,
+      "prezzo_medio_mq": 3518,
       "trend_annuale": "+3.83%",
       "localita": {
         "cavoli": {
           "nome": "Cavoli",
-          "prezzo_mq": 5290
+          "prezzo_mq": 4919
         },
         "fetovaia": {
           "nome": "Fetovaia",
-          "prezzo_mq": 4532
+          "prezzo_mq": 4214
         },
         "fonza": {
           "nome": "Fonza",
-          "prezzo_mq": 3640
+          "prezzo_mq": 3385
         },
         "la_pila": {
           "nome": "La Pila",
-          "prezzo_mq": 3280
+          "prezzo_mq": 3050
         },
         "marina_di_campo": {
           "nome": "Marina di Campo",
-          "prezzo_mq": 3800
+          "prezzo_mq": 3534
         },
         "state": {
           "nome": "State",
-          "prezzo_mq": 4600
+          "prezzo_mq": 4278
         },
         "s_piero": {
           "nome": "S. Piero",
-          "prezzo_mq": 2765
+          "prezzo_mq": 2571
         },
         "sant_ilario": {
           "nome": "Sant'Ilario",
-          "prezzo_mq": 2388
+          "prezzo_mq": 2220
         },
         "seccheto": {
           "nome": "Seccheto",
-          "prezzo_mq": 3900
+          "prezzo_mq": 3627
         },
         "vallebuia": {
           "nome": "Vallebuia",
-          "prezzo_mq": 3640
+          "prezzo_mq": 3385
         }
       }
     },
     "marciana_marina": {
       "nome": "Marciana Marina",
-      "prezzo_medio_mq": 3600,
+      "prezzo_medio_mq": 3348,
       "trend_annuale": "+4.5%",
       "localita": {
         "centro": {
           "nome": "Centro",
-          "prezzo_mq": 3600
+          "prezzo_mq": 3348
         }
       }
     },
     "capoliveri": {
       "nome": "Capoliveri",
-      "prezzo_medio_mq": 4085,
+      "prezzo_medio_mq": 3799,
       "trend_annuale": "+4.32%",
       "localita": {
         "barabarca": {
           "nome": "Barabarca",
-          "prezzo_mq": 3500
+          "prezzo_mq": 3255
         },
         "capo_perla": {
           "nome": "Capo Perla",
-          "prezzo_mq": 4000
+          "prezzo_mq": 3720
         },
         "centro": {
           "nome": "Centro",
-          "prezzo_mq": 3600
+          "prezzo_mq": 3348
         },
         "gli_stecchi": {
           "nome": "Gli Stecchi",
-          "prezzo_mq": 3500
+          "prezzo_mq": 3255
         },
         "innamorata": {
           "nome": "Innamorata",
-          "prezzo_mq": 4000
+          "prezzo_mq": 3720
         },
         "lacona": {
           "nome": "Lacona",
-          "prezzo_mq": 4500
+          "prezzo_mq": 4185
         },
         "lido_di_capoliveri": {
           "nome": "Lido di Capoliveri",
-          "prezzo_mq": 4000
+          "prezzo_mq": 3720
         },
         "madonna_delle_grazie": {
           "nome": "Madonna delle Grazie",
-          "prezzo_mq": 4200
+          "prezzo_mq": 3906
         },
         "morcone": {
           "nome": "Morcone",
-          "prezzo_mq": 4600
+          "prezzo_mq": 4278
         },
         "naregno": {
           "nome": "Naregno",
-          "prezzo_mq": 4000
+          "prezzo_mq": 3720
         },
         "norsi": {
           "nome": "Norsi",
-          "prezzo_mq": 3800
+          "prezzo_mq": 3534
         },
         "pareti": {
           "nome": "Pareti",
-          "prezzo_mq": 5000
+          "prezzo_mq": 4650
         },
         "peducelli": {
           "nome": "Peducelli",
-          "prezzo_mq": 4200
+          "prezzo_mq": 3906
         },
         "straccoligno": {
           "nome": "Straccoligno",
-          "prezzo_mq": 4300
+          "prezzo_mq": 3999
         }
       }
     },
     "porto_azzurro": {
       "nome": "Porto Azzurro",
-      "prezzo_medio_mq": 3750,
+      "prezzo_medio_mq": 3487,
       "trend_annuale": "+4.0%",
       "localita": {
         "barbarossa": {
           "nome": "Barbarossa",
-          "prezzo_mq": 3700
+          "prezzo_mq": 3441
         },
         "centro": {
           "nome": "Centro",
-          "prezzo_mq": 3200
+          "prezzo_mq": 2976
         },
         "mola": {
           "nome": "Mola",
-          "prezzo_mq": 3900
+          "prezzo_mq": 3627
         },
         "monserrato": {
           "nome": "Monserrato",
-          "prezzo_mq": 3800
+          "prezzo_mq": 3534
         },
         "reale": {
           "nome": "Reale",
-          "prezzo_mq": 4000
+          "prezzo_mq": 3720
         },
         "terranera": {
           "nome": "Terranera",
-          "prezzo_mq": 3900
+          "prezzo_mq": 3627
         }
       }
     },
     "rio": {
       "nome": "Rio",
-      "prezzo_medio_mq": 2930,
+      "prezzo_medio_mq": 2724,
       "trend_annuale": "+3.5%",
       "localita": {
         "bagnaia": {
           "nome": "Bagnaia",
-          "prezzo_mq": 3600
+          "prezzo_mq": 3348
         },
         "cavo": {
           "nome": "Cavo",
-          "prezzo_mq": 3300
+          "prezzo_mq": 3069
         },
         "capo_d_arco": {
           "nome": "Capo d'Arco",
-          "prezzo_mq": 3600
+          "prezzo_mq": 3348
         },
         "la_chiusa": {
           "nome": "La Chiusa",
-          "prezzo_mq": 2500
+          "prezzo_mq": 2325
         },
         "nisporto": {
           "nome": "Nisporto",
-          "prezzo_mq": 3300
+          "prezzo_mq": 3069
         },
         "nisportino": {
           "nome": "Nisportino",
-          "prezzo_mq": 3000
+          "prezzo_mq": 2790
         },
         "ortano": {
           "nome": "Ortano",
-          "prezzo_mq": 3300
+          "prezzo_mq": 3069
         },
         "padre_eterno": {
           "nome": "Padre Eterno",
-          "prezzo_mq": 2300
+          "prezzo_mq": 2139
         },
         "porticciolo": {
           "nome": "Porticciolo",
-          "prezzo_mq": 2700
+          "prezzo_mq": 2511
         },
         "rio_elba_centro": {
           "nome": "Rio Elba Centro",
-          "prezzo_mq": 2000
+          "prezzo_mq": 1860
         },
         "rio_marina_centro": {
           "nome": "Rio Marina Centro",
-          "prezzo_mq": 2800
+          "prezzo_mq": 2604
         },
         "topinetti": {
           "nome": "Topinetti",
-          "prezzo_mq": 2900
+          "prezzo_mq": 2697
         },
         "villaggio_togliatti": {
           "nome": "Villaggio Togliatti",
-          "prezzo_mq": 2800
+          "prezzo_mq": 2604
         }
       }
     }
