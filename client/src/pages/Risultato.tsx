@@ -19,7 +19,7 @@ import {
 import { Link, useLocation } from "wouter";
 import { APP_LOGO } from "@/const";
 import type { RisultatoValutazione } from "../../../server/valutazione-engine";
-import { generatePDF } from "@/lib/pdf-generator";
+// import { generatePDF } from "@/lib/pdf-generator"; // Non più usato - ora usiamo endpoint tRPC
 import { trpc } from "@/lib/trpc";
 
 export default function Risultato() {
@@ -38,6 +38,7 @@ export default function Risultato() {
 
   // Hook tRPC - DEVE essere chiamato prima di qualsiasi return condizionale
   const createLeadMutation = trpc.lead.create.useMutation();
+  const generatePDFMutation = trpc.valutazione.generatePDF.useMutation();
 
   useEffect(() => {
     // Recupera i risultati dal sessionStorage
@@ -117,12 +118,34 @@ export default function Risultato() {
         valoreTotale: risultato?.valoreTotale,
       });
 
-      // Genera PDF con dati lead
+      // Genera PDF con dati lead usando endpoint tRPC
       if (risultato && datiImmobile) {
-        await generatePDF(risultato, datiImmobile, leadData);
-        setShowLeadForm(false);
-        // Reset form
-        setLeadData({ nome: '', cognome: '', telefono: '', email: '', gdprConsent: false });
+        try {
+          // Recupera valutazioneId dal sessionStorage (salvato durante il calcolo)
+          const valutazioneId = sessionStorage.getItem('valutazione_id');
+          if (!valutazioneId) {
+            throw new Error('ID valutazione non trovato');
+          }
+
+          const response = await generatePDFMutation.mutateAsync({
+            valutazioneId,
+            leadData,
+          });
+
+          // Scarica il PDF
+          const linkSource = `data:application/pdf;base64,${response.pdfBase64}`;
+          const downloadLink = document.createElement('a');
+          downloadLink.href = linkSource;
+          downloadLink.download = response.filename;
+          downloadLink.click();
+
+          setShowLeadForm(false);
+          // Reset form
+          setLeadData({ nome: '', cognome: '', telefono: '', email: '', gdprConsent: false });
+        } catch (error) {
+          console.error('Errore generazione PDF:', error);
+          alert('Errore durante la generazione del PDF. Riprova.');
+        }
       }
     } catch (error) {
       console.error('Errore durante la generazione del PDF:', error);

@@ -96,12 +96,13 @@ export async function getUserByOpenId(openId: string) {
 import { valutazioni, datiMercato, InsertValutazione } from "../drizzle/schema";
 import { desc, and } from "drizzle-orm";
 
-export async function saveValutazione(data: InsertValutazione) {
+export async function saveValutazione(data: InsertValutazione): Promise<number> {
   const db = await getDb();
   if (!db) throw new Error("Database non disponibile");
 
   const result = await db.insert(valutazioni).values(data);
-  return result;
+  // Restituisce l'ID inserito
+  return Number(result[0].insertId);
 }
 
 export async function getValutazioneById(id: number) {
