@@ -164,7 +164,12 @@ export function calcolaValutazione(dati: DatiImmobile): RisultatoValutazione {
   
   // Applica la variazione % + sconto -10% per gap venduto/in vendita
   const fattoreVariazione = 1 + variazionePercentuale;
-  const fattoreScontoVenduto = 0.90; // -10% per gap venduto/in vendita
+  let fattoreScontoVenduto = 0.90; // -10% per gap venduto/in vendita
+  
+  // Sconto aggiuntivo -25% per ville (mercato difficile)
+  if (tipologiaPezzatura === 'ville') {
+    fattoreScontoVenduto = 0.75; // -25% per ville
+  }
   
   prezzoMqZona = Math.round(prezzoMqZona * fattoreVariazione * fattoreScontoVenduto);
 
