@@ -85,11 +85,14 @@ export const appRouter = router({
         // Calcola la valutazione
         const risultato = calcolaValutazione(input as DatiImmobile);
 
-        // Se richiesto e utente autenticato, salva nel database
+        // Salva SEMPRE la valutazione nel database (anche per utenti anonimi)
+        // Questo è necessario per generare il PDF successivamente
         let valutazioneId: number | undefined;
-        if (input.salva && ctx.user) {
+        // Se utente autenticato, associa la valutazione all'utente
+        // Altrimenti salva come valutazione anonima (userId = null)
+        if (true) { // Salva sempre
           valutazioneId = await saveValutazione({
-            userId: ctx.user.id,
+            userId: ctx.user?.id || null,
             comune: input.comune,
             localita: input.localita || null,
             indirizzo: input.indirizzo || null,
@@ -330,23 +333,48 @@ export const appRouter = router({
 
         // Esegui lo script Python
         const scriptPath = path.join(process.cwd(), 'server', 'pptx-generator.py');
+        console.log('[PDF] Esecuzione script Python:', scriptPath);
+        console.log('[PDF] Input JSON:', tempJsonPath);
+        console.log('[PDF] Output PDF:', tempPdfPath);
+        
         try {
-          await execAsync(`python3 ${scriptPath} ${tempJsonPath} ${tempPdfPath}`);
+          const { stdout, stderr } = await execAsync(`python3 ${scriptPath} ${tempJsonPath} ${tempPdfPath}`);
+          console.log('[PDF] Script Python completato');
+          if (stdout) console.log('[PDF] stdout:', stdout);
+          if (stderr) console.error('[PDF] stderr:', stderr);
         } catch (error: any) {
-          console.error('Errore generazione PDF:', error);
+          console.error('[PDF] Errore esecuzione script Python:', error);
+          console.error('[PDF] stderr:', error.stderr);
+          console.error('[PDF] stdout:', error.stdout);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: 'Errore durante la generazione del PDF',
+            message: `Errore durante la generazione del PDF: ${error.message}`,
+          });
+        }
+
+        // Verifica che il PDF sia stato generato
+        if (!fs.existsSync(tempPdfPath)) {
+          console.error('[PDF] File PDF non trovato:', tempPdfPath);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'PDF non generato - file non trovato',
           });
         }
 
         // Leggi il PDF generato e convertilo in base64
+        console.log('[PDF] Lettura file PDF...');
         const pdfBuffer = fs.readFileSync(tempPdfPath);
         const pdfBase64 = pdfBuffer.toString('base64');
+        console.log('[PDF] PDF convertito in base64, dimensione:', pdfBuffer.length, 'bytes');
 
         // Pulisci i file temporanei
-        fs.unlinkSync(tempJsonPath);
-        fs.unlinkSync(tempPdfPath);
+        try {
+          fs.unlinkSync(tempJsonPath);
+          fs.unlinkSync(tempPdfPath);
+          console.log('[PDF] File temporanei eliminati');
+        } catch (cleanupError) {
+          console.warn('[PDF] Errore pulizia file temporanei:', cleanupError);
+        }
 
         return {
           success: true,

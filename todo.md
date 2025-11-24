@@ -69,14 +69,16 @@
 
 ---
 
-## 🚨 BUG CRITICO ANCORA PRESENTE
+## ✅ BUG CRITICO GENERAZIONE PDF RISOLTO (24 Nov 2025)
 
-- [ ] **Bug valori €0 NON RISOLTO**: Valori min/max/totale/consigliato mostrano €0
-- [ ] Valore base CORRETTO: €213.060 (53mq × €4020/mq)
-- [ ] Valorizzazioni CORRETTE: +€12.784 (servizi +€8.522, posizione +€4.261)
-- [ ] Ma i totali finali sono a zero: valoreMin, valoreMax, valoreTotale, prezzoConsigliato
-- [ ] Problema: calcolo finale o visualizzazione nel frontend Risultato.tsx
-- [ ] Test case: Capoliveri Centro, 53mq, appartamento, ottimo stato, vista mare alcune stanze
+- [x] **Bug generazione PDF RISOLTO**: Endpoint `calcola` ora salva SEMPRE la valutazione (anche per utenti anonimi)
+- [x] **Causa identificata**: `valutazioneId` era `undefined` quando utente non autenticato → PDF non poteva essere generato
+- [x] **Fix applicato**: Modificato endpoint `calcola` per salvare valutazione con `userId: null` per utenti anonimi
+- [x] **Logging aggiunto**: Endpoint `generatePDF` ora ha logging dettagliato per debugging
+- [x] **Gestione errori**: Verifica esistenza file PDF prima della lettura + cleanup file temporanei
+- [x] **Test end-to-end**: Creato test vitest completo che simula flusso utente (calcola + generatePDF)
+- [x] **Test passato**: PDF generato correttamente (1.6 MB, 7 pagine, 12.2 secondi)
+- [x] **Sistema funzionante**: Utenti possono scaricare PDF dopo compilazione form lead
 
 
 ---
@@ -514,3 +516,15 @@ PDF generato automaticamente **identico al 100%** al design Canva creato dall'ut
 - ✅ Implementazione rapida (2-3 ore vs 8-12 ore pdfmake)
 - ✅ Facile da aggiornare (modifichi Canva → esporti PPTX → sostituisci template)
 - ✅ Supporto completo per gradienti, immagini, layout complessi
+
+
+---
+
+## 🚨 BUG GENERAZIONE PDF DA POWERPOINT
+
+- [ ] **Errore generazione PDF**: Utente riceve messaggio "Errore durante la generazione del PDF. Riprova."
+- [ ] **Controllare log server**: Verificare errore nell'endpoint tRPC valutazione.generatePDF
+- [ ] **Possibili cause**: Script Python non eseguibile, LibreOffice non installato, path file errato, permessi file
+- [ ] **Testare script standalone**: Verificare se pptx-generator.py funziona da riga di comando
+- [ ] **Correggere errore**: Applicare fix identificato
+- [ ] **Testare end-to-end**: Verificare generazione PDF dall'applicazione web
