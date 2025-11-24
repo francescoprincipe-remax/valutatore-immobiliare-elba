@@ -496,7 +496,7 @@ export const appRouter = router({
           VALORE_TOTALE: valutazione.valoreTotale.toLocaleString('it-IT'),
           VALORE_MINIMO: valutazione.valoreMin.toLocaleString('it-IT'),
           VALORE_MASSIMO: valutazione.valoreMax.toLocaleString('it-IT'),
-          PREZZO_MQ: Math.round(valutazione.valoreTotale / valutazione.superficieAbitabile).toLocaleString('it-IT'),
+          PREZZO_MQ: Math.round(valutazione.valoreBase / valutazione.superficieAbitabile).toLocaleString('it-IT'),
           COMPETITIVITA: valutazione.livelloCompetitivita,
           PREZZO_CONSIGLIATO: Math.round(valutazione.valoreTotale * 0.92).toLocaleString('it-IT'),
           TIPOLOGIA: valutazione.tipologia,
