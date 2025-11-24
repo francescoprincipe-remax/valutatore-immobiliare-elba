@@ -4,6 +4,7 @@
  */
 
 import datiMercatoJson from './dati_mercato.json';
+import variazioniPrezzoJson from './variazioni_prezzo_tipologia.json';
 
 export interface DatiImmobile {
   // Localizzazione
@@ -117,30 +118,55 @@ export function calcolaValutazione(dati: DatiImmobile): RisultatoValutazione {
   // 1. Determina il prezzo al mq della zona
   let prezzoMqZona = getPrezzoMqZona(dati.comune, dati.localita);
 
-  // 1.5. Regola speciale: +15% per immobili <50mq a Portoferraio centro
-  if (dati.superficieAbitabile < 50 && dati.comune === 'Portoferraio' && dati.localita === 'Centro') {
-    prezzoMqZona = Math.round(prezzoMqZona * 1.15);
-  }
-
-  // 2. Applica sconto progressivo per superfici grandi
-  // Più mq = prezzo/mq più basso (economia di scala)
+  // 2. Applica variazione prezzo in base a tipologia/pezzatura + sconto venduto/in vendita
+  // Determina la tipologia in base alla superficie e tipologia immobile
   const superficie = dati.superficieAbitabile;
-  let scontoSuperficie = 0;
+  const tipologiaImmobile = dati.tipologia.toLowerCase();
+  let tipologiaPezzatura = '';
   
-  if (superficie > 150) {
-    scontoSuperficie = 0.15; // -15% per immobili > 150mq
-  } else if (superficie > 120) {
-    scontoSuperficie = 0.12; // -12% per immobili 121-150mq
-  } else if (superficie > 100) {
-    scontoSuperficie = 0.10; // -10% per immobili 101-120mq
-  } else if (superficie > 80) {
-    scontoSuperficie = 0.07; // -7% per immobili 81-100mq
-  } else if (superficie > 60) {
-    scontoSuperficie = 0.05; // -5% per immobili 61-80mq
+  // Determina tipologia per variazione prezzo
+  if (tipologiaImmobile.includes('villa') || tipologiaImmobile.includes('indipendente')) {
+    // Ville e case indipendenti
+    if (superficie > 250) {
+      tipologiaPezzatura = 'ville';
+    } else if (superficie >= 150) {
+      tipologiaPezzatura = 'villette';
+    } else if (superficie >= 120) {
+      tipologiaPezzatura = '5_locali_plus';
+    } else if (superficie >= 85) {
+      tipologiaPezzatura = 'quadrilocale';
+    } else if (superficie >= 60) {
+      tipologiaPezzatura = 'trilocale';
+    } else {
+      tipologiaPezzatura = 'bilocale';
+    }
+  } else {
+    // Appartamenti
+    if (superficie >= 120) {
+      tipologiaPezzatura = '5_locali_plus';
+    } else if (superficie >= 85) {
+      tipologiaPezzatura = 'quadrilocale';
+    } else if (superficie >= 60) {
+      tipologiaPezzatura = 'trilocale';
+    } else {
+      tipologiaPezzatura = 'bilocale';
+    }
   }
-  // Immobili <= 60mq: nessuno sconto (prezzo pieno)
   
-  prezzoMqZona = Math.round(prezzoMqZona * (1 - scontoSuperficie));
+  // Recupera la variazione % per questo comune e tipologia
+  const comuneKey = dati.comune.toLowerCase().replace(/[' ]/g, '_').replace("nell", "nell_");
+  const variazioni = (variazioniPrezzoJson as any).variazioni_per_comune;
+  let variazionePercentuale = 0;
+  
+  if (variazioni[comuneKey] && variazioni[comuneKey][tipologiaPezzatura] !== undefined) {
+    variazionePercentuale = variazioni[comuneKey][tipologiaPezzatura];
+  }
+  
+  // Applica la variazione % + sconto -10% per gap venduto/in vendita
+  const fattoreVariazione = 1 + variazionePercentuale;
+  const fattoreScontoVenduto = 0.90; // -10% per gap venduto/in vendita
+  
+  prezzoMqZona = Math.round(prezzoMqZona * fattoreVariazione * fattoreScontoVenduto);
 
   // 3. Calcola valore base
   const valoreBase = dati.superficieAbitabile * prezzoMqZona;

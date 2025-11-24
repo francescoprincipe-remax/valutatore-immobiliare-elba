@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "fonte": "Analisi mercato Elba 2025 - Prezzi in vendita",
+    "note": "Variazioni % rispetto alla media del comune per tipologia. Da applicare al prezzo base + sconto -10% per gap venduto/in vendita",
+    "ultimo_aggiornamento": "Novembre 2025"
+  },
+  "variazioni_per_comune": {
+    "campo_nell_elba": {
+      "bilocale": 0.0313,
+      "trilocale": 0.0815,
+      "quadrilocale": -0.0972,
+      "5_locali_plus": 0.001,
+      "villette": 0.0521,
+      "ville": 0.1499
+    },
+    "capoliveri": {
+      "bilocale": -0.1115,
+      "trilocale": -0.1392,
+      "quadrilocale": -0.0275,
+      "5_locali_plus": 0.1586,
+      "villette": 0.2129,
+      "ville": 0.0378
+    },
+    "marciana": {
+      "bilocale": 0.0728,
+      "trilocale": -0.0392,
+      "quadrilocale": -0.0778,
+      "5_locali_plus": 0.0211,
+      "villette": 0.0079,
+      "ville": 0.3957
+    },
+    "marciana_marina": {
+      "bilocale": -0.0926,
+      "trilocale": 0.058,
+      "quadrilocale": -0.1092,
+      "5_locali_plus": 0.0301,
+      "villette": -0.0751,
+      "ville": 0.2451
+    },
+    "porto_azzurro": {
+      "bilocale": 0.1225,
+      "trilocale": -0.004,
+      "quadrilocale": 0.0185,
+      "5_locali_plus": -0.079,
+      "villette": 0.09,
+      "ville": 0.2966
+    },
+    "portoferraio": {
+      "bilocale": -0.0596,
+      "trilocale": -0.1036,
+      "quadrilocale": -0.0064,
+      "5_locali_plus": 0.0347,
+      "villette": 0.1581,
+      "ville": 0.5377
+    },
+    "rio": {
+      "bilocale": 0.0185,
+      "trilocale": 0.0283,
+      "quadrilocale": -0.0465,
+      "5_locali_plus": -0.0277,
+      "villette": 0.0554,
+      "ville": 0.1437
+    }
+  }
+}
