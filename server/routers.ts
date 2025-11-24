@@ -22,30 +22,45 @@ function generaPuntiDiForzaPDF(valutazione: any) {
   if (valutazione.vistaMare && valutazione.vistaMare !== 'No' && valutazione.vistaMare !== 'no') {
     const valorizzazioneVista = valutazione.breakdownCalcolo?.valorizzazioni?.vistaMare || 0;
     if (valorizzazioneVista > 0) {
+      const tipoVista = valutazione.vistaMare === 'Totale' ? 'panoramica completa' : 'affaccio parziale';
       puntiForza.push({
         icona: '🌊',
         titolo: 'Vista Mare di Pregio',
-        testo: `Panorama esclusivo sul mare che aggiunge €${valorizzazioneVista.toLocaleString('it-IT')} al valore dell'immobile.`
+        testo: `${tipoVista === 'panoramica completa' ? 'Panorama esclusivo sul mare da più stanze' : 'Affaccio sul mare'}, uno dei principali driver di valore nel mercato elbano e fonte di benessere quotidiano.`
       });
     }
   }
 
   // 2. Vicinanza al Mare
   if (valutazione.distanzaMare && valutazione.distanzaMare < 1000) {
+    const distanza = valutazione.distanzaMare;
+    let descrizione = '';
+    if (distanza < 100) {
+      descrizione = 'A pochi passi dalla spiaggia, perfetto per godersi il mare senza stress da parcheggio e con la libertà di tornare a casa in pochi minuti.';
+    } else if (distanza < 300) {
+      descrizione = 'Posizione strategica a pochi metri dalla costa, ideale per non usare la macchina per andare a mare e non impazzire per il parcheggio.';
+    } else {
+      descrizione = 'Vicinanza al mare che permette di raggiungere la spiaggia a piedi, valorizzando il lifestyle balneare elbano.';
+    }
     puntiForza.push({
       icona: '🏖️',
-      titolo: `Vicinanza al Mare (${valutazione.distanzaMare}m)`,
-      testo: 'Posizione strategica a pochi metri dalla costa, ideale per il lifestyle balneare elbano.'
+      titolo: `Vicinanza al Mare (${distanza}m)`,
+      testo: descrizione
     });
   }
 
   // 3. Stato Manutenzione
   const statiPositivi = ['Nuovo/Mai abitato', 'Ottimo stato', 'Ristrutturato', 'Buono'];
   if (statiPositivi.includes(valutazione.statoManutenzione)) {
-    const valorizzazioneStato = valutazione.breakdownCalcolo?.valorizzazioni?.statoManutenzione || 0;
-    let testo = 'Immobile in ottime condizioni che non richiede interventi strutturali.';
-    if (valorizzazioneStato > 0) {
-      testo = `Stato eccellente che valorizza l'immobile di €${valorizzazioneStato.toLocaleString('it-IT')}.`;
+    let testo = '';
+    if (valutazione.statoManutenzione === 'Nuovo/Mai abitato') {
+      testo = 'Immobile nuovo mai abitato, pronto per essere personalizzato secondo i tuoi gusti senza preoccupazioni di manutenzione.';
+    } else if (valutazione.statoManutenzione === 'Ottimo stato') {
+      testo = 'Immobile in condizioni eccellenti, perfettamente abitabile da subito senza necessità di interventi strutturali.';
+    } else if (valutazione.statoManutenzione === 'Ristrutturato') {
+      testo = 'Immobile completamente ristrutturato con finiture moderne, pronto per essere vissuto senza pensieri.';
+    } else {
+      testo = 'Immobile ben conservato che non richiede interventi immediati, ideale per chi cerca una soluzione pronta.';
     }
     puntiForza.push({
       icona: '✨',
@@ -56,52 +71,81 @@ function generaPuntiDiForzaPDF(valutazione: any) {
 
   // 4. Giardino Privato
   if (valutazione.hasGiardino && valutazione.superficieGiardino) {
-    const valoreGiardino = valutazione.breakdownCalcolo?.pertinenze?.giardino || 0;
+    const superficie = valutazione.superficieGiardino;
+    let descrizione = '';
+    if (superficie < 50) {
+      descrizione = `Spazio verde privato di ${superficie} mq, perfetto per momenti di relax all'aperto e per coltivare piante aromatiche o fiori.`;
+    } else if (superficie < 150) {
+      descrizione = `Giardino privato di ${superficie} mq che offre spazio per pranzi all'aperto, area giochi bambini e angolo relax con vista.`;
+    } else {
+      descrizione = `Ampio giardino privato di ${superficie} mq, un vero lusso all'Elba che permette di creare diverse zone: pranzi, solarium, orto e area giochi.`;
+    }
     puntiForza.push({
       icona: '🌳',
-      titolo: `Giardino Privato (${valutazione.superficieGiardino} mq)`,
-      testo: `Spazio esterno esclusivo di ${valutazione.superficieGiardino} mq che aggiunge €${valoreGiardino.toLocaleString('it-IT')} al valore.`
+      titolo: `Giardino Privato (${superficie} mq)`,
+      testo: descrizione
     });
   }
 
   // 5. Piscina
   if (valutazione.hasPiscina) {
-    const valorePiscina = valutazione.breakdownCalcolo?.pertinenze?.piscina || 20000; // fallback
+    const tipoPiscina = valutazione.tipoPiscina || 'privata';
+    const descrizione = tipoPiscina === 'privata' 
+      ? 'Piscina privata esclusiva, un comfort raro all\'Elba che permette di rinfrescarsi senza dover andare in spiaggia, ideale per famiglie e momenti di relax.'
+      : 'Piscina condominiale a disposizione, perfetta per rinfrescarsi nelle giornate calde senza rinunciare alla tranquillità.';
     puntiForza.push({
       icona: '🏊',
-      titolo: 'Piscina Privata',
-      testo: `Piscina esclusiva che valorizza l'immobile di €${valorePiscina.toLocaleString('it-IT')}.`
+      titolo: tipoPiscina === 'privata' ? 'Piscina Privata' : 'Piscina Condominiale',
+      testo: descrizione
     });
   }
 
   // 6. Box Auto/Posto Auto
   if (valutazione.hasPostoAuto) {
-    const valorePostoAuto = valutazione.breakdownCalcolo?.pertinenze?.postoAuto || 0;
     const tipo = valutazione.tipoPostoAuto === 'coperto' ? 'Box Auto Coperto' : 'Posto Auto';
+    const descrizione = tipo === 'Box Auto Coperto'
+      ? 'Box auto coperto che protegge il veicolo dal sole e dalla salsedine, un vantaggio fondamentale all\'Elba dove trovare parcheggio in estate è una sfida.'
+      : 'Posto auto riservato che garantisce sempre un parcheggio sicuro, eliminando lo stress della ricerca soprattutto nei mesi estivi.';
     puntiForza.push({
       icona: '🚗',
       titolo: tipo,
-      testo: `${tipo} che aggiunge €${valorePostoAuto.toLocaleString('it-IT')} al valore dell'immobile.`
+      testo: descrizione
     });
   }
 
   // 7. Terrazzo
   if (valutazione.hasTerrazzo && valutazione.superficieTerrazzo) {
-    const valoreTerrazzo = valutazione.breakdownCalcolo?.pertinenze?.terrazzo || 0;
+    const superficie = valutazione.superficieTerrazzo;
+    let descrizione = '';
+    if (superficie < 20) {
+      descrizione = `Terrazzo di ${superficie} mq, perfetto per colazioni all'aperto e momenti di relax godendosi il clima elbano.`;
+    } else if (superficie < 50) {
+      descrizione = `Terrazzo di ${superficie} mq che permette di creare una vera zona living esterna con tavolo da pranzo e area relax.`;
+    } else {
+      descrizione = `Ampio terrazzo di ${superficie} mq, un'estensione naturale della casa ideale per cene con vista, solarium e momenti conviviali.`;
+    }
     puntiForza.push({
       icona: '☀️',
-      titolo: `Terrazzo (${valutazione.superficieTerrazzo} mq)`,
-      testo: `Spazio esterno panoramico di ${valutazione.superficieTerrazzo} mq che valorizza l'immobile di €${valoreTerrazzo.toLocaleString('it-IT')}.`
+      titolo: `Terrazzo (${superficie} mq)`,
+      testo: descrizione
     });
   }
 
   // 8. Località Premium
   const localitaPremium = ['Centro', 'Portoferraio', 'Marciana Marina', 'Porto Azzurro'];
   if (valutazione.localita && localitaPremium.some(loc => valutazione.localita?.includes(loc))) {
+    let descrizione = 'Posizione centrale in una delle località più ricercate dell\'Elba, con servizi, ristoranti e negozi raggiungibili a piedi.';
+    if (valutazione.localita?.includes('Portoferraio')) {
+      descrizione = 'Nel cuore di Portoferraio, la località più vivace dell\'Elba con il porto, i musei napoleonici e la vita notturna a portata di mano.';
+    } else if (valutazione.localita?.includes('Marciana Marina')) {
+      descrizione = 'A Marciana Marina, borgo marinaro autentico con spiagge incantevoli e atmosfera tranquilla, perfetto per chi cerca relax.';
+    } else if (valutazione.localita?.includes('Porto Azzurro')) {
+      descrizione = 'A Porto Azzurro, pittoresco borgo sul mare con il suo porto turistico, ristoranti tipici e mercatini estivi.';
+    }
     puntiForza.push({
       icona: '🏛️',
       titolo: 'Località di Prestigio',
-      testo: `Posizione centrale in una delle località più ricercate dell'Isola d'Elba.`
+      testo: descrizione
     });
   }
 
@@ -109,13 +153,21 @@ function generaPuntiDiForzaPDF(valutazione: any) {
   const serviziArray = Array.isArray(valutazione.servizi) ? valutazione.servizi : 
                        (typeof valutazione.servizi === 'string' ? valutazione.servizi.split(',') : []);
   if (serviziArray.includes('aria_condizionata') || serviziArray.includes('fotovoltaico')) {
-    const servizi = [];
-    if (serviziArray.includes('aria_condizionata')) servizi.push('aria condizionata');
-    if (serviziArray.includes('fotovoltaico')) servizi.push('pannelli fotovoltaici');
+    let descrizione = '';
+    const hasAria = serviziArray.includes('aria_condizionata');
+    const hasFotovoltaico = serviziArray.includes('fotovoltaico');
+    
+    if (hasAria && hasFotovoltaico) {
+      descrizione = 'Dotato di aria condizionata per affrontare le estati elbane e pannelli fotovoltaici che riducono drasticamente i costi energetici.';
+    } else if (hasAria) {
+      descrizione = 'Aria condizionata in tutte le stanze, fondamentale per il comfort durante le calde estati elbane senza preoccuparsi del caldo.';
+    } else {
+      descrizione = 'Pannelli fotovoltaici che garantiscono autonomia energetica e bollette ridotte, un investimento che si ripaga nel tempo.';
+    }
     puntiForza.push({
       icona: '🔌',
       titolo: 'Servizi Moderni',
-      testo: `Dotato di ${servizi.join(' e ')} per massimo comfort ed efficienza energetica.`
+      testo: descrizione
     });
   }
 
@@ -123,12 +175,33 @@ function generaPuntiDiForzaPDF(valutazione: any) {
   const puntiSelezionati = puntiForza.slice(0, 4);
   
   // Riempi con placeholder se meno di 4
-  while (puntiSelezionati.length < 4) {
-    puntiSelezionati.push({
+  const placeholders = [
+    {
       icona: '🏡',
       titolo: 'Immobile di Qualità',
-      testo: 'Proprietà ben curata con caratteristiche apprezzate dal mercato elbano.'
-    });
+      testo: 'Proprietà ben curata con caratteristiche apprezzate dal mercato elbano, ideale per chi cerca una casa al mare.'
+    },
+    {
+      icona: '🌅',
+      titolo: 'Esposizione Ottimale',
+      testo: 'Orientamento favorevole che garantisce luminosità naturale durante tutto il giorno e riduce i costi di illuminazione.'
+    },
+    {
+      icona: '🏘️',
+      titolo: 'Zona Residenziale',
+      testo: 'In contesto residenziale tranquillo ma non isolato, con buon equilibrio tra privacy e vicinanza ai servizi.'
+    },
+    {
+      icona: '📍',
+      titolo: 'Posizione Strategica',
+      testo: 'Ubicazione che permette di raggiungere facilmente le principali attrazioni dell\'isola e i servizi essenziali.'
+    }
+  ];
+  
+  let placeholderIndex = 0;
+  while (puntiSelezionati.length < 4 && placeholderIndex < placeholders.length) {
+    puntiSelezionati.push(placeholders[placeholderIndex]);
+    placeholderIndex++;
   }
 
   return puntiSelezionati;
