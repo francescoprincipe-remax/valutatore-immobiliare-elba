@@ -338,7 +338,15 @@ export const appRouter = router({
         console.log('[PDF] Output PDF:', tempPdfPath);
         
         try {
-          const { stdout, stderr } = await execAsync(`python3 ${scriptPath} ${tempJsonPath} ${tempPdfPath}`);
+          // Usa path assoluto di python3.11 con environment pulito (disabilita UV)
+          const env = { ...process.env };
+          delete env.PYTHONPATH;
+          delete env.VIRTUAL_ENV;
+          delete env.UV_PYTHON;
+          const { stdout, stderr } = await execAsync(
+            `/usr/bin/python3.11 -I ${scriptPath} ${tempJsonPath} ${tempPdfPath}`,
+            { env }
+          );
           console.log('[PDF] Script Python completato');
           if (stdout) console.log('[PDF] stdout:', stdout);
           if (stderr) console.error('[PDF] stderr:', stderr);

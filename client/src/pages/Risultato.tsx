@@ -123,6 +123,7 @@ export default function Risultato() {
         try {
           // Recupera valutazioneId dal sessionStorage (salvato durante il calcolo)
           const valutazioneId = sessionStorage.getItem('valutazione_id');
+          
           if (!valutazioneId) {
             throw new Error('ID valutazione non trovato');
           }

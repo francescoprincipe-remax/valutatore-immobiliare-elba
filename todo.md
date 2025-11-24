@@ -528,3 +528,34 @@ PDF generato automaticamente **identico al 100%** al design Canva creato dall'ut
 - [ ] **Testare script standalone**: Verificare se pptx-generator.py funziona da riga di comando
 - [ ] **Correggere errore**: Applicare fix identificato
 - [ ] **Testare end-to-end**: Verificare generazione PDF dall'applicazione web
+
+
+## 🚨 BUG ATTUALE (24 Nov 2025)
+
+- [ ] **Errore generazione PDF dall'applicazione web**: Utente riceve "Errore durante la generazione del PDF. Riprova." quando clicca su "Scarica PDF"
+- [ ] Test vitest passa correttamente, ma flusso web fallisce
+- [ ] Controllare log server per errore esatto
+- [ ] Verificare se valutazioneId viene salvato correttamente nel sessionStorage
+- [ ] Verificare se endpoint generatePDF riceve parametri corretti dal frontend
+
+
+## 🚨 BUG GENERAZIONE PDF DALL'APPLICAZIONE WEB (24 Nov 2025)
+
+- [ ] **Errore generazione PDF**: Utente riceve "Errore durante la generazione del PDF. Riprova."
+- [ ] Test backend vitest passa, ma flusso frontend fallisce
+- [ ] Verificare log server in tempo reale durante test frontend
+- [ ] Controllare se valutazioneId viene salvato nel sessionStorage
+- [ ] Verificare chiamata tRPC dal frontend
+
+
+---
+
+## ✅ BUG GENERAZIONE PDF DA FRONTEND RISOLTO (24 Nov 2025)
+
+- [x] **Bug risolto**: Errore "Errore durante la generazione del PDF. Riprova."
+- [x] **Causa identificata**: Environment Python contaminato da UV/Python 3.13 (librerie caricate da `/home/ubuntu/.local/share/uv/python/cpython-3.13.8`)
+- [x] **Soluzione**: Usare flag `-I` (isolated mode) in `/usr/bin/python3.11 -I script.py` per disabilitare user site-packages
+- [x] **Fix applicato**: Modificato endpoint `generatePDF` in routers.ts per usare Python in isolated mode + environment pulito (delete PYTHONPATH, VIRTUAL_ENV, UV_PYTHON)
+- [x] **Test end-to-end**: PDF generato con successo dal frontend (1.6 MB, 7 pagine PowerPoint)
+- [x] **Logging rimosso**: Pulito codice di debug da Valuta.tsx e Risultato.tsx
+- [x] **Shebang aggiornato**: pptx-generator.py ora usa `#!/usr/bin/python3.11` invece di `#!/usr/bin/env python3`

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3.11
 """
 Script per generare PDF da template PowerPoint sostituendo i placeholder.
 Uso: python3 pptx-generator.py input.json output.pdf
