@@ -66,42 +66,42 @@ def generate_pdf_from_template(data, template_path, output_pdf_path):
         output_pdf_path: Path dove salvare il PDF finale
     """
     
-    # Prepara i replacements
+    # Prepara i replacements (usa chiavi UPPERCASE come in routers.ts)
     replacements = {
-        '{{COMUNE}}': data.get('comune', ''),
-        '{{LOCALITA}}': data.get('localita', ''),
-        '{{VALORE_TOTALE}}': format_currency(data.get('valoreTotale', 0)),
-        '{{VALORE_MINIMO}}': format_currency(data.get('valoreMinimo', 0)),
-        '{{VALORE_MASSIMO}}': format_currency(data.get('valoreMassimo', 0)),
-        '{{PREZZO_MQ}}': format_currency(data.get('prezzoMq', 0)),
-        '{{COMPETITIVITA}}': data.get('competitivita', ''),
-        '{{PREZZO_CONSIGLIATO}}': format_currency(data.get('prezzoConsigliato', 0)),
-        '{{TIPOLOGIA}}': data.get('tipologia', ''),
-        '{{PIANO}}': data.get('piano', ''),
-        '{{STATO}}': data.get('stato', ''),
-        '{{VISTA_MARE}}': data.get('vistaMare', ''),
-        '{{DISTANZA_MARE}}': data.get('distanzaMare', ''),
-        '{{SUPERFICIE}}': f"{data.get('superficie', 0)} mq",
-        '{{VALORE_BASE}}': format_currency(data.get('valoreBase', 0)),
-        '{{VALORE_PERTINENZE}}': format_currency(data.get('valorePertinenze', 0)),
-        '{{VALORE_VALORIZZAZIONI}}': format_currency(data.get('valoreValorizzazioni', 0)),
+        '{{COMUNE}}': data.get('COMUNE', ''),
+        '{{LOCALITA}}': data.get('LOCALITA', ''),
+        '{{VALORE_TOTALE}}': data.get('VALORE_TOTALE', '0'),
+        '{{VALORE_MINIMO}}': data.get('VALORE_MINIMO', '0'),
+        '{{VALORE_MASSIMO}}': data.get('VALORE_MASSIMO', '0'),
+        '{{PREZZO_MQ}}': data.get('PREZZO_MQ', '0'),
+        '{{COMPETITIVITA}}': data.get('COMPETITIVITA', ''),
+        '{{PREZZO_CONSIGLIATO}}': data.get('PREZZO_CONSIGLIATO', '0'),
+        '{{TIPOLOGIA}}': data.get('TIPOLOGIA', ''),
+        '{{PIANO}}': data.get('PIANO', ''),
+        '{{STATO}}': data.get('STATO', ''),
+        '{{VISTA_MARE}}': data.get('VISTA_MARE', ''),
+        '{{DISTANZA_MARE}}': data.get('DISTANZA_MARE', ''),
+        '{{SUPERFICIE}}': data.get('SUPERFICIE', '0 mq'),
+        '{{VALORE_BASE}}': data.get('VALORE_BASE', '0'),
+        '{{VALORE_PERTINENZE}}': data.get('VALORE_PERTINENZE', '0'),
+        '{{VALORE_VALORIZZAZIONI}}': data.get('VALORE_VALORIZZAZIONI', '0'),
         
         # Punti di forza dinamici
-        '{{ICONA_1}}': data.get('icona1', '🌊'),
-        '{{PUNTO_FORZA_1_TITOLO}}': data.get('puntoForza1Titolo', ''),
-        '{{PUNTO_FORZA_1_TESTO}}': data.get('puntoForza1Testo', ''),
+        '{{ICONA_1}}': data.get('ICONA_1', '🌊'),
+        '{{PUNTO_FORZA_1_TITOLO}}': data.get('PUNTO_FORZA_1_TITOLO', ''),
+        '{{PUNTO_FORZA_1_TESTO}}': data.get('PUNTO_FORZA_1_TESTO', ''),
         
-        '{{ICONA_2}}': data.get('icona2', '🏖️'),
-        '{{PUNTO_FORZA_2_TITOLO}}': data.get('puntoForza2Titolo', ''),
-        '{{PUNTO_FORZA_2_TESTO}}': data.get('puntoForza2Testo', ''),
+        '{{ICONA_2}}': data.get('ICONA_2', '🏖️'),
+        '{{PUNTO_FORZA_2_TITOLO}}': data.get('PUNTO_FORZA_2_TITOLO', ''),
+        '{{PUNTO_FORZA_2_TESTO}}': data.get('PUNTO_FORZA_2_TESTO', ''),
         
-        '{{ICONA_3}}': data.get('icona3', '⭐'),
-        '{{PUNTO_FORZA_3_TITOLO}}': data.get('puntoForza3Titolo', ''),
-        '{{PUNTO_FORZA_3_TESTO}}': data.get('puntoForza3Testo', ''),
+        '{{ICONA_3}}': data.get('ICONA_3', '⭐'),
+        '{{PUNTO_FORZA_3_TITOLO}}': data.get('PUNTO_FORZA_3_TITOLO', ''),
+        '{{PUNTO_FORZA_3_TESTO}}': data.get('PUNTO_FORZA_3_TESTO', ''),
         
-        '{{ICONA_4}}': data.get('icona4', '🌳'),
-        '{{PUNTO_FORZA_4_TITOLO}}': data.get('puntoForza4Titolo', ''),
-        '{{PUNTO_FORZA_4_TESTO}}': data.get('puntoForza4Testo', ''),
+        '{{ICONA_4}}': data.get('ICONA_4', '🌳'),
+        '{{PUNTO_FORZA_4_TITOLO}}': data.get('PUNTO_FORZA_4_TITOLO', ''),
+        '{{PUNTO_FORZA_4_TESTO}}': data.get('PUNTO_FORZA_4_TESTO', ''),
     }
     
     # Carica il template PowerPoint

@@ -8,6 +8,132 @@ import { saveValutazione, getValutazioneById, getUserValutazioni, getDatiMercato
 import { TRPCError } from "@trpc/server";
 import { sendLeadNotification } from "./_core/email";
 
+/**
+ * Genera i punti di forza dinamicamente dal breakdown della valutazione
+ */
+function generaPuntiDiForzaPDF(valutazione: any) {
+  const puntiForza: Array<{
+    icona: string;
+    titolo: string;
+    testo: string;
+  }> = [];
+
+  // 1. Vista Mare (priorità massima)
+  if (valutazione.vistaMare && valutazione.vistaMare !== 'No' && valutazione.vistaMare !== 'no') {
+    const valorizzazioneVista = valutazione.breakdownCalcolo?.valorizzazioni?.vistaMare || 0;
+    if (valorizzazioneVista > 0) {
+      puntiForza.push({
+        icona: '🌊',
+        titolo: 'Vista Mare di Pregio',
+        testo: `Panorama esclusivo sul mare che aggiunge €${valorizzazioneVista.toLocaleString('it-IT')} al valore dell'immobile.`
+      });
+    }
+  }
+
+  // 2. Vicinanza al Mare
+  if (valutazione.distanzaMare && valutazione.distanzaMare < 1000) {
+    puntiForza.push({
+      icona: '🏖️',
+      titolo: `Vicinanza al Mare (${valutazione.distanzaMare}m)`,
+      testo: 'Posizione strategica a pochi metri dalla costa, ideale per il lifestyle balneare elbano.'
+    });
+  }
+
+  // 3. Stato Manutenzione
+  const statiPositivi = ['Nuovo/Mai abitato', 'Ottimo stato', 'Ristrutturato', 'Buono'];
+  if (statiPositivi.includes(valutazione.statoManutenzione)) {
+    const valorizzazioneStato = valutazione.breakdownCalcolo?.valorizzazioni?.statoManutenzione || 0;
+    let testo = 'Immobile in ottime condizioni che non richiede interventi strutturali.';
+    if (valorizzazioneStato > 0) {
+      testo = `Stato eccellente che valorizza l'immobile di €${valorizzazioneStato.toLocaleString('it-IT')}.`;
+    }
+    puntiForza.push({
+      icona: '✨',
+      titolo: `Stato: ${valutazione.statoManutenzione}`,
+      testo
+    });
+  }
+
+  // 4. Giardino Privato
+  if (valutazione.hasGiardino && valutazione.superficieGiardino) {
+    const valoreGiardino = valutazione.breakdownCalcolo?.pertinenze?.giardino || 0;
+    puntiForza.push({
+      icona: '🌳',
+      titolo: `Giardino Privato (${valutazione.superficieGiardino} mq)`,
+      testo: `Spazio esterno esclusivo di ${valutazione.superficieGiardino} mq che aggiunge €${valoreGiardino.toLocaleString('it-IT')} al valore.`
+    });
+  }
+
+  // 5. Piscina
+  if (valutazione.hasPiscina) {
+    const valorePiscina = valutazione.breakdownCalcolo?.pertinenze?.piscina || 20000; // fallback
+    puntiForza.push({
+      icona: '🏊',
+      titolo: 'Piscina Privata',
+      testo: `Piscina esclusiva che valorizza l'immobile di €${valorePiscina.toLocaleString('it-IT')}.`
+    });
+  }
+
+  // 6. Box Auto/Posto Auto
+  if (valutazione.hasPostoAuto) {
+    const valorePostoAuto = valutazione.breakdownCalcolo?.pertinenze?.postoAuto || 0;
+    const tipo = valutazione.tipoPostoAuto === 'coperto' ? 'Box Auto Coperto' : 'Posto Auto';
+    puntiForza.push({
+      icona: '🚗',
+      titolo: tipo,
+      testo: `${tipo} che aggiunge €${valorePostoAuto.toLocaleString('it-IT')} al valore dell'immobile.`
+    });
+  }
+
+  // 7. Terrazzo
+  if (valutazione.hasTerrazzo && valutazione.superficieTerrazzo) {
+    const valoreTerrazzo = valutazione.breakdownCalcolo?.pertinenze?.terrazzo || 0;
+    puntiForza.push({
+      icona: '☀️',
+      titolo: `Terrazzo (${valutazione.superficieTerrazzo} mq)`,
+      testo: `Spazio esterno panoramico di ${valutazione.superficieTerrazzo} mq che valorizza l'immobile di €${valoreTerrazzo.toLocaleString('it-IT')}.`
+    });
+  }
+
+  // 8. Località Premium
+  const localitaPremium = ['Centro', 'Portoferraio', 'Marciana Marina', 'Porto Azzurro'];
+  if (valutazione.localita && localitaPremium.some(loc => valutazione.localita?.includes(loc))) {
+    puntiForza.push({
+      icona: '🏛️',
+      titolo: 'Località di Prestigio',
+      testo: `Posizione centrale in una delle località più ricercate dell'Isola d'Elba.`
+    });
+  }
+
+  // 9. Servizi Premium
+  const serviziArray = Array.isArray(valutazione.servizi) ? valutazione.servizi : 
+                       (typeof valutazione.servizi === 'string' ? valutazione.servizi.split(',') : []);
+  if (serviziArray.includes('aria_condizionata') || serviziArray.includes('fotovoltaico')) {
+    const servizi = [];
+    if (serviziArray.includes('aria_condizionata')) servizi.push('aria condizionata');
+    if (serviziArray.includes('fotovoltaico')) servizi.push('pannelli fotovoltaici');
+    puntiForza.push({
+      icona: '🔌',
+      titolo: 'Servizi Moderni',
+      testo: `Dotato di ${servizi.join(' e ')} per massimo comfort ed efficienza energetica.`
+    });
+  }
+
+  // Limita a 4 punti di forza (i più importanti)
+  const puntiSelezionati = puntiForza.slice(0, 4);
+  
+  // Riempi con placeholder se meno di 4
+  while (puntiSelezionati.length < 4) {
+    puntiSelezionati.push({
+      icona: '🏡',
+      titolo: 'Immobile di Qualità',
+      testo: 'Proprietà ben curata con caratteristiche apprezzate dal mercato elbano.'
+    });
+  }
+
+  return puntiSelezionati;
+}
+
 export const appRouter = router({
   system: systemRouter,
   
@@ -287,6 +413,9 @@ export const appRouter = router({
         const path = await import('path');
         const fs = await import('fs');
 
+        // Genera i punti di forza dinamicamente
+        const puntiDiForza = generaPuntiDiForzaPDF(valutazione);
+
         // Prepara i dati per il template
         const templateData = {
           COMUNE: valutazione.comune,
@@ -306,19 +435,19 @@ export const appRouter = router({
           VALORE_BASE: valutazione.valoreBase.toLocaleString('it-IT'),
           VALORE_PERTINENZE: valutazione.valorePertinenze.toLocaleString('it-IT'),
           VALORE_VALORIZZAZIONI: valutazione.valoreValorizzazioni.toLocaleString('it-IT'),
-          // Punti di forza dinamici
-          ICONA_1: '🌊',
-          PUNTO_FORZA_1_TITOLO: 'Vista Mare di Pregio',
-          PUNTO_FORZA_1_TESTO: 'Panorama esclusivo sul mare che rappresenta uno dei principali driver di valore.',
-          ICONA_2: '🏖️',
-          PUNTO_FORZA_2_TITOLO: `Vicinanza al Mare (${valutazione.distanzaMare || 500}m)`,
-          PUNTO_FORZA_2_TESTO: 'Posizione strategica a pochi metri dalla costa, ideale per il lifestyle balneare.',
-          ICONA_3: '✨',
-          PUNTO_FORZA_3_TITOLO: `Stato Immobile: ${valutazione.statoManutenzione}`,
-          PUNTO_FORZA_3_TESTO: 'Immobile ben conservato che non richiede interventi strutturali immediati.',
-          ICONA_4: '🌳',
-          PUNTO_FORZA_4_TITOLO: 'Giardino Privato',
-          PUNTO_FORZA_4_TESTO: 'Spazio esterno esclusivo che aumenta l\'attrattività per famiglie.',
+          // Punti di forza dinamici generati dalla funzione
+          ICONA_1: puntiDiForza[0].icona,
+          PUNTO_FORZA_1_TITOLO: puntiDiForza[0].titolo,
+          PUNTO_FORZA_1_TESTO: puntiDiForza[0].testo,
+          ICONA_2: puntiDiForza[1].icona,
+          PUNTO_FORZA_2_TITOLO: puntiDiForza[1].titolo,
+          PUNTO_FORZA_2_TESTO: puntiDiForza[1].testo,
+          ICONA_3: puntiDiForza[2].icona,
+          PUNTO_FORZA_3_TITOLO: puntiDiForza[2].titolo,
+          PUNTO_FORZA_3_TESTO: puntiDiForza[2].testo,
+          ICONA_4: puntiDiForza[3].icona,
+          PUNTO_FORZA_4_TITOLO: puntiDiForza[3].titolo,
+          PUNTO_FORZA_4_TESTO: puntiDiForza[3].testo,
         };
 
         // Salva i dati in un file temporaneo JSON
