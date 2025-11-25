@@ -559,3 +559,15 @@ PDF generato automaticamente **identico al 100%** al design Canva creato dall'ut
 - [x] **Test end-to-end**: PDF generato con successo dal frontend (1.6 MB, 7 pagine PowerPoint)
 - [x] **Logging rimosso**: Pulito codice di debug da Valuta.tsx e Risultato.tsx
 - [x] **Shebang aggiornato**: pptx-generator.py ora usa `#!/usr/bin/python3.11` invece di `#!/usr/bin/env python3`
+
+
+---
+
+## 📦 DEPLOYMENT E REPLICABILITÀ (24 Nov 2025)
+
+- [ ] **Script verifica dipendenze**: Creare `scripts/check-dependencies.sh` per verificare Python 3.11, python-pptx, LibreOffice
+- [ ] **Script installazione automatica**: Creare `scripts/install-dependencies.sh` per installare tutte le dipendenze
+- [ ] **Documentazione deployment**: Creare `DEPLOYMENT.md` con requisiti completi, troubleshooting, checklist pre-deploy
+- [ ] **Verifica Git tracking**: Assicurarsi che TUTTI i file (frontend incluso) siano tracciati da Git
+- [ ] **Sync GitHub completo**: Sincronizzare tutti i file su GitHub per rendere progetto completamente replicabile
+- [ ] **Test replicabilità**: Verificare che sia possibile clonare repo e deployare senza modifiche

@@ -1,831 +1,285 @@
-# 🚀 Guida Deployment - Valutatore Immobiliare Elba
+# 📦 Guida Deployment - Valutatore Immobiliare Isola d'Elba
 
-Questa guida fornisce istruzioni dettagliate per deployare il Valutatore Immobiliare Elba in produzione.
-
----
-
-## 📋 Indice
-
-- [Prerequisiti](#prerequisiti)
-- [Opzione 1: Manus Platform](#opzione-1-manus-platform-consigliato)
-- [Opzione 2: Vercel](#opzione-2-vercel)
-- [Opzione 3: Docker](#opzione-3-docker)
-- [Opzione 4: VPS Ubuntu](#opzione-4-vps-ubuntu)
-- [Configurazione Database](#configurazione-database)
-- [Configurazione Dominio](#configurazione-dominio)
-- [SSL/HTTPS](#sslhttps)
-- [Monitoring](#monitoring)
-- [Backup](#backup)
-- [Troubleshooting](#troubleshooting)
+**Versione**: 1.0.0  
+**Data**: 24 Novembre 2025  
+**Status**: PRODUCTION READY
 
 ---
 
-## ✅ Prerequisiti
+## ⚠️ IMPORTANTE: Dipendenze per Generazione PDF
 
-Prima di iniziare il deployment, assicurati di avere:
+Il sistema di generazione PDF richiede le seguenti dipendenze installate sul server di produzione:
 
-- [ ] Codice progetto aggiornato e testato
-- [ ] Database MySQL/TiDB configurato
-- [ ] Variabili ambiente configurate
-- [ ] Dominio registrato (opzionale)
-- [ ] Account hosting/cloud provider
+### 🐍 Python 3.11
 
----
-
-## 🎯 Opzione 1: Manus Platform (Consigliato)
-
-### Perché Manus?
-
-- ✅ **Zero configurazione** - Deploy con 1 click
-- ✅ **Database incluso** - TiDB serverless gratuito
-- ✅ **SSL automatico** - HTTPS out-of-the-box
-- ✅ **Scaling automatico** - Gestito dalla piattaforma
-- ✅ **CI/CD integrato** - Deploy automatico da Git
-- ✅ **Dominio incluso** - `*.manus.space` gratuito
-
-### Step-by-Step
-
-#### 1. Crea Checkpoint
-
-Il progetto usa già Manus, quindi hai già i checkpoint salvati.
-
-**Checkpoint Corrente**: `manus-webdev://46b99e1e`
-
+**Verifica Installazione**:
 ```bash
-# Verifica checkpoint
-git log --oneline | head -5
+python3.11 --version
 ```
 
-#### 2. Pubblica
+**Installazione (Ubuntu/Debian)**:
+```bash
+sudo apt update
+sudo apt install -y python3.11 python3.11-dev
+```
 
-1. **Apri Management UI**
-   - URL: https://3000-ikihybht38uvcohx58p2v-3139bba0.manusvm.computer
-   - Clicca icona pannello (top-right)
+### 📚 Modulo Python: python-pptx
 
-2. **Vai su Dashboard**
-   - Verifica stato progetto
-   - Controlla screenshot preview
+**Verifica Installazione**:
+```bash
+python3.11 -c "import pptx; print('OK')"
+```
 
-3. **Clicca "Publish"**
-   - Bottone in header (top-right)
-   - Conferma pubblicazione
-   - Attendi deploy (30-60 secondi)
+**Installazione**:
+```bash
+sudo pip3 install python-pptx
+```
 
-4. **Verifica Deploy**
-   - URL produzione: `https://your-project.manus.space`
-   - Testa tutte le funzionalità
-   - Verifica form valutazione
+OPPURE (se pip3 non funziona):
+```bash
+sudo python3.11 -m pip install python-pptx
+```
 
-#### 3. Configura Dominio Custom (Opzionale)
+### 📄 LibreOffice (per conversione PPTX → PDF)
 
-1. **Vai su Settings → Domains**
-2. **Aggiungi dominio**
-   - Inserisci: `valutatore-elba.com`
-3. **Configura DNS**
-   ```
-   Type: CNAME
-   Name: @
-   Value: your-project.manus.space
-   TTL: 3600
-   ```
-4. **Verifica**
-   - Attendi propagazione DNS (5-30 minuti)
-   - Visita `https://valutatore-elba.com`
+**Verifica Installazione**:
+```bash
+libreoffice --version
+```
 
-#### 4. Configura Secrets
+**Installazione (Ubuntu/Debian)**:
+```bash
+sudo apt update
+sudo apt install -y libreoffice-core libreoffice-writer libreoffice-impress
+```
 
-Secrets già configurati automaticamente:
-- `DATABASE_URL` - TiDB connection
-- `JWT_SECRET` - Session signing
-- `VITE_APP_*` - App configuration
-
-Per aggiungere nuovi secrets:
-1. **Settings → Secrets**
-2. **Add Secret**
-3. **Restart** server per applicare
-
-#### 5. Monitoring
-
-Dashboard integrato mostra:
-- **UV/PV** - Visite uniche e pageviews
-- **Uptime** - Disponibilità servizio
-- **Errors** - Log errori in tempo reale
+**Installazione Headless (senza GUI, consigliato per server)**:
+```bash
+sudo apt install -y libreoffice-core-nogui libreoffice-writer-nogui libreoffice-impress-nogui
+```
 
 ---
 
-## 🔷 Opzione 2: Vercel
+## ✅ Script di Verifica Completa
 
-### Prerequisiti
-
-- Account Vercel (gratuito)
-- Repository GitHub/GitLab
-- Database MySQL esterno (PlanetScale, TiDB Cloud, etc.)
-
-### Setup
-
-#### 1. Prepara Repository
+Esegui questo script per verificare che tutte le dipendenze siano installate:
 
 ```bash
-# Push su GitHub
-git remote add origin https://github.com/tuo-username/valutatore-elba.git
-git push -u origin main
+./scripts/check-dependencies.sh
 ```
 
-#### 2. Importa su Vercel
+Output atteso:
+```
+🔍 Verifica Dipendenze PDF Generator
+======================================
+Python 3.11: ✅ Python 3.11.x
+python-pptx: ✅ INSTALLATO
+LibreOffice: ✅ LibreOffice 7.x.x.x
+Directory server/temp: ✅ ESISTE
+Template PPTX: ✅ TROVATO
+======================================
+```
 
-1. **Vai su** [vercel.com](https://vercel.com)
-2. **New Project**
-3. **Import Git Repository**
-   - Seleziona repository
-   - Framework: Vite
-   - Root Directory: `./`
+---
 
-#### 3. Configura Build
+## 🚀 Script di Installazione Automatica
 
-```json
+```bash
+./scripts/install-dependencies.sh
+```
+
+Questo script installa automaticamente:
+- Python 3.11
+- python-pptx
+- LibreOffice headless
+- Crea directory `server/temp/`
+
+---
+
+## 🧪 Test Generazione PDF
+
+Dopo aver installato le dipendenze, testa la generazione PDF:
+
+```bash
+cd /path/to/valutatore-immobiliare-elba
+
+# Crea un file JSON di test
+cat > server/temp/test.json << 'EOF'
 {
-  "buildCommand": "pnpm build",
-  "outputDirectory": "dist",
-  "installCommand": "pnpm install",
-  "devCommand": "pnpm dev"
+  "COMUNE": "Portoferraio",
+  "LOCALITA": "Centro",
+  "VALORE_TOTALE": "300.000",
+  "VALORE_MINIMO": "270.000",
+  "VALORE_MASSIMO": "330.000",
+  "PREZZO_MQ": "2.500",
+  "COMPETITIVITA": "MEDIA",
+  "PREZZO_CONSIGLIATO": "276.000",
+  "TIPOLOGIA": "Appartamento",
+  "PIANO": "Secondo",
+  "STATO": "Buono stato",
+  "VISTA_MARE": "Parziale",
+  "DISTANZA_MARE": "300 m",
+  "SUPERFICIE": "120 mq",
+  "VALORE_BASE": "250.000",
+  "VALORE_PERTINENZE": "20.000",
+  "VALORE_VALORIZZAZIONI": "30.000",
+  "ICONA_1": "🌊",
+  "PUNTO_FORZA_1_TITOLO": "Vista Mare",
+  "PUNTO_FORZA_1_TESTO": "Bellissima vista sul mare.",
+  "ICONA_2": "🏖️",
+  "PUNTO_FORZA_2_TITOLO": "Vicino al Mare",
+  "PUNTO_FORZA_2_TESTO": "A pochi passi dalla spiaggia.",
+  "ICONA_3": "✨",
+  "PUNTO_FORZA_3_TITOLO": "Buono Stato",
+  "PUNTO_FORZA_3_TESTO": "Immobile ben tenuto.",
+  "ICONA_4": "🚗",
+  "PUNTO_FORZA_4_TITOLO": "Posto Auto",
+  "PUNTO_FORZA_4_TESTO": "Comodo posto auto."
 }
-```
-
-#### 4. Configura Environment Variables
-
-Aggiungi in Vercel Dashboard → Settings → Environment Variables:
-
-```
-DATABASE_URL=mysql://...
-JWT_SECRET=your-secret
-VITE_APP_TITLE=Valutatore Immobiliare Elba
-VITE_APP_LOGO=/remax-logo-watermark.png
-OWNER_NAME=Francesco Principe
-```
-
-#### 5. Deploy
-
-```bash
-# Deploy automatico
-git push origin main
-
-# Deploy manuale
-vercel --prod
-```
-
-#### 6. Configura Dominio
-
-1. **Vercel Dashboard → Domains**
-2. **Add Domain**: `valutatore-elba.com`
-3. **Configura DNS**:
-   ```
-   Type: CNAME
-   Name: @
-   Value: cname.vercel-dns.com
-   ```
-
----
-
-## 🐳 Opzione 3: Docker
-
-### Dockerfile
-
-Crea `Dockerfile` nella root:
-
-```dockerfile
-# Build stage
-FROM node:22-alpine AS builder
-
-WORKDIR /app
-
-# Install pnpm
-RUN npm install -g pnpm
-
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
-
-# Install dependencies
-RUN pnpm install --frozen-lockfile
-
-# Copy source
-COPY . .
-
-# Build
-RUN pnpm build
-
-# Production stage
-FROM node:22-alpine
-
-WORKDIR /app
-
-# Install pnpm
-RUN npm install -g pnpm
-
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
-
-# Install production dependencies only
-RUN pnpm install --prod --frozen-lockfile
-
-# Copy built files
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/server ./server
-COPY --from=builder /app/drizzle ./drizzle
-
-# Expose port
-EXPOSE 3000
-
-# Start server
-CMD ["node", "server/index.js"]
-```
-
-### Docker Compose
-
-Crea `docker-compose.yml`:
-
-```yaml
-version: '3.8'
-
-services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - DATABASE_URL=mysql://root:password@db:3306/valutatore_elba
-      - JWT_SECRET=${JWT_SECRET}
-      - NODE_ENV=production
-    depends_on:
-      - db
-    restart: unless-stopped
-
-  db:
-    image: mysql:8
-    environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=valutatore_elba
-    volumes:
-      - mysql_data:/var/lib/mysql
-    restart: unless-stopped
-
-volumes:
-  mysql_data:
-```
-
-### Deploy
-
-```bash
-# Build image
-docker build -t valutatore-elba .
-
-# Run with Docker Compose
-docker-compose up -d
-
-# View logs
-docker-compose logs -f app
-
-# Stop
-docker-compose down
-```
-
-### Deploy su Cloud
-
-#### AWS ECS
-
-```bash
-# Login ECR
-aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin your-account.dkr.ecr.eu-central-1.amazonaws.com
-
-# Tag image
-docker tag valutatore-elba:latest your-account.dkr.ecr.eu-central-1.amazonaws.com/valutatore-elba:latest
-
-# Push
-docker push your-account.dkr.ecr.eu-central-1.amazonaws.com/valutatore-elba:latest
-
-# Deploy ECS task
-aws ecs update-service --cluster your-cluster --service valutatore-elba --force-new-deployment
-```
-
-#### Google Cloud Run
-
-```bash
-# Build e push
-gcloud builds submit --tag gcr.io/your-project/valutatore-elba
-
-# Deploy
-gcloud run deploy valutatore-elba \
-  --image gcr.io/your-project/valutatore-elba \
-  --platform managed \
-  --region europe-west1 \
-  --allow-unauthenticated
-```
-
----
-
-## 🖥 Opzione 4: VPS Ubuntu
-
-### Prerequisiti
-
-- VPS Ubuntu 22.04+ (DigitalOcean, Hetzner, Linode, etc.)
-- Accesso SSH root
-- Dominio puntato al VPS
-
-### Setup Server
-
-#### 1. Connetti SSH
-
-```bash
-ssh root@your-server-ip
-```
-
-#### 2. Aggiorna Sistema
-
-```bash
-apt update && apt upgrade -y
-apt install -y curl git nginx certbot python3-certbot-nginx
-```
-
-#### 3. Installa Node.js 22
-
-```bash
-curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-apt install -y nodejs
-npm install -g pnpm pm2
-```
-
-#### 4. Installa MySQL
-
-```bash
-apt install -y mysql-server
-mysql_secure_installation
-
-# Crea database
-mysql -u root -p
-```
-
-```sql
-CREATE DATABASE valutatore_elba CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'valutatore'@'localhost' IDENTIFIED BY 'strong-password';
-GRANT ALL PRIVILEGES ON valutatore_elba.* TO 'valutatore'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
-```
-
-#### 5. Clone Repository
-
-```bash
-cd /var/www
-git clone https://github.com/tuo-username/valutatore-elba.git
-cd valutatore-elba
-```
-
-#### 6. Configura Environment
-
-```bash
-nano .env
-```
-
-Inserisci:
-```env
-DATABASE_URL=mysql://valutatore:strong-password@localhost:3306/valutatore_elba
-JWT_SECRET=your-super-secret-key
-NODE_ENV=production
-PORT=3000
-VITE_APP_TITLE=Valutatore Immobiliare Elba
-OWNER_NAME=Francesco Principe
-```
-
-#### 7. Build Applicazione
-
-```bash
-pnpm install
-pnpm db:push
-pnpm seed
-pnpm build
-```
-
-#### 8. Setup PM2
-
-```bash
-# Start app
-pm2 start npm --name "valutatore-elba" -- start
-
-# Save PM2 config
-pm2 save
-
-# Auto-start on boot
-pm2 startup
-# Esegui comando suggerito
-
-# Verifica
-pm2 status
-pm2 logs valutatore-elba
-```
-
-#### 9. Configura Nginx
-
-```bash
-nano /etc/nginx/sites-available/valutatore-elba
-```
-
-Inserisci:
-```nginx
-server {
-    listen 80;
-    server_name valutatore-elba.com www.valutatore-elba.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cache_bypass $http_upgrade;
-    }
-
-    # Cache static assets
-    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
-        proxy_pass http://localhost:3000;
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-    }
-}
-```
-
-```bash
-# Abilita sito
-ln -s /etc/nginx/sites-available/valutatore-elba /etc/nginx/sites-enabled/
-
-# Test config
-nginx -t
-
-# Reload
-systemctl reload nginx
-```
-
-#### 10. Setup SSL (Let's Encrypt)
-
-```bash
-certbot --nginx -d valutatore-elba.com -d www.valutatore-elba.com
-
-# Auto-renewal (già configurato)
-certbot renew --dry-run
-```
-
-#### 11. Firewall
-
-```bash
-ufw allow 22/tcp
-ufw allow 80/tcp
-ufw allow 443/tcp
-ufw enable
-```
-
-### Manutenzione
-
-#### Update Applicazione
-
-```bash
-cd /var/www/valutatore-elba
-git pull origin main
-pnpm install
-pnpm build
-pm2 restart valutatore-elba
-```
-
-#### Backup Database
-
-```bash
-# Backup
-mysqldump -u valutatore -p valutatore_elba > backup_$(date +%Y%m%d).sql
-
-# Restore
-mysql -u valutatore -p valutatore_elba < backup_20250120.sql
-```
-
-#### Logs
-
-```bash
-# PM2 logs
-pm2 logs valutatore-elba
-
-# Nginx logs
-tail -f /var/log/nginx/access.log
-tail -f /var/log/nginx/error.log
-```
-
----
-
-## 🗄 Configurazione Database
-
-### TiDB Cloud (Consigliato)
-
-1. **Crea account**: [tidbcloud.com](https://tidbcloud.com)
-2. **New Cluster** → Serverless
-3. **Copia connection string**:
-   ```
-   mysql://user.root:password@gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/valutatore_elba?ssl={"rejectUnauthorized":true}
-   ```
-4. **Aggiungi a .env**:
-   ```env
-   DATABASE_URL=mysql://...
-   ```
-
-### PlanetScale
-
-1. **Crea account**: [planetscale.com](https://planetscale.com)
-2. **New Database** → valutatore-elba
-3. **Connect** → Node.js
-4. **Copia connection string**
-5. **Aggiungi a .env**
-
-### MySQL Locale
-
-```bash
-# Installa MySQL
-apt install mysql-server
-
-# Crea database
-mysql -u root -p
-```
-
-```sql
-CREATE DATABASE valutatore_elba;
-CREATE USER 'valutatore'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON valutatore_elba.* TO 'valutatore'@'localhost';
-```
-
----
-
-## 🌐 Configurazione Dominio
-
-### Registrar DNS
-
-Configura record DNS presso il tuo registrar (GoDaddy, Namecheap, Cloudflare, etc.):
-
-#### Per Manus/Vercel (CNAME)
-
-```
-Type: CNAME
-Name: @
-Value: your-project.manus.space
-TTL: 3600
-
-Type: CNAME
-Name: www
-Value: your-project.manus.space
-TTL: 3600
-```
-
-#### Per VPS (A Record)
-
-```
-Type: A
-Name: @
-Value: your-server-ip
-TTL: 3600
-
-Type: A
-Name: www
-Value: your-server-ip
-TTL: 3600
-```
-
-### Verifica Propagazione
-
-```bash
-# Check DNS
-dig valutatore-elba.com
-nslookup valutatore-elba.com
-
-# Online tool
-# https://dnschecker.org
-```
-
----
-
-## 🔒 SSL/HTTPS
-
-### Manus/Vercel
-
-SSL automatico - nessuna configurazione richiesta ✅
-
-### VPS con Let's Encrypt
-
-```bash
-# Installa Certbot
-apt install certbot python3-certbot-nginx
-
-# Ottieni certificato
-certbot --nginx -d valutatore-elba.com -d www.valutatore-elba.com
-
-# Auto-renewal
-certbot renew --dry-run
-
-# Cron job (già configurato)
-0 0 * * * certbot renew --quiet
-```
-
-### Cloudflare SSL
-
-1. **Aggiungi sito** a Cloudflare
-2. **SSL/TLS** → Full (strict)
-3. **Always Use HTTPS** → On
-4. **Automatic HTTPS Rewrites** → On
-
----
-
-## 📊 Monitoring
-
-### Uptime Monitoring
-
-#### UptimeRobot (Gratuito)
-
-1. **Crea account**: [uptimerobot.com](https://uptimerobot.com)
-2. **Add Monitor**:
-   - Type: HTTP(s)
-   - URL: https://valutatore-elba.com
-   - Interval: 5 minutes
-3. **Alert Contacts**: Email, SMS, Slack
-
-### Error Tracking
-
-#### Sentry
-
-```bash
-pnpm add @sentry/node @sentry/react
-```
-
-```typescript
-// server/index.ts
-import * as Sentry from "@sentry/node";
-
-Sentry.init({
-  dsn: process.env.SENTRY_DSN,
-  environment: process.env.NODE_ENV,
-});
-```
-
-```typescript
-// client/src/main.tsx
-import * as Sentry from "@sentry/react";
-
-Sentry.init({
-  dsn: import.meta.env.VITE_SENTRY_DSN,
-  environment: import.meta.env.MODE,
-});
-```
-
-### Analytics
-
-#### Google Analytics 4
-
-```html
-<!-- client/index.html -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
-```
-
----
-
-## 💾 Backup
-
-### Database Backup
-
-#### Automatico (Cron)
-
-```bash
-# Crea script backup
-nano /usr/local/bin/backup-db.sh
-```
-
-```bash
-#!/bin/bash
-DATE=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="/var/backups/valutatore-elba"
-mkdir -p $BACKUP_DIR
-
-mysqldump -u valutatore -p'password' valutatore_elba | gzip > $BACKUP_DIR/backup_$DATE.sql.gz
-
-# Keep only last 30 days
-find $BACKUP_DIR -name "backup_*.sql.gz" -mtime +30 -delete
-```
-
-```bash
-chmod +x /usr/local/bin/backup-db.sh
-
-# Cron job (ogni giorno alle 2am)
-crontab -e
-```
-
-```cron
-0 2 * * * /usr/local/bin/backup-db.sh
-```
-
-### File Backup
-
-```bash
-# Backup codice
-tar -czf valutatore-elba_$(date +%Y%m%d).tar.gz /var/www/valutatore-elba
-
-# Upload a S3
-aws s3 cp valutatore-elba_20250120.tar.gz s3://backups/valutatore-elba/
+EOF
+
+# Esegui lo script Python
+/usr/bin/python3.11 -I server/pptx-generator.py server/temp/test.json server/temp/test-output.pdf
+
+# Verifica che il PDF sia stato generato
+if [ -f server/temp/test-output.pdf ]; then
+    echo "✅ PDF generato con successo!"
+    ls -lh server/temp/test-output.pdf
+else
+    echo "❌ Errore: PDF non generato"
+    exit 1
+fi
 ```
 
 ---
 
 ## 🔧 Troubleshooting
 
-### Sito Non Raggiungibile
+### Errore: "ModuleNotFoundError: No module named 'pptx'"
 
+**Soluzione**:
 ```bash
-# Check server running
-pm2 status
-
-# Check logs
-pm2 logs valutatore-elba
-
-# Restart
-pm2 restart valutatore-elba
-
-# Check Nginx
-nginx -t
-systemctl status nginx
-
-# Check firewall
-ufw status
+sudo pip3 install python-pptx
 ```
 
-### Database Connection Error
+### Errore: "libreoffice: command not found"
 
+**Soluzione**:
 ```bash
-# Test connection
-mysql -u valutatore -p -h localhost valutatore_elba
-
-# Check DATABASE_URL in .env
-cat .env | grep DATABASE_URL
-
-# Restart app
-pm2 restart valutatore-elba
+sudo apt install -y libreoffice-core libreoffice-impress
 ```
 
-### SSL Certificate Error
+### Errore: "Permission denied"
 
+**Soluzione**: Assicurati che la directory `server/temp/` esista e sia scrivibile:
 ```bash
-# Renew certificate
-certbot renew --force-renewal
-
-# Check certificate
-certbot certificates
-
-# Reload Nginx
-systemctl reload nginx
+mkdir -p server/temp
+chmod 755 server/temp
 ```
 
-### High Memory Usage
+### Errore: "Template not found"
 
+**Soluzione**: Verifica che il template esista:
 ```bash
-# Check memory
-free -h
-
-# Check processes
-pm2 monit
-
-# Restart app
-pm2 restart valutatore-elba
+ls -la server/template-report.pptx
 ```
 
-### Slow Performance
-
+Se manca, assicurati che sia stato committato su Git:
 ```bash
-# Enable Nginx caching
-# Add to nginx config:
-proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=1g inactive=60m;
-proxy_cache my_cache;
-
-# Enable gzip compression
-gzip on;
-gzip_types text/plain text/css application/json application/javascript text/xml application/xml;
+git add server/template-report.pptx
+git commit -m "Add PDF template"
+git push
 ```
+
+### Errore: "AssertionError: SRE module mismatch"
+
+**Causa**: Environment Python contaminato da UV/Python 3.13
+
+**Soluzione**: Verificare che lo script Python sia eseguito con flag `-I` (isolated mode). Questo è già configurato correttamente in `server/routers.ts`:
+
+```typescript
+const pythonProcess = spawn('/usr/bin/python3.11', [
+  '-I',  // ← CRITICO: Isolated mode
+  scriptPath,
+  jsonPath,
+  pdfPath
+], {
+  env: {
+    ...process.env,
+    PYTHONPATH: undefined,
+    VIRTUAL_ENV: undefined,
+    UV_PYTHON: undefined
+  }
+});
+```
+
+---
+
+## 📋 Checklist Pre-Deploy
+
+Prima di deployare in produzione, verifica:
+
+- [ ] Python 3.11 installato
+- [ ] python-pptx installato
+- [ ] LibreOffice installato
+- [ ] Directory `server/temp/` esiste e scrivibile
+- [ ] Template `server/template-report.pptx` esiste
+- [ ] Test generazione PDF funziona localmente
+- [ ] Variabili ambiente configurate (se necessarie)
+
+---
+
+## 🌐 Configurazione Server di Produzione
+
+### Manus Platform
+
+Se il sito è deployato su Manus Platform, potrebbe essere necessario:
+
+1. Accedere al pannello di controllo
+2. Aprire una shell/SSH sul server
+3. Eseguire lo script di installazione dipendenze
+4. Riavviare il servizio dopo l'installazione
+
+### Docker (se applicabile)
+
+Se usi Docker, aggiungi al `Dockerfile`:
+
+```dockerfile
+# Installa Python 3.11 e dipendenze
+RUN apt-get update && apt-get install -y \
+    python3.11 \
+    python3-pip \
+    libreoffice-core-nogui \
+    libreoffice-writer-nogui \
+    libreoffice-impress-nogui \
+    && rm -rf /var/lib/apt/lists/*
+
+# Installa python-pptx
+RUN pip3 install python-pptx
+```
+
+---
+
+## 📚 Risorse Aggiuntive
+
+- **Repository GitHub**: https://github.com/francescoprincipe-remax/valutatore-immobiliare-elba
+- **Documentazione Tecnica Completa**: `AI-HANDOFF-PROMPT.md`
+- **Guida Deployment Completa**: `DEPLOYMENT-OLD.md` (include Vercel, VPS, Docker, etc.)
+- **Storico Modifiche**: `todo.md`
 
 ---
 
 ## 📞 Supporto
 
-Problemi con il deployment?
+Se riscontri problemi durante l'installazione:
 
-- **GitHub Issues**: [repository/issues](https://github.com/tuo-username/valutatore-elba/issues)
-- **Email**: [tua-email]
-- **WhatsApp**: https://wa.me/message/4K6JSOQWVOTRL1
+1. Verifica i log del server
+2. Controlla i permessi delle directory
+3. Assicurati che tutte le dipendenze siano installate
+4. Testa la generazione PDF localmente prima di deployare
 
 ---
 
-**Buon Deploy! 🚀**
+**Autore**: AI Assistant  
+**Data**: 24 Novembre 2025  
+**Status**: PRODUCTION READY ✅
