@@ -139,8 +139,13 @@ def convert_pptx_to_pdf(pptx_path, pdf_path):
     
     result = subprocess.run(cmd, capture_output=True, text=True)
     
+    # Controlla solo il return code, ignora warning su stderr (es. javaldx)
     if result.returncode != 0:
-        raise Exception(f"Errore conversione PDF: {result.stderr}")
+        raise Exception(f"Errore conversione PDF (code {result.returncode}): {result.stderr}")
+    
+    # Log warning se presenti ma non bloccare
+    if result.stderr and 'error' in result.stderr.lower():
+        print(f"⚠️  Warning LibreOffice: {result.stderr}", file=sys.stderr)
     
     # LibreOffice salva con il nome del file input, rinomina se necessario
     generated_pdf = os.path.join(output_dir, os.path.basename(pptx_path).replace('.pptx', '.pdf'))

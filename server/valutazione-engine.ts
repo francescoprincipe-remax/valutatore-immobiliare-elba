@@ -30,6 +30,7 @@ export interface DatiImmobile {
   tipoGiardino?: string;
   statoGiardino?: string;
   hasPiscina?: boolean;
+  tipoPiscina?: string; // 'privata' o 'condominiale'
 
   hasTerrazzo?: boolean;
   superficieTerrazzo?: number;
@@ -315,51 +316,47 @@ function calcolaValorePertinenze(dati: DatiImmobile, prezzoMqZona: number) {
   const dettaglio: any = {};
   let totale = 0;
 
-  // Giardino
+  // Giardino (prezzo fisso: €60/mq)
   if (dati.hasGiardino && dati.superficieGiardino) {
     const superficie = dati.superficieGiardino;
-    // Usa coefficiente semplice dal JSON: 10% del valore al mq
-    let valore = superficie * coefficienti.giardino * prezzoMqZona;
+    let valore = superficie * 60; // €60/mq fisso
 
-    // Bonus piscina
-    if (dati.hasPiscina) {
-      valore *= (1 + coefficienti.piscina); // +15% se ha piscina
+    // Bonus piscina PRIVATA (€25.000 fisso) - piscina condominiale non aggiunge valore
+    if (dati.hasPiscina && dati.tipoPiscina === 'privata') {
+      valore += 25000;
     }
 
     dettaglio.giardino = Math.round(valore);
     totale += valore;
   }
 
-  // Terrazzo/Balcone
+  // Terrazzo/Balcone (prezzo fisso: €80/mq, più pregiato del giardino)
   if (dati.hasTerrazzo && dati.superficieTerrazzo) {
-    // Usa coefficiente terrazzo dal JSON: 8% del valore al mq
-    const valore = dati.superficieTerrazzo * coefficienti.terrazzo * prezzoMqZona;
+    const valore = dati.superficieTerrazzo * 80; // €80/mq fisso
     dettaglio.terrazzo = Math.round(valore);
     totale += valore;
   }
 
-  // Cortile
+  // Cortile (prezzo fisso: €8/mq)
   if (dati.hasCortile && dati.superficieCortile) {
     const superficie = dati.superficieCortile;
-    // Usa coefficiente cortile dal JSON: 5% del valore al mq
-    const valore = superficie * coefficienti.cortile * prezzoMqZona;
+    const valore = superficie * 8; // €8/mq fisso
     dettaglio.cortile = Math.round(valore);
     totale += valore;
   }
 
-  // Cantina/Magazzino
+  // Cantina/Magazzino (prezzo fisso: €250/mq, piccole superfici)
   if (dati.hasCantina && dati.superficieCantina) {
-    // Usa coefficiente cantina dal JSON: 3% del valore al mq
-    const valore = dati.superficieCantina * coefficienti.cantina * prezzoMqZona;
+    const valore = dati.superficieCantina * 250; // €250/mq fisso
     dettaglio.cantina = Math.round(valore);
     totale += valore;
   }
 
-  // Posto auto
+  // Posto auto (prezzi fissi)
   if (dati.hasPostoAuto && dati.numeroPostiAuto) {
-    const coeff = dati.tipoPostoAuto === 'coperto' ? coefficienti.box_auto : coefficienti.posto_auto;
-    // Assume 15mq per posto auto
-    const valore = 15 * coeff * prezzoMqZona * dati.numeroPostiAuto;
+    // Box coperto: €20.000, Posto scoperto: €8.000
+    const valoreSingolo = dati.tipoPostoAuto === 'coperto' ? 20000 : 8000;
+    const valore = valoreSingolo * dati.numeroPostiAuto;
     dettaglio.postoAuto = Math.round(valore);
     totale += valore;
   }
