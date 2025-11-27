@@ -37,7 +37,6 @@ export default function Risultato() {
   });
 
   // Hook tRPC - DEVE essere chiamato prima di qualsiasi return condizionale
-  const createLeadMutation = trpc.lead.create.useMutation();
   const generatePDFMutation = trpc.valutazione.generatePDF.useMutation();
 
   useEffect(() => {
@@ -105,31 +104,11 @@ export default function Risultato() {
     }
     
     try {
-      // Salva lead nel database e invia notifica email
-      await createLeadMutation.mutateAsync({
-        nome: leadData.nome,
-        cognome: leadData.cognome,
-        email: leadData.email,
-        telefono: leadData.telefono,
-        gdprConsent: leadData.gdprConsent,
-        comune: datiImmobile?.comune,
-        tipologia: datiImmobile?.tipologia,
-        superficie: datiImmobile?.superficieAbitabile,
-        valoreTotale: risultato?.valoreTotale,
-      });
-
-      // Genera PDF con dati lead usando endpoint tRPC
+      // Genera PDF con dati lead usando endpoint tRPC (salva anche il lead)
       if (risultato && datiImmobile) {
         try {
-          // Recupera valutazioneId dal sessionStorage (salvato durante il calcolo)
-          const valutazioneId = sessionStorage.getItem('valutazione_id');
-          
-          if (!valutazioneId) {
-            throw new Error('ID valutazione non trovato');
-          }
-
           const response = await generatePDFMutation.mutateAsync({
-            valutazioneId,
+            valutazione: { ...risultato, ...datiImmobile },
             leadData,
           });
 
@@ -137,7 +116,7 @@ export default function Risultato() {
           const linkSource = `data:application/pdf;base64,${response.pdfBase64}`;
           const downloadLink = document.createElement('a');
           downloadLink.href = linkSource;
-          downloadLink.download = response.filename;
+          downloadLink.download = `valutazione-${datiImmobile?.comune || 'elba'}.pdf`;
           downloadLink.click();
 
           setShowLeadForm(false);

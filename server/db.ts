@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, leads, InsertLead } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,157 +89,30 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
-
-// ========== Valutazioni Immobiliari ==========
-
-import { valutazioni, datiMercato, InsertValutazione } from "../drizzle/schema";
-import { desc, and } from "drizzle-orm";
-
-export async function saveValutazione(data: InsertValutazione): Promise<number> {
+// Lead management
+export async function insertLead(lead: InsertLead) {
   const db = await getDb();
-  if (!db) throw new Error("Database non disponibile");
-
-  const result = await db.insert(valutazioni).values(data);
-  // Restituisce l'ID inserito
-  return Number(result[0].insertId);
-}
-
-export async function getValutazioneById(id: number) {
-  const db = await getDb();
-  if (!db) return null;
-
-  const result = await db.select().from(valutazioni).where(eq(valutazioni.id, id)).limit(1);
-  return result.length > 0 ? result[0] : null;
-}
-
-export async function getUserValutazioni(userId: number) {
-  const db = await getDb();
-  if (!db) return [];
-
-  return db
-    .select()
-    .from(valutazioni)
-    .where(eq(valutazioni.userId, userId))
-    .orderBy(desc(valutazioni.createdAt));
-}
-
-export async function getDatiMercatoByLocation(comune: string, localita?: string | null) {
-  const db = await getDb();
-  if (!db) return null;
-
-  // Cerca prima la località specifica se fornita
-  if (localita) {
-    const result = await db
-      .select()
-      .from(datiMercato)
-      .where(and(eq(datiMercato.comune, comune), eq(datiMercato.localita, localita)))
-      .limit(1);
-    
-    if (result.length > 0) return result[0];
+  if (!db) {
+    console.warn("[Database] Cannot insert lead: database not available");
+    return null;
   }
 
-  // Altrimenti cerca il comune
-  const result = await db
-    .select()
-    .from(datiMercato)
-    .where(eq(datiMercato.comune, comune))
-    .limit(1);
-
-  return result.length > 0 ? result[0] : null;
+  try {
+    const result = await db.insert(leads).values(lead);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to insert lead:", error);
+    throw error;
+  }
 }
 
-
-// ========== Lead Management ==========
-
-import { leads, InsertLead, type Lead } from "../drizzle/schema";
-import { gte, lte, sql } from "drizzle-orm";
-
-export async function saveLead(data: InsertLead) {
+export async function getAllLeads() {
   const db = await getDb();
-  if (!db) throw new Error("Database non disponibile");
+  if (!db) {
+    console.warn("[Database] Cannot get leads: database not available");
+    return [];
+  }
 
-  const result = await db.insert(leads).values(data);
+  const result = await db.select().from(leads).orderBy(leads.createdAt);
   return result;
-}
-
-export async function getAllLeads(filters?: {
-  dateFrom?: Date;
-  dateTo?: Date;
-  comune?: string;
-  prezzoMin?: number;
-  prezzoMax?: number;
-}) {
-  const db = await getDb();
-  if (!db) return [];
-
-  let query = db.select().from(leads);
-
-  const conditions = [];
-  
-  if (filters?.dateFrom) {
-    conditions.push(gte(leads.createdAt, filters.dateFrom));
-  }
-  
-  if (filters?.dateTo) {
-    conditions.push(lte(leads.createdAt, filters.dateTo));
-  }
-  
-  if (filters?.comune) {
-    conditions.push(eq(leads.comune, filters.comune));
-  }
-  
-  if (filters?.prezzoMin && leads.valoreTotale) {
-    conditions.push(gte(leads.valoreTotale, filters.prezzoMin));
-  }
-  
-  if (filters?.prezzoMax && leads.valoreTotale) {
-    conditions.push(lte(leads.valoreTotale, filters.prezzoMax));
-  }
-
-  if (conditions.length > 0) {
-    query = query.where(and(...conditions)) as any;
-  }
-
-  return query.orderBy(desc(leads.createdAt));
-}
-
-export async function getLeadStats() {
-  const db = await getDb();
-  if (!db) return {
-    totalLeads: 0,
-    leadsByComune: [],
-    leadsByMonth: [],
-  };
-
-  // Total leads
-  const totalResult = await db.select({ count: sql<number>`count(*)` }).from(leads);
-  const totalLeads = totalResult[0]?.count || 0;
-
-  // Leads by comune
-  const leadsByComune = await db
-    .select({
-      comune: leads.comune,
-      count: sql<number>`count(*)`,
-    })
-    .from(leads)
-    .groupBy(leads.comune)
-    .orderBy(desc(sql`count(*)`));
-
-  // Leads by month (last 6 months)
-  const leadsByMonth = await db
-    .select({
-      month: sql<string>`DATE_FORMAT(createdAt, '%Y-%m')`,
-      count: sql<number>`count(*)`,
-    })
-    .from(leads)
-    .where(gte(leads.createdAt, sql`DATE_SUB(NOW(), INTERVAL 6 MONTH)`))
-    .groupBy(sql`DATE_FORMAT(createdAt, '%Y-%m')`)
-    .orderBy(sql`DATE_FORMAT(createdAt, '%Y-%m')`);
-
-  return {
-    totalLeads,
-    leadsByComune,
-    leadsByMonth,
-  };
 }

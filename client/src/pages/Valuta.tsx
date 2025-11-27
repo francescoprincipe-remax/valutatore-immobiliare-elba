@@ -92,11 +92,6 @@ export default function Valuta() {
       sessionStorage.setItem('valutazione_risultato', JSON.stringify(data));
       sessionStorage.setItem('valutazione_dati', JSON.stringify(formData));
       
-      // Salva anche l'ID valutazione per generare il PDF
-      if (data.valutazioneId) {
-        sessionStorage.setItem('valutazione_id', String(data.valutazioneId));
-      }
-      
       setLocation('/risultato');
     },
     onError: (error) => {
@@ -146,9 +141,6 @@ export default function Valuta() {
       ...formData,
       superficieGiardino: formData.hasGiardino ? formData.superficieGiardino : undefined,
       superficieTerrazzo: formData.hasTerrazzo ? formData.superficieTerrazzo : undefined,
-      superficieCortile: formData.hasCortile ? formData.superficieCortile : undefined,
-      superficieCantina: formData.hasCantina ? formData.superficieCantina : undefined,
-      numeroPostiAuto: formData.hasPostoAuto ? formData.numeroPostiAuto : undefined,
     });
   };
 
